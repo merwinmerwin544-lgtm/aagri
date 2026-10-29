@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Sprout, Menu, X, ArrowRight, ShieldCheck } from "lucide-react";
+import { Sprout, Menu, X, ArrowRight, ShieldCheck, Globe } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
+  const { language, setLanguage, tr } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -17,11 +19,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: "Home", href: "#" },
-    { label: "Solutions", href: "#features" },
-    { label: "How It Works", href: "#pipeline" },
-    { label: "Sustainability", href: "#sustainability" },
-    { label: "About", href: "#about" },
+    { label: tr("Home"), href: "#" },
+    { label: tr("Solutions"), href: "#features" },
+    { label: tr("How It Works"), href: "#pipeline" },
+    { label: tr("Sustainability"), href: "#sustainability" },
+    { label: tr("About"), href: "#about" },
   ];
 
   return (
@@ -70,20 +72,54 @@ export default function Navbar() {
         </nav>
 
         {/* Action CTAs */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-2.5">
+          {/* Quick Language Toggle */}
+          <div className="flex items-center bg-[#123D2B]/80 border border-[#E1F5DC]/16 rounded-xl p-0.5 text-xs font-semibold">
+            <button
+              onClick={() => setLanguage("en")}
+              className={`px-2 py-1 rounded-lg transition-all ${
+                language === "en"
+                  ? "bg-[#A8D86D] text-[#09271B] font-bold shadow-sm"
+                  : "text-[#B8CCAE] hover:text-[#F4F7EF]"
+              }`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage("ta")}
+              className={`px-2 py-1 rounded-lg transition-all ${
+                language === "ta"
+                  ? "bg-[#A8D86D] text-[#09271B] font-bold shadow-sm"
+                  : "text-[#B8CCAE] hover:text-[#F4F7EF]"
+              }`}
+            >
+              தமிழ்
+            </button>
+            <button
+              onClick={() => setLanguage("hi")}
+              className={`px-2 py-1 rounded-lg transition-all ${
+                language === "hi"
+                  ? "bg-[#A8D86D] text-[#09271B] font-bold shadow-sm"
+                  : "text-[#B8CCAE] hover:text-[#F4F7EF]"
+              }`}
+            >
+              हिन्दी
+            </button>
+          </div>
+
           <Link
             href="/dashboard"
             className="px-3.5 py-2 text-xs font-semibold text-[#F4F7EF] hover:bg-[#123D2B] glass-panel-agri rounded-xl border border-[#E1F5DC]/16 transition-colors flex items-center gap-1.5"
           >
             <ShieldCheck className="w-3.5 h-3.5 text-[#A8D86D]" />
-            Live Client App
+            {tr("Dashboard")}
           </Link>
 
           <Link
-            href="/login"
+            href="/dashboard"
             className="px-4 py-2 rounded-xl text-xs font-bold text-[#09271B] bg-[#A8D86D] hover:bg-[#b9e584] shadow-md transition-all active:scale-95 flex items-center gap-1.5"
           >
-            <span>Get Started</span>
+            <span>{tr("Get Started")}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -109,18 +145,44 @@ export default function Navbar() {
               {item.label}
             </a>
           ))}
+          <div className="pt-2 border-t border-[#E1F5DC]/15 flex items-center justify-center gap-1">
+            <button
+              onClick={() => setLanguage("en")}
+              className={`flex-1 py-1 text-xs rounded-lg ${
+                language === "en" ? "bg-[#A8D86D] text-[#09271B] font-bold" : "text-[#B8CCAE]"
+              }`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => setLanguage("ta")}
+              className={`flex-1 py-1 text-xs rounded-lg ${
+                language === "ta" ? "bg-[#A8D86D] text-[#09271B] font-bold" : "text-[#B8CCAE]"
+              }`}
+            >
+              தமிழ்
+            </button>
+            <button
+              onClick={() => setLanguage("hi")}
+              className={`flex-1 py-1 text-xs rounded-lg ${
+                language === "hi" ? "bg-[#A8D86D] text-[#09271B] font-bold" : "text-[#B8CCAE]"
+              }`}
+            >
+              हिन्दी
+            </button>
+          </div>
           <div className="pt-2 border-t border-[#E1F5DC]/15 flex flex-col gap-2">
             <Link
               href="/dashboard"
               className="w-full text-center py-2 text-xs font-semibold text-[#F4F7EF] bg-[#123D2B] rounded-xl"
             >
-              Client Application
+              {tr("Dashboard")}
             </Link>
             <Link
-              href="/login"
+              href="/dashboard"
               className="w-full text-center py-2 text-xs font-bold text-[#09271B] bg-[#A8D86D] rounded-xl"
             >
-              Sign In
+              {tr("Get Started")}
             </Link>
           </div>
         </div>

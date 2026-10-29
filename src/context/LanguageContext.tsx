@@ -2,12 +2,15 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { SupportedLanguage } from "@/types";
-import { getTranslation, TranslationDictionary } from "@/lib/translations";
+import { getTranslation, TranslationDictionary, translateWord } from "@/lib/translations";
+
+export type TranslationWithHelper = TranslationDictionary & { tr: (text: string) => string };
 
 interface LanguageContextType {
   language: SupportedLanguage;
   setLanguage: (lang: SupportedLanguage) => void;
-  t: TranslationDictionary;
+  t: TranslationWithHelper;
+  tr: (text: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -45,9 +48,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   const t = getTranslation(language);
+  const tr = (text: string) => translateWord(text, language);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, tr }}>
       {children}
     </LanguageContext.Provider>
   );
@@ -57,10 +61,12 @@ export function useLanguage() {
   const context = useContext(LanguageContext);
   if (!context) {
     // Graceful fallback if used outside provider
+    const fallbackT = getTranslation("en");
     return {
       language: "en" as SupportedLanguage,
       setLanguage: () => {},
-      t: getTranslation("en"),
+      t: fallbackT,
+      tr: (text: string) => translateWord(text, "en"),
     };
   }
   return context;

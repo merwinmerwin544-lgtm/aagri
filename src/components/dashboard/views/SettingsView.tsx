@@ -3,16 +3,27 @@
 import React, { useState } from "react";
 import { Settings, Save, CheckCircle2, Shield, Bell, Globe } from "lucide-react";
 import { SupportedLanguage } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface SettingsViewProps {
-  language: SupportedLanguage;
-  onLanguageChange: (lang: SupportedLanguage) => void;
+  language?: SupportedLanguage;
+  onLanguageChange?: (lang: SupportedLanguage) => void;
 }
 
 export default function SettingsView({
-  language,
-  onLanguageChange,
+  language: propLanguage,
+  onLanguageChange: propOnLanguageChange,
 }: SettingsViewProps) {
+  const { language: contextLang, setLanguage: contextSetLanguage, t } = useLanguage();
+  const language = propLanguage || contextLang;
+
+  const handleLangChange = (lang: SupportedLanguage) => {
+    contextSetLanguage(lang);
+    if (propOnLanguageChange) {
+      propOnLanguageChange(lang);
+    }
+  };
+
   const [currency, setCurrency] = useState<"INR" | "USD">("INR");
   const [unitSystem, setUnitSystem] = useState<"Metric" | "Imperial">("Metric");
   const [notificationSms, setNotificationSms] = useState(true);
@@ -36,10 +47,10 @@ export default function SettingsView({
           </div>
           <div>
             <h2 className="text-xl font-bold text-white tracking-tight">
-              Farm & Console Preferences
+              {t.settingsTitle}
             </h2>
             <p className="text-xs text-slate-400">
-              Customize interface language, measurement units, telemetry alerts, and automated routing
+              {t.settingsSubtitle}
             </p>
           </div>
         </div>
@@ -48,7 +59,7 @@ export default function SettingsView({
       {saved && (
         <div className="p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2 animate-in fade-in">
           <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-          <span>Console preferences saved to demonstration profile.</span>
+          <span>{t.settingsSaved}</span>
         </div>
       )}
 
@@ -57,18 +68,18 @@ export default function SettingsView({
           {/* Primary Language */}
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-2">
-              Primary System & Voice Language
+              {t.languagePreference}
             </label>
             <div className="grid grid-cols-3 gap-2">
               {[
-                { id: "en", label: "English" },
-                { id: "ta", label: "தமிழ் (Tamil)" },
-                { id: "hi", label: "हिन्दी (Hindi)" },
+                { id: "en", label: t.englishOption },
+                { id: "ta", label: t.tamilOption },
+                { id: "hi", label: t.hindiOption },
               ].map((lang) => (
                 <button
                   key={lang.id}
                   type="button"
-                  onClick={() => onLanguageChange(lang.id as SupportedLanguage)}
+                  onClick={() => handleLangChange(lang.id as SupportedLanguage)}
                   className={`p-3 rounded-xl border text-xs font-bold transition-all ${
                     language === lang.id
                       ? "bg-emerald-500 text-black border-emerald-400 shadow"
@@ -117,9 +128,9 @@ export default function SettingsView({
         <div className="pt-4 border-t border-emerald-500/15 space-y-4">
           <label className="flex items-center justify-between p-3.5 rounded-xl bg-black/30 border border-emerald-500/15 cursor-pointer">
             <div>
-              <div className="text-xs font-bold text-white">Automate Electric Carrier Priority</div>
+              <div className="text-xs font-bold text-white">{t.carbonCappedTransit}</div>
               <div className="text-[11px] text-slate-400">
-                Default to EV light trucks for all deliveries under 60 km
+                {t.evGreenBenefit}
               </div>
             </div>
             <input
@@ -132,9 +143,9 @@ export default function SettingsView({
 
           <label className="flex items-center justify-between p-3.5 rounded-xl bg-black/30 border border-emerald-500/15 cursor-pointer">
             <div>
-              <div className="text-xs font-bold text-white">Critical Mandi Price Surge SMS</div>
+              <div className="text-xs font-bold text-white">{t.alertsSubtitle}</div>
               <div className="text-[11px] text-slate-400">
-                Receive SMS ping when local mandi exceeds peak target rate
+                {t.notificationChannels}
               </div>
             </div>
             <input
@@ -149,10 +160,10 @@ export default function SettingsView({
         <div className="pt-4 border-t border-emerald-500/15 flex justify-end">
           <button
             type="submit"
-            className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold text-xs flex items-center gap-1.5 hover:shadow-lg transition-all"
+            className="px-6 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-bold text-xs flex items-center gap-2 cursor-pointer shadow-md"
           >
             <Save className="w-4 h-4" />
-            <span>Save Preferences</span>
+            <span>{t.saveSettings}</span>
           </button>
         </div>
       </form>

@@ -11,44 +11,46 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { FarmerProfile } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ReportsViewProps {
   profile: FarmerProfile;
 }
 
 export default function ReportsView({ profile }: ReportsViewProps) {
+  const { t, tr } = useLanguage();
   const [downloadNotice, setDownloadNotice] = useState<string | null>(null);
 
   const handleDownload = (reportName: string, format: string) => {
     setDownloadNotice(
-      `Generated "${reportName}.${format}" for ${profile.farmerName}. Download initiated.`
+      `"${reportName}.${format}" - ${t.downloadPdf}.`
     );
     setTimeout(() => setDownloadNotice(null), 4000);
   };
 
   const reports = [
     {
-      title: "Kharif Cycle Sustainable Audit & Carbon Accounting",
+      title: t.carbonOffsetLedger,
       period: "October 2026",
-      desc: "Complete breakdown of 8.2 kg CO₂e logistics footprint, EV route savings (-42%), and food loss mitigation.",
+      desc: t.logisticsSubtitle,
       size: "2.4 MB PDF",
     },
     {
-      title: "5-Day Mandi Price Prediction & Arbitrage Analysis",
-      period: "Current Week",
-      desc: "Detailed statistical confidence bands, festival arrival trends, and peak Day 3 price documentation.",
+      title: t.pricePredictionTitle,
+      period: t.today,
+      desc: t.pricePredictionSubtitle,
       size: "1.1 MB CSV",
     },
     {
-      title: "Multi-Weighted Buyer Procurement Ledger",
+      title: t.buyerMatchingTitle,
       period: "Q4 2026",
-      desc: "Scoring matrices for Kovai Fresh Mart, Nilgiri Organics, Apex Processing, and direct UPI settlements.",
+      desc: t.buyerMatchingSubtitle,
       size: "3.8 MB PDF",
     },
     {
-      title: "Sentinel-2 Multi-spectral NDVI & Soil Moisture Report",
-      period: "Bi-Weekly",
-      desc: "Vegetation vigor index (0.78), chlorophyll SPAD measurements, and root-zone closed-loop irrigation audit.",
+      title: t.precisionTitle,
+      period: t.weeklySummary,
+      desc: t.precisionSubtitle,
       size: "4.2 MB PDF",
     },
   ];
@@ -65,10 +67,10 @@ export default function ReportsView({ profile }: ReportsViewProps) {
             </div>
             <div>
               <h2 className="text-xl font-bold text-white tracking-tight">
-                Farm Audit Reports & Sustainability Certificates
+                {t.reportsTitle}
               </h2>
               <p className="text-xs text-slate-400">
-                Audited data packets ready for export, ESG verification, and bank loan approvals
+                {t.reportsSubtitle}
               </p>
             </div>
           </div>
@@ -78,7 +80,7 @@ export default function ReportsView({ profile }: ReportsViewProps) {
             className="px-4 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-md"
           >
             <Download className="w-4 h-4" />
-            <span>Export Complete Farm Dossier</span>
+            <span>{t.downloadPdf}</span>
           </button>
         </div>
       </div>
@@ -99,23 +101,25 @@ export default function ReportsView({ profile }: ReportsViewProps) {
           >
             <div>
               <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-                <span className="font-semibold text-emerald-400">{rpt.period}</span>
-                <span>{rpt.size}</span>
+                <span>{rpt.period}</span>
+                <span className="font-bold text-emerald-400">{rpt.size}</span>
               </div>
               <h3 className="text-base font-bold text-white mb-2">{rpt.title}</h3>
-              <p className="text-xs text-slate-300 leading-relaxed mb-6">{rpt.desc}</p>
+              <p className="text-xs text-slate-300 mb-5 leading-relaxed">{rpt.desc}</p>
             </div>
 
-            <div className="pt-4 border-t border-emerald-500/15 flex items-center justify-between">
-              <span className="text-[11px] text-slate-400">Verified by AgriPulse Engine</span>
+            <div className="flex items-center gap-2 pt-4 border-t border-emerald-500/15">
               <button
-                onClick={() =>
-                  handleDownload(rpt.title.replace(/\s+/g, "_"), rpt.size.includes("CSV") ? "csv" : "pdf")
-                }
-                className="px-3.5 py-1.5 rounded-xl bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-500/30 text-emerald-300 font-bold text-xs flex items-center gap-1.5 transition-colors"
+                onClick={() => handleDownload(rpt.title, "pdf")}
+                className="flex-1 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold transition-colors cursor-pointer"
               >
-                <Download className="w-3.5 h-3.5" />
-                <span>Download</span>
+                {t.downloadPdf}
+              </button>
+              <button
+                onClick={() => handleDownload(rpt.title, "csv")}
+                className="py-2 px-3 rounded-xl bg-black/40 hover:bg-black/60 text-slate-400 hover:text-white text-xs font-semibold transition-colors cursor-pointer"
+              >
+                {t.exportCsv}
               </button>
             </div>
           </div>

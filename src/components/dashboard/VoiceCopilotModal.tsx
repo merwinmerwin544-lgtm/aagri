@@ -15,40 +15,69 @@ import {
 } from "lucide-react";
 import { SupportedLanguage } from "@/types";
 import { queryAIAssistant } from "@/services/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface VoiceCopilotModalProps {
   isOpen: boolean;
   onClose: () => void;
-  language: SupportedLanguage;
-  onLanguageChange: (lang: SupportedLanguage) => void;
+  language?: SupportedLanguage;
+  onLanguageChange?: (lang: SupportedLanguage) => void;
 }
 
 export default function VoiceCopilotModal({
   isOpen,
   onClose,
-  language,
-  onLanguageChange,
+  language: propLanguage,
+  onLanguageChange: propOnLanguageChange,
 }: VoiceCopilotModalProps) {
+  const { language: contextLang, setLanguage: contextSetLanguage, t } = useLanguage();
+  const language = propLanguage || contextLang;
+
+  const handleLanguageChange = (lang: SupportedLanguage) => {
+    contextSetLanguage(lang);
+    if (propOnLanguageChange) {
+      propOnLanguageChange(lang);
+    }
+  };
+
+  const initialBotWelcome =
+    language === "ta"
+      ? "வணக்கம்! நான் உங்கள் அக்ரிபல்ஸ் AI குரல் உதவியாளர். உங்கள் பயிர் அறுவடை, மண்டி விலைகள் அல்லது நீர்ப்பாசனம் பற்றி எதையும் கேளுங்கள்."
+      : language === "hi"
+      ? "नमस्ते! मैं आपका एग्रीपल्स AI आवाज़ सहायक हूँ। अपनी फसल कटाई, मंडी भाव या सिंचाई के बारे में कुछ भी पूछें।"
+      : "Vanakkam / Namaste / Hello! I am your AgriPulse AI voice assistant. Ask me anything about your harvest, mandi prices, or irrigation schedule.";
+
   const [messages, setMessages] = useState<
     { sender: "user" | "bot"; text: string; time: string }[]
   >([
     {
       sender: "bot",
-      text: "Vanakkam / Namaste / Hello! I am your AgriPulse AI voice assistant. Ask me anything about your tomato harvest, mandi prices, or irrigation schedule.",
+      text: initialBotWelcome,
       time: "Just now",
     },
   ]);
+
+  useEffect(() => {
+    setMessages([
+      {
+        sender: "bot",
+        text: initialBotWelcome,
+        time: "Just now",
+      },
+    ]);
+  }, [language]);
+
   const [inputText, setInputText] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [speechSynthesisEnabled, setSpeechSynthesisEnabled] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const sampleQuestions = [
-    "Should I sell my tomatoes today?",
-    "What is my expected yield?",
-    "Which buyer is best for my crop?",
-    "When should I irrigate?",
-    "How can I reduce food loss?",
+    t.sampleQ1,
+    t.sampleQ2,
+    t.sampleQ3,
+    t.sampleQ4,
+    t.sampleQ5,
   ];
 
   // Speech Recognition Setup
@@ -161,13 +190,13 @@ export default function VoiceCopilotModal({
             </div>
             <div>
               <div className="text-base font-bold text-white flex items-center gap-2">
-                <span>AgriPulse Voice Co-pilot</span>
+                <span>{t.voiceCopilotTitle}</span>
                 <span className="px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">
-                  Regional Audio
+                  {language === "ta" ? "தமிழ் ஆடியோ" : language === "hi" ? "हिंदी ऑडियो" : "Live Audio"}
                 </span>
               </div>
               <div className="text-[11px] text-slate-400">
-                Spoken farmer assistance with instant agricultural recommendations
+                {t.voiceModalSubtitle}
               </div>
             </div>
           </div>
@@ -195,7 +224,7 @@ export default function VoiceCopilotModal({
             <div className="flex items-center p-1 rounded-xl bg-black/40 border border-emerald-500/20 text-xs">
               <Globe className="w-3.5 h-3.5 text-emerald-400 ml-1.5 mr-1" />
               <button
-                onClick={() => onLanguageChange("en")}
+                onClick={() => handleLanguageChange("en")}
                 className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
                   language === "en" ? "bg-emerald-500 text-black" : "text-slate-400"
                 }`}
@@ -203,7 +232,7 @@ export default function VoiceCopilotModal({
                 EN
               </button>
               <button
-                onClick={() => onLanguageChange("ta")}
+                onClick={() => handleLanguageChange("ta")}
                 className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
                   language === "ta" ? "bg-emerald-500 text-black" : "text-slate-400"
                 }`}
@@ -211,7 +240,7 @@ export default function VoiceCopilotModal({
                 தமிழ்
               </button>
               <button
-                onClick={() => onLanguageChange("hi")}
+                onClick={() => handleLanguageChange("hi")}
                 className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
                   language === "hi" ? "bg-emerald-500 text-black" : "text-slate-400"
                 }`}
@@ -234,12 +263,12 @@ export default function VoiceCopilotModal({
         <div className="mb-3">
           <div className="text-[11px] font-semibold text-emerald-400/80 mb-1.5 flex items-center gap-1">
             <Sparkles className="w-3 h-3 text-cyan-300" />
-            <span>Suggested Farmer Queries (Click to Ask):</span>
+            <span>{t.suggestedQueries}</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
-            {sampleQuestions.map((q) => (
+            {sampleQuestions.map((q, idx) => (
               <button
-                key={q}
+                key={idx}
                 onClick={() => handleSendQuestion(q)}
                 className="px-2.5 py-1 rounded-lg bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/20 text-[11px] text-slate-300 hover:text-emerald-300 transition-colors"
               >
@@ -288,7 +317,7 @@ export default function VoiceCopilotModal({
           {isProcessing && (
             <div className="flex items-center gap-2 text-xs text-emerald-400/80 p-2">
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce" />
-              <span>Analyzing farm sensors & mandi price curves...</span>
+              <span>{t.processing}</span>
             </div>
           )}
         </div>
@@ -310,7 +339,7 @@ export default function VoiceCopilotModal({
                 ? "bg-rose-500 text-white border-rose-400 ring-4 ring-rose-500/30 animate-pulse"
                 : "bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border-emerald-500/40"
             }`}
-            title={isListening ? "Listening... click to stop" : "Click to speak"}
+            title={isListening ? t.stopSpeaking : t.startSpeaking}
           >
             {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
           </button>
@@ -322,8 +351,8 @@ export default function VoiceCopilotModal({
             onChange={(e) => setInputText(e.target.value)}
             placeholder={
               isListening
-                ? "Listening to voice in your language..."
-                : "Ask anything or type your question..."
+                ? t.voiceListening
+                : t.voiceClickToSpeak
             }
             className="flex-1 px-4 py-3 rounded-2xl bg-black/40 border border-emerald-500/20 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-emerald-400 transition-all"
           />
@@ -339,7 +368,7 @@ export default function VoiceCopilotModal({
         </form>
 
         <div className="mt-2 text-center text-[10px] text-slate-400">
-          Powered by AgriPulse Regional Speech Engine • English, Tamil (தமிழ்), Hindi (हिन्दी)
+          Powered by AgriPulse Regional Speech Engine • English, தமிழ், हिन्दी
         </div>
       </div>
     </div>

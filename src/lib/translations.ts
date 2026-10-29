@@ -19,7 +19,7 @@ export interface TranslationDictionary {
   aiAssistantSubtitle: string;
   agripulseEngine: string;
 
-  // AgriPulse Suite
+  // AgriPulse Suite Nav
   decisionEngine: string;
   priceForecast: string;
   buyerMatching: string;
@@ -38,6 +38,8 @@ export interface TranslationDictionary {
   signOut: string;
   unreadAlerts: string;
   farmAlerts: string;
+  addTask: string;
+  selectLanguage: string;
 
   // Metric Cards
   totalFields: string;
@@ -144,6 +146,256 @@ export interface TranslationDictionary {
   langEn: string;
   langTa: string;
   langHi: string;
+
+  // Precision Intelligence View
+  precisionTitle: string;
+  precisionSubtitle: string;
+  sentinelFeed: string;
+  cropHealth: string;
+  expectedYield: string;
+  harvestWindow: string;
+  moistureDeficitRisk: string;
+  pestDiseaseAlert: string;
+  chlorophyllContent: string;
+  optimalWindow: string;
+  ndviTelemetry: string;
+  actionableAdvisories: string;
+  growthStage: string;
+  ndviIndex: string;
+  eviIndex: string;
+  benchmark: string;
+  advisory1Title: string;
+  advisory1Desc: string;
+  advisory2Title: string;
+  advisory2Desc: string;
+  advisory3Title: string;
+  advisory3Desc: string;
+
+  // Decision Engine View
+  decisionEngineTitle: string;
+  decisionEngineSubtitle: string;
+  currentStrategy: string;
+  confidenceScore: string;
+  estimatedNetRevenue: string;
+  foodLossRisk: string;
+  sellWindow: string;
+  breakdownLogic: string;
+  directBuyerAllocation: string;
+  localHedgedRetention: string;
+  candidateBuyersAnalysis: string;
+  simulateNewScenario: string;
+  exportDecisionBrief: string;
+  whyThisDecision: string;
+  buyer: string;
+  offeredPrice: string;
+  distance: string;
+  netPayout: string;
+  creditScore: string;
+  status: string;
+  selectAndRoute: string;
+
+  // Price Prediction View
+  pricePredictionTitle: string;
+  pricePredictionSubtitle: string;
+  predictedPeakPrice: string;
+  currentAvgMandi: string;
+  forecastAccuracy: string;
+  recommendedSellDay: string;
+  priceTrajectory: string;
+  predictedPrice: string;
+  upperConfidence: string;
+  lowerConfidence: string;
+  historicalPrice: string;
+  marketIntelligence: string;
+  mandiName: string;
+  dailyArrivals: string;
+  priceTrend: string;
+  sentiment: string;
+
+  // Buyer Matching View
+  buyerMatchingTitle: string;
+  buyerMatchingSubtitle: string;
+  activeProcurementBuyers: string;
+  compareBuyers: string;
+  filterDistance: string;
+  sortNetRevenue: string;
+  paymentTerms: string;
+  esgScore: string;
+  transportCost: string;
+  viewRouteLogistics: string;
+  contactBuyer: string;
+  verifiedBuyer: string;
+  immediatePayment: string;
+
+  // Logistics View
+  logisticsTitle: string;
+  logisticsSubtitle: string;
+  carbonCappedTransit: string;
+  targetBuyer: string;
+  transitDistance: string;
+  transitDuration: string;
+  coldChainCompliance: string;
+  estimatedCost: string;
+  co2Emissions: string;
+  vehicleFleetOption: string;
+  electricCarrier: string;
+  dieselTruck: string;
+  optimalEcoRoute: string;
+  dispatchOrder: string;
+  viaHighway: string;
+  activeRefrigeration: string;
+  evGreenBenefit: string;
+
+  // Food Loss View
+  foodLossTitle: string;
+  foodLossSubtitle: string;
+  perishabilityWindow: string;
+  spoilageRiskDay3: string;
+  savedCropValue: string;
+  coldStorageAvailable: string;
+  spoilageCurve: string;
+  ambientStorage: string;
+  coldChainStorage: string;
+  lossMitigationChecklist: string;
+  safeWindow: string;
+  criticalWindow: string;
+
+  // What-If Simulator View
+  whatIfTitle: string;
+  whatIfSubtitle: string;
+  harvestTimingOffset: string;
+  marketPriceShift: string;
+  logisticsDelayHours: string;
+  storageCondition: string;
+  simulatedOutcome: string;
+  netProjectedIncome: string;
+  projectedFoodLoss: string;
+  roiImpact: string;
+  applyToPlan: string;
+  resetDefaults: string;
+
+  // Buyer Procurement View
+  procurementTitle: string;
+  procurementSubtitle: string;
+  postBid: string;
+  requiredQuantity: string;
+  targetPrice: string;
+  deliveryDeadline: string;
+  qualityGradeReq: string;
+  acceptContract: string;
+  negotiateTerms: string;
+
+  // Reports View
+  reportsTitle: string;
+  reportsSubtitle: string;
+  downloadPdf: string;
+  exportCsv: string;
+  weeklySummary: string;
+  carbonOffsetLedger: string;
+  totalCropsHarvested: string;
+  totalRevenueGenerated: string;
+  waterSavedM3: string;
+  dieselAvoided: string;
+
+  // Alerts View
+  alertsTitle: string;
+  alertsSubtitle: string;
+  allAlerts: string;
+  unreadOnly: string;
+  markAllRead: string;
+  resolved: string;
+  takeAction: string;
+  highPriority: string;
+  mediumPriority: string;
+  lowPriority: string;
+
+  // Settings View
+  settingsTitle: string;
+  settingsSubtitle: string;
+  languagePreference: string;
+  chooseInterfaceLanguage: string;
+  englishOption: string;
+  tamilOption: string;
+  hindiOption: string;
+  telemetryInterval: string;
+  notificationChannels: string;
+  measurementUnits: string;
+  metricSystem: string;
+  imperialSystem: string;
+  saveSettings: string;
+  settingsSaved: string;
+
+  // Farm Profile View
+  farmProfileTitle: string;
+  farmProfileSubtitle: string;
+  farmerNameLabel: string;
+  farmNameLabel: string;
+  cropTypeLabel: string;
+  cropVarietyLabel: string;
+  farmSizeLabel: string;
+  plantingDateLabel: string;
+  soilTypeLabel: string;
+  irrigationMethodLabel: string;
+  storageTypeLabel: string;
+  saveProfile: string;
+
+  // Modals
+  voiceModalTitle: string;
+  voiceModalSubtitle: string;
+  startSpeaking: string;
+  stopSpeaking: string;
+  listening: string;
+  processing: string;
+  suggestedQuestions: string;
+  close: string;
+  cancel: string;
+  saveChanges: string;
+
+  explanationTitle: string;
+  explanationSubtitle: string;
+  keyFactors: string;
+  factorPrice: string;
+  factorShelfLife: string;
+  factorBuyerESG: string;
+  factorLogistics: string;
+
+  compareBuyersTitle: string;
+  compareBuyersSubtitle: string;
+  buyerName: string;
+  netRevenue: string;
+  selectBuyer: string;
+
+  editFarmTitle: string;
+  editFarmSubtitle: string;
+
+  scheduleTaskTitle: string;
+  scheduleTaskSubtitle: string;
+  taskTitle: string;
+  category: string;
+  priority: string;
+  scheduledTime: string;
+  notes: string;
+  createTask: string;
+
+  // Landing Page Sections
+  heroBadge: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  exploreDashboard: string;
+  watchDemo: string;
+  ctaTitle: string;
+  ctaSubtitle: string;
+  ctaButton: string;
+  footerTagline: string;
+  copyright: string;
+
+  tonnes: string;
+  acres: string;
+  inDays: string;
+  km: string;
+  kg: string;
+  positiveTradeoffsTitle: string;
+  negativeTradeoffsTitle: string;
 }
 
 export const translations: Record<SupportedLanguage, TranslationDictionary> = {
@@ -173,7 +425,7 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     whatIfSimulator: "What-If Simulator",
     buyerDemand: "Buyer Demand Board",
 
-    welcomeBack: "Welcome back, Arman 👋",
+    welcomeBack: "Welcome back",
     farmStatusToday: "Here's what's happening on your farm today.",
     searchPlaceholder: "Search fields, crops, reports...",
     farmManager: "Farm Manager",
@@ -182,6 +434,8 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     signOut: "Sign Out",
     unreadAlerts: "Unread",
     farmAlerts: "Farm Alerts",
+    addTask: "Schedule Task",
+    selectLanguage: "Language",
 
     totalFields: "Total Fields",
     activeFields: "Active",
@@ -278,6 +532,256 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     langEn: "English",
     langTa: "தமிழ்",
     langHi: "हिन्दी",
+
+    // Precision Intelligence
+    precisionTitle: "Precision Farm Intelligence & Satellite NDVI",
+    precisionSubtitle: "Multi-spectral satellite telemetry fused with hyper-local soil moisture and microclimate weather",
+    sentinelFeed: "Simulated Sentinel-2 Feed",
+    cropHealth: "Crop Health",
+    expectedYield: "Expected Yield",
+    harvestWindow: "Harvest Window",
+    moistureDeficitRisk: "Moisture Deficit Risk",
+    pestDiseaseAlert: "Pest & Disease Alert",
+    chlorophyllContent: "Chlorophyll Content",
+    optimalWindow: "Optimal Harvest Window",
+    ndviTelemetry: "Multi-spectral NDVI Telemetry Chart",
+    actionableAdvisories: "Actionable Crop Advisories",
+    growthStage: "Growth Stage",
+    ndviIndex: "NDVI Vegetation Index",
+    eviIndex: "EVI Index",
+    benchmark: "Regional Benchmark",
+    advisory1Title: "Soil Moisture Depletion in Sector 3",
+    advisory1Desc: "Recommended 22mm drip pulse at 05:00 AM tomorrow before high evaporative demand.",
+    advisory2Title: "Mild Early Blight Sporulation Risk",
+    advisory2Desc: "Microclimate relative humidity reached 84%. Preventive bio-fungicide copper spray recommended.",
+    advisory3Title: "Sugar Accumulation Brix Peak Projected",
+    advisory3Desc: "Brix levels entering optimal premium tier (4.8°Bx). Peak harvest readiness in 4 days.",
+
+    // Decision Engine
+    decisionEngineTitle: "AI Decision Engine & Dynamic Strategy",
+    decisionEngineSubtitle: "Algorithmic recommendations maximizing profit and minimizing post-harvest food loss",
+    currentStrategy: "Current Strategy Recommendation",
+    confidenceScore: "Confidence Score",
+    estimatedNetRevenue: "Estimated Net Revenue",
+    foodLossRisk: "Food Loss Risk",
+    sellWindow: "Recommended Sell Window",
+    breakdownLogic: "Breakdown & Decision Logic",
+    directBuyerAllocation: "Direct Wholesale Buyer Allocation",
+    localHedgedRetention: "Local Market Hedged Retention",
+    candidateBuyersAnalysis: "Candidate Buyers Profitability Matrix",
+    simulateNewScenario: "Simulate New Scenario",
+    exportDecisionBrief: "Export Decision Brief",
+    whyThisDecision: "Why This Decision?",
+    buyer: "Buyer",
+    offeredPrice: "Offered Price",
+    distance: "Distance",
+    netPayout: "Net Payout",
+    creditScore: "ESG & Credit",
+    status: "Status",
+    selectAndRoute: "Select & Route",
+
+    // Price Prediction
+    pricePredictionTitle: "Multi-Market Price Forecasting Engine",
+    pricePredictionSubtitle: "7-day forward predicted prices with 90% confidence bands across regional Mandis",
+    predictedPeakPrice: "Predicted Peak Price",
+    currentAvgMandi: "Current Mandi Average",
+    forecastAccuracy: "Forecast Accuracy",
+    recommendedSellDay: "Recommended Sell Day",
+    priceTrajectory: "Price Trajectory (7-Day Forecast)",
+    predictedPrice: "Predicted Price",
+    upperConfidence: "Upper Bound (90%)",
+    lowerConfidence: "Lower Bound (90%)",
+    historicalPrice: "Historical Price",
+    marketIntelligence: "Market Arrivals & Supply Pressure",
+    mandiName: "Mandi / Market Hub",
+    dailyArrivals: "Daily Arrivals",
+    priceTrend: "Price Trend",
+    sentiment: "Market Sentiment",
+
+    // Buyer Matching
+    buyerMatchingTitle: "Fair-Trade Buyer Matching & Ranking",
+    buyerMatchingSubtitle: "AI-vetted wholesale buyers ranked by net farmer profitability and ESG payment reliability",
+    activeProcurementBuyers: "Active Procurement Buyers",
+    compareBuyers: "Compare Buyers",
+    filterDistance: "All Distances",
+    sortNetRevenue: "Sort by Net Revenue",
+    paymentTerms: "Payment Terms",
+    esgScore: "ESG Score",
+    transportCost: "Transport Cost",
+    viewRouteLogistics: "View Route Logistics",
+    contactBuyer: "Contact Buyer",
+    verifiedBuyer: "Verified Buyer",
+    immediatePayment: "Within 24 Hours",
+
+    // Logistics
+    logisticsTitle: "Green Logistics & Route Optimization",
+    logisticsSubtitle: "Eco-routing algorithm linking farm gates, rural collection hubs, and wholesale buyer facilities",
+    carbonCappedTransit: "Carbon-Capped Transit",
+    targetBuyer: "Target Buyer",
+    transitDistance: "Transit Distance",
+    transitDuration: "Estimated Transit Duration",
+    coldChainCompliance: "Cold Chain Compliance",
+    estimatedCost: "Estimated Freight Cost",
+    co2Emissions: "CO2e Emissions",
+    vehicleFleetOption: "Vehicle Fleet Mode",
+    electricCarrier: "Electric Carrier (EV)",
+    dieselTruck: "Diesel Freight Truck",
+    optimalEcoRoute: "Optimal Turn-by-Turn Route",
+    dispatchOrder: "Dispatch Logistics Order",
+    viaHighway: "Via Agro Corridor",
+    activeRefrigeration: "Active Sensor Refrigeration (4°C - 8°C)",
+    evGreenBenefit: "EV Fleet saves 42% carbon vs conventional transit",
+
+    // Food Loss
+    foodLossTitle: "Predictive Food-Loss & Perishability Engine",
+    foodLossSubtitle: "Dynamic shelf-life modeling based on harvest timing, microclimate, and cold storage",
+    perishabilityWindow: "Perishability Window",
+    spoilageRiskDay3: "Spoilage Risk at Day 3",
+    savedCropValue: "Protected Crop Value",
+    coldStorageAvailable: "Cold Storage Availability",
+    spoilageCurve: "Tomato Spoilage Probability Curve",
+    ambientStorage: "Ambient Shed Storage",
+    coldChainStorage: "Refrigerated Cold Chain",
+    lossMitigationChecklist: "Loss Mitigation Checklist",
+    safeWindow: "Safe Consumption Window",
+    criticalWindow: "Critical Spoilage Acceleration",
+
+    // What-If Simulator
+    whatIfTitle: "Strategic What-If Scenario Simulator",
+    whatIfSubtitle: "Interactive sensitivity analysis simulating harvest dates, price shocks, and transport delays",
+    harvestTimingOffset: "Harvest Timing Offset",
+    marketPriceShift: "Market Price Fluctuation",
+    logisticsDelayHours: "Logistics Delay (Hours)",
+    storageCondition: "Storage Condition",
+    simulatedOutcome: "Simulated Financial & Spoilage Outcome",
+    netProjectedIncome: "Projected Net Income",
+    projectedFoodLoss: "Projected Food Loss",
+    roiImpact: "ROI vs Baseline",
+    applyToPlan: "Apply Scenario as Active Farm Plan",
+    resetDefaults: "Reset Simulation Defaults",
+
+    // Buyer Procurement
+    procurementTitle: "Buyer Demand Board & Forward Contracts",
+    procurementSubtitle: "Live purchase contracts posted by food processors, supermarket chains, and organic exporters",
+    postBid: "Post Contract Offer",
+    requiredQuantity: "Required Quantity",
+    targetPrice: "Target Price",
+    deliveryDeadline: "Delivery Window",
+    qualityGradeReq: "Grade Requirement",
+    acceptContract: "Accept Contract",
+    negotiateTerms: "Counter-Offer",
+
+    // Reports
+    reportsTitle: "Farm Performance & ESG Reports",
+    reportsSubtitle: "Audited sustainability metrics, yield accuracy, carbon credits, and revenue summaries",
+    downloadPdf: "Download PDF Summary",
+    exportCsv: "Export Raw CSV Data",
+    weeklySummary: "Weekly Operational Summary",
+    carbonOffsetLedger: "Carbon Offsets & Environmental Ledger",
+    totalCropsHarvested: "Total Harvested",
+    totalRevenueGenerated: "Gross Revenue",
+    waterSavedM3: "Water Saved via Smart Drip",
+    dieselAvoided: "Diesel Avoided via EV Transit",
+
+    // Alerts
+    alertsTitle: "Farm Alerts & Early Warning Center",
+    alertsSubtitle: "Critical telemetry notifications regarding crop stress, pests, and price spikes",
+    allAlerts: "All Alerts",
+    unreadOnly: "Unread Only",
+    markAllRead: "Mark All Read",
+    resolved: "Resolved",
+    takeAction: "Take Action",
+    highPriority: "High",
+    mediumPriority: "Medium",
+    lowPriority: "Low",
+
+    // Settings
+    settingsTitle: "System & Farm Preferences",
+    settingsSubtitle: "Configure regional language, sensor telemetry intervals, and alert thresholds",
+    languagePreference: "Display Language",
+    chooseInterfaceLanguage: "Choose Interface Language",
+    englishOption: "English",
+    tamilOption: "Tamil (தமிழ்)",
+    hindiOption: "Hindi (हिन्दी)",
+    telemetryInterval: "Sensor Telemetry Sync Frequency",
+    notificationChannels: "Alert Notification Channels",
+    measurementUnits: "Measurement System",
+    metricSystem: "Metric (ha, kg, tonnes, °C)",
+    imperialSystem: "Imperial (acres, lbs, °F)",
+    saveSettings: "Save All Preferences",
+    settingsSaved: "Settings successfully saved!",
+
+    // Farm Profile
+    farmProfileTitle: "Farm Operational Profile",
+    farmProfileSubtitle: "Soil type, irrigation infrastructure, crop varieties, and geolocation metadata",
+    farmerNameLabel: "Farmer Full Name",
+    farmNameLabel: "Farm Enterprise Name",
+    cropTypeLabel: "Primary Crop",
+    cropVarietyLabel: "Seed Variety",
+    farmSizeLabel: "Farm Size (Acres)",
+    plantingDateLabel: "Planting Date",
+    soilTypeLabel: "Soil Composition",
+    irrigationMethodLabel: "Irrigation Infrastructure",
+    storageTypeLabel: "Post-Harvest Storage Facility",
+    saveProfile: "Save Profile Updates",
+
+    // Modals
+    voiceModalTitle: "AgriPulse Voice Co-pilot",
+    voiceModalSubtitle: "Ask questions in your natural spoken language",
+    startSpeaking: "Click microphone to speak",
+    stopSpeaking: "Click to stop listening",
+    listening: "Listening... speak now",
+    processing: "AI is analyzing your voice...",
+    suggestedQuestions: "Suggested Farmer Questions",
+    close: "Close",
+    cancel: "Cancel",
+    saveChanges: "Save Changes",
+
+    explanationTitle: "AI Decision Rationale & Explainability",
+    explanationSubtitle: "Neural-symbolic breakdown of factors powering the harvest & sales recommendation",
+    keyFactors: "Key Contributing Factors",
+    factorPrice: "Predicted Market Price Trajectory",
+    factorShelfLife: "Post-Harvest Shelf Life & Microclimate",
+    factorBuyerESG: "Buyer Credit Score & Settlement Velocity",
+    factorLogistics: "Transport Cost & Cold Chain Proximity",
+
+    compareBuyersTitle: "Direct Side-by-Side Buyer Comparison",
+    compareBuyersSubtitle: "Evaluate pricing, freight logistics, payment turnaround, and net margin",
+    buyerName: "Buyer Name",
+    netRevenue: "Net Payout",
+    selectBuyer: "Choose This Buyer",
+
+    editFarmTitle: "Edit Farm Operational Profile",
+    editFarmSubtitle: "Update farm size, crop type, and equipment",
+
+    scheduleTaskTitle: "Schedule Farm Task",
+    scheduleTaskSubtitle: "Add an operational activity to your field log",
+    taskTitle: "Task Title",
+    category: "Category",
+    priority: "Priority",
+    scheduledTime: "Scheduled Date & Time",
+    notes: "Operational Notes",
+    createTask: "Create Task",
+
+    // Landing Page
+    heroBadge: "AI-DRIVEN POST-HARVEST INTELLIGENCE",
+    heroTitle: "Where Intelligence Meets Sustainable Agriculture",
+    heroSubtitle: "Empowering farmers with multi-spectral satellite telemetry, forward price forecasting, and green logistics optimization to maximize profit and eliminate food loss.",
+    exploreDashboard: "Launch Live Farm Dashboard",
+    watchDemo: "Explore Architecture",
+    ctaTitle: "Ready to transform your agricultural yield?",
+    ctaSubtitle: "Join hundreds of sustainable farms utilizing AgriPulse AI to boost profitability and reduce post-harvest waste.",
+    ctaButton: "Launch Live Platform",
+    footerTagline: "Bridging farm gate telemetry to profitable wholesale markets through explainable AI.",
+    copyright: "All rights reserved.",
+
+    tonnes: "tonnes",
+    acres: "acres",
+    inDays: "days",
+    km: "km",
+    kg: "kg",
+    positiveTradeoffsTitle: "Positive Trade-offs",
+    negativeTradeoffsTitle: "Care Requirements & Risks",
   },
 
   ta: {
@@ -306,15 +810,17 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     whatIfSimulator: "என்ன-ஆனால் சிமுலேட்டர்",
     buyerDemand: "வாங்குபவர் தேவைகள் பலகை",
 
-    welcomeBack: "மீண்டும் வருக, அர்மான் 👋",
+    welcomeBack: "மீண்டும் வருக",
     farmStatusToday: "இன்று உங்கள் பண்ணையில் என்ன நடக்கிறது என்பது இங்கே.",
     searchPlaceholder: "நிலங்கள், பயிர்கள், அறிக்கைகளைத் தேடுங்கள்...",
     farmManager: "பண்ணை மேலாளர்",
     dateRange: "ஜூன் 20 - ஜூன் 26, 2024",
     editFarmProfile: "பண்ணை சுயவிவரம்",
     signOut: "வெளியேறு",
-    unreadAlerts: "புதியது",
+    unreadAlerts: "புதியவை",
     farmAlerts: "பண்ணை எச்சரிக்கைகள்",
+    addTask: "பணியை திட்டமிடுங்கள்",
+    selectLanguage: "மொழி",
 
     totalFields: "மொத்த நிலங்கள்",
     activeFields: "செயலில்",
@@ -323,12 +829,12 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     areaGrowthMonth: "இந்த மாதம் 8.4 ஹெக் அதிகரிப்பு",
     cropsGrowing: "வளரும் பயிர்கள்",
     cropSampleList: "கோதுமை, சோளம், சோயாபீன்...",
-    aiHealthScore: "AI பயிர் ஆரோக்கியம்",
+    aiHealthScore: "AI ஆரோக்கிய மதிப்பெண்",
     healthStatusGood: "நன்று",
 
     fieldHealthOverview: "நில ஆரோக்கிய மேலோட்டம்",
     aiPoweredAnalysis: "AI அடிப்படையிலான தாவர & மண் பகுப்பாய்வு",
-    excellent: "சிறந்தது",
+    excellent: "மிகச் சிறந்தது",
     good: "நன்று",
     average: "சராசரி",
     poor: "குறைவு",
@@ -411,6 +917,256 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     langEn: "English",
     langTa: "தமிழ்",
     langHi: "हिन्दी",
+
+    // Precision Intelligence
+    precisionTitle: "துல்லிய விவசாய நுண்ணறிவு & செயற்கைக்கோள் NDVI",
+    precisionSubtitle: "செயற்கைக்கோள் பல-அலைக்கற்றை தரவு மற்றும் மண் ஈரப்பதம், நுண்-வானிலை ஒருங்கிணைப்பு",
+    sentinelFeed: "சென்டினல்-2 நேரலை தரவு",
+    cropHealth: "பயிர் ஆரோக்கியம்",
+    expectedYield: "எதிர்பார்க்கப்படும் மகசூல்",
+    harvestWindow: "அறுவடை காலம்",
+    moistureDeficitRisk: "ஈரப்பத பற்றாக்குறை ஆபத்து",
+    pestDiseaseAlert: "பூச்சி & நோய் எச்சரிக்கை",
+    chlorophyllContent: "பச்சைய அளவு",
+    optimalWindow: "உகந்த அறுவடை காலம்",
+    ndviTelemetry: "NDVI தாவர குறியீட்டு விளக்கப்படம்",
+    actionableAdvisories: "செயல்படுத்தக்கூடிய பயிர் ஆலோசனைகள்",
+    growthStage: "வளர்ச்சி நிலை",
+    ndviIndex: "NDVI தாவர குறியீடு",
+    eviIndex: "EVI குறியீடு",
+    benchmark: "பிராந்திய ஒப்பீடு",
+    advisory1Title: "பகுதி 3-ல் மண் ஈரப்பதம் குறைவு",
+    advisory1Desc: "நாளை காலை 05:00 மணிக்கு 22 மிமீ சொட்டு நீர் பாசனம் செய்ய பரிந்துரைக்கப்படுகிறது.",
+    advisory2Title: "இலை கருகல் நோய் பூஞ்சை ஆபத்து",
+    advisory2Desc: "நுண் வானிலை ஈரப்பதம் 84% ஐ எட்டியுள்ளது. முன்கூட்டியே இயற்கை பூஞ்சைக்கொல்லி தெளிக்கவும்.",
+    advisory3Title: "பழ இனிப்பு சர்க்கரை அளவு உச்சம்",
+    advisory3Desc: "பழங்களின் தரம் உயர்ந்த நிலையை அடைகிறது. இன்னும் 4 நாட்களில் முழு அறுவடைக்கு தயார்.",
+
+    // Decision Engine
+    decisionEngineTitle: "AI முடிவெடுக்கும் இயந்திரம் & உத்தி",
+    decisionEngineSubtitle: "லாபத்தை அதிகரித்து அறுவடைக்கு பிந்தைய உணவு இழப்பை குறைக்கும் பரிந்துரைகள்",
+    currentStrategy: "தற்போதைய பரிந்துரைக்கப்பட்ட உத்தி",
+    confidenceScore: "நம்பகத்தன்மை",
+    estimatedNetRevenue: "மதிப்பிடப்பட்ட நிகர வருவாய்",
+    foodLossRisk: "உணவு இழப்பு ஆபத்து",
+    sellWindow: "பரிந்துரைக்கப்பட்ட விற்பனை காலம்",
+    breakdownLogic: "முடிவின் காரணங்கள் & விவரங்கள்",
+    directBuyerAllocation: "மொத்த கொள்முதல் வாங்குபவருக்கு ஒதுக்கீடு",
+    localHedgedRetention: "உள்ளூர் சந்தை பாதுகாப்பு இருப்பு",
+    candidateBuyersAnalysis: "வாங்குபவர்களின் லாபகரமான ஒப்பீட்டு பட்டியல்",
+    simulateNewScenario: "புதிய சூழலை சோதிக்கவும்",
+    exportDecisionBrief: "முடிவு அறிக்கையை பதிவிறக்கவும்",
+    whyThisDecision: "இந்த முடிவு ஏன்?",
+    buyer: "வாங்குபவர்",
+    offeredPrice: "வழங்கப்பட்ட விலை",
+    distance: "தொலைவு",
+    netPayout: "நிகர வருமானம்",
+    creditScore: "நம்பகத்தன்மை குறியீடு",
+    status: "நிலை",
+    selectAndRoute: "தேர்ந்தெடுத்து அனுப்பவும்",
+
+    // Price Prediction
+    pricePredictionTitle: "பல சந்தை விலை முன்னறிவிப்பு இயந்திரம்",
+    pricePredictionSubtitle: "அனைத்து மண்டிகளிலும் அடுத்த 7 நாட்களுக்கான விலை முன்னறிவிப்பு மற்றும் 90% துல்லியம்",
+    predictedPeakPrice: "எதிர்பார்க்கப்படும் உச்ச விலை",
+    currentAvgMandi: "தற்போதைய மண்டி சராசரி",
+    forecastAccuracy: "முன்னறிவிப்பு துல்லியம்",
+    recommendedSellDay: "விற்க சிறந்த நாள்",
+    priceTrajectory: "விலை போக்கு (7 நாள் முன்னறிவிப்பு)",
+    predictedPrice: "கணிக்கப்பட்ட விலை",
+    upperConfidence: "உச்ச வரம்பு (90%)",
+    lowerConfidence: "குறைந்த வரம்பு (90%)",
+    historicalPrice: "கடந்த கால விலை",
+    marketIntelligence: "மண்டி வரத்து & சந்தை அழுத்தம்",
+    mandiName: "மண்டி / சந்தை மையம்",
+    dailyArrivals: "தினசரி வரத்து",
+    priceTrend: "விலை போக்கு",
+    sentiment: "சந்தை மனநிலை",
+
+    // Buyer Matching
+    buyerMatchingTitle: "நியாயமான வர்த்தக வாங்குபவர் தேர்வு & தரவரிசை",
+    buyerMatchingSubtitle: "விவசாயியின் அதிகபட்ச லாபம் மற்றும் விரைவான பணம் செலுத்தும் அடிப்படையில் வரிசைப்படுத்தப்பட்ட வாங்குபவர்கள்",
+    activeProcurementBuyers: "செயலில் உள்ள வாங்குபவர்கள்",
+    compareBuyers: "வாங்குபவர்களை ஒப்பிடுக",
+    filterDistance: "அனைத்து தூரங்கள்",
+    sortNetRevenue: "நிகர வருவாய் வாரியாக",
+    paymentTerms: "பணம் செலுத்தும் முறை",
+    esgScore: "ESG மதிப்பெண்",
+    transportCost: "போக்குவரத்து செலவு",
+    viewRouteLogistics: "போக்குவரத்து விவரம்",
+    contactBuyer: "வாங்குபவரை தொடர்பு கொள்க",
+    verifiedBuyer: "சரிபார்க்கப்பட்ட வாங்குபவர்",
+    immediatePayment: "24 மணி நேரத்திற்குள்",
+
+    // Logistics
+    logisticsTitle: "பசுமை போக்குவரத்து & வழித்தட உகப்பாக்கம்",
+    logisticsSubtitle: "பண்ணை முதல் வாங்குபவர் வரை குறைந்த செலவு மற்றும் குறைவான கார்பன் வெளியேற்ற பாதை",
+    carbonCappedTransit: "கார்பன் கட்டுப்படுத்தப்பட்ட போக்குவரத்து",
+    targetBuyer: "இலக்கு வாங்குபவர்",
+    transitDistance: "பயண தூரம்",
+    transitDuration: "மதிப்பிடப்பட்ட பயண நேரம்",
+    coldChainCompliance: "குளிர்பதன வசதி இணக்கம்",
+    estimatedCost: "மதிப்பிடப்பட்ட சரக்கு கட்டணம்",
+    co2Emissions: "கார்பன் உமிழ்வு (CO2e)",
+    vehicleFleetOption: "வாகன வகை முறை",
+    electricCarrier: "மின்சார வாகனம் (EV)",
+    dieselTruck: "டீசல் சரக்கு வாகனம்",
+    optimalEcoRoute: "சிறந்த சுற்றுச்சூழல் உகந்த பாதை",
+    dispatchOrder: "வாகனத்தை அனுப்பவும்",
+    viaHighway: "வேளாண் நெடுஞ்சாலை வழியாக",
+    activeRefrigeration: "இயங்கும் குளிர்பதன அமைப்பு (4°C - 8°C)",
+    evGreenBenefit: "மின்சார வாகனம் வழக்கமான வாகனத்தை விட 42% குறைவான கார்பன் வெளியேற்றுகிறது",
+
+    // Food Loss
+    foodLossTitle: "உணவு இழப்பு & கெட்டுப்போதல் கணிப்பு இயந்திரம்",
+    foodLossSubtitle: "அறுவடை நேரம், நுண் வானிலை மற்றும் குளிர் சேமிப்பு அடிப்படையிலான வாழ்நாள் கணிப்பு",
+    perishabilityWindow: "கெட்டுப்போகும் கால அளவு",
+    spoilageRiskDay3: "3-ம் நாளில் கெட்டுப்போகும் ஆபத்து",
+    savedCropValue: "பாதுகாக்கப்பட்ட விளைச்சல் மதிப்பு",
+    coldStorageAvailable: "குளிர்பதன சேமிப்பு வசதி",
+    spoilageCurve: "தக்காளி அழுகும் நிகழ்தகவு வளைவு",
+    ambientStorage: "சாதாரண அறை சேமிப்பு",
+    coldChainStorage: "குளிர்பதன சங்கிலி சேமிப்பு",
+    lossMitigationChecklist: "இழப்பு தடுப்பு சரிபார்ப்பு பட்டியல்",
+    safeWindow: "பாதுகாப்பான பயன்பாட்டு காலம்",
+    criticalWindow: "அதிவேகமாக அழுகும் காலம்",
+
+    // What-If Simulator
+    whatIfTitle: "உத்திசார் என்ன-ஆனால் சூழல் சிமுலேட்டர்",
+    whatIfSubtitle: "அறுவடை தேதி, சந்தை விலை மாற்றங்கள், போக்குவரத்து தாமதங்களின் தாக்கம் பற்றிய ஆய்வு",
+    harvestTimingOffset: "அறுவடை நேர மாற்றம்",
+    marketPriceShift: "சந்தை விலை ஏற்ற இறக்கம்",
+    logisticsDelayHours: "போக்குவரத்து தாமதம் (மணிகள்)",
+    storageCondition: "சேமிப்பு முறை",
+    simulatedOutcome: "கணிக்கப்பட்ட நிதி & இழப்பு முடிவு",
+    netProjectedIncome: "மதிப்பிடப்பட்ட நிகர வருமானம்",
+    projectedFoodLoss: "கணிக்கப்பட்ட உணவு இழப்பு",
+    roiImpact: "வழக்கத்தை விட கூடுதல் லாபம்",
+    applyToPlan: "இதை தற்போதைய திட்டமாக செயல்படுத்துக",
+    resetDefaults: "இயல்பு நிலைக்கு மீட்டமை",
+
+    // Buyer Procurement
+    procurementTitle: "வாங்குபவர் தேவைகள் & எதிர்கால ஒப்பந்தங்கள்",
+    procurementSubtitle: "உணவு தயாரிப்பாளர்கள், பல்பொருள் அங்காடிகள் மற்றும் ஏற்றுமதியாளர்களின் நேரடி கொள்முதல் கோரிக்கைகள்",
+    postBid: "ஒப்பந்த கோரிக்கையை சமர்ப்பிக்கவும்",
+    requiredQuantity: "தேவைப்படும் அளவு",
+    targetPrice: "இலக்கு விலை",
+    deliveryDeadline: "டெலிவரி காலக்கெடு",
+    qualityGradeReq: "தரத் தேவை",
+    acceptContract: "ஒப்பந்தத்தை ஏற்கவும்",
+    negotiateTerms: "மறு விலை கேட்கவும்",
+
+    // Reports
+    reportsTitle: "பண்ணை செயல்திறன் & ESG அறிக்கைகள்",
+    reportsSubtitle: "சரிபார்க்கப்பட்ட நிலைத்தன்மை அளவீடுகள், மகசூல் துல்லியம், கார்பன் வரவுகள் மற்றும் வருவாய் சுருக்கம்",
+    downloadPdf: "PDF சுருக்கத்தை பதிவிறக்குக",
+    exportCsv: "CSV தரவை ஏற்றுமதி செய்க",
+    weeklySummary: "வாராந்திர செயல்பாட்டு சுருக்கம்",
+    carbonOffsetLedger: "கார்பன் சேமிப்பு பேரேடு",
+    totalCropsHarvested: "மொத்த அறுவடை",
+    totalRevenueGenerated: "மொத்த வருவாய்",
+    waterSavedM3: "சொட்டு நீர் பாசனத்தால் சேமிக்கப்பட்ட நீர்",
+    dieselAvoided: "EV பயன்பாட்டால் தவிர்க்கப்பட்ட டீசல்",
+
+    // Alerts
+    alertsTitle: "பண்ணை எச்சரிக்கைகள் & முன் எச்சரிக்கை மையம்",
+    alertsSubtitle: "பயிர் அழுத்தம், பூச்சி தாக்குதல் மற்றும் விலை உயர்வு பற்றிய முக்கிய அறிவிப்புகள்",
+    allAlerts: "அனைத்து எச்சரிக்கைகளும்",
+    unreadOnly: "படிக்காதவை மட்டும்",
+    markAllRead: "அனைத்தையும் படித்ததாக குறிக்கவும்",
+    resolved: "தீர்க்கப்பட்டது",
+    takeAction: "நடவடிக்கை எடுக்கவும்",
+    highPriority: "அதிமுக்கியம்",
+    mediumPriority: "நடுத்தரம்",
+    lowPriority: "குறைவு",
+
+    // Settings
+    settingsTitle: "கணினி & பண்ணை அமைப்புகள்",
+    settingsSubtitle: "பயன்பாட்டு மொழி, சென்சார் தரவு இடைவெளிகள் மற்றும் எச்சரிக்கை வரம்புகளை மாற்றியமைக்கவும்",
+    languagePreference: "காட்சி மொழி",
+    chooseInterfaceLanguage: "இடைமுக மொழியைத் தேர்ந்தெடுக்கவும்",
+    englishOption: "English",
+    tamilOption: "தமிழ் (Tamil)",
+    hindiOption: "हिन्दी (Hindi)",
+    telemetryInterval: "சென்சார் தரவு புதுப்பிப்பு இடைவெளி",
+    notificationChannels: "எச்சரிக்கை அனுப்பும் வழிகள்",
+    measurementUnits: "அளவீட்டு முறைமை",
+    metricSystem: "மெட்ரிக் (ஹெக், கிலோ, டன், °C)",
+    imperialSystem: "இம்பீரியல் (ஏக்கர், பவுண்டு, °F)",
+    saveSettings: "அமைப்புகளை சேமிக்கவும்",
+    settingsSaved: "அமைப்புகள் வெற்றிகரமாக சேமிக்கப்பட்டன!",
+
+    // Farm Profile
+    farmProfileTitle: "பண்ணை செயல்பாட்டு சுயவிவரம்",
+    farmProfileSubtitle: "மண் வகை, நீர்ப்பாசன வசதிகள், பயிர் வகைகள் மற்றும் பண்ணை அமைவிடம்",
+    farmerNameLabel: "விவசாயியின் முழு பெயர்",
+    farmNameLabel: "பண்ணை / நிறுவன பெயர்",
+    cropTypeLabel: "முக்கிய பயிர்",
+    cropVarietyLabel: "விதை வகை",
+    farmSizeLabel: "பண்ணை அளவு (ஏக்கர்)",
+    plantingDateLabel: "நடவு செய்யப்பட்ட தேதி",
+    soilTypeLabel: "மண் கலவை",
+    irrigationMethodLabel: "நீர்ப்பாசன கட்டமைப்பு",
+    storageTypeLabel: "அறுவடைக்கு பிந்தைய சேமிப்பு கிடங்கு",
+    saveProfile: "சுயவிவரத்தை சேமிக்கவும்",
+
+    // Modals
+    voiceModalTitle: "அக்ரிபல்ஸ் குரல் உதவியாளர்",
+    voiceModalSubtitle: "உங்கள் சொந்த மொழியில் இயல்பாக கேள்விகளை கேளுங்கள்",
+    startSpeaking: "பேச மைக்ரோஃபோனை அழுத்தவும்",
+    stopSpeaking: "பேசுவதை நிறுத்த அழுத்தவும்",
+    listening: "கேட்கிறது... தமிழில் பேசுங்கள்",
+    processing: "AI உங்கள் குரலை ஆய்வு செய்கிறது...",
+    suggestedQuestions: "பரிந்துரைக்கப்பட்ட விவசாயக் கேள்விகள்",
+    close: "மூடு",
+    cancel: "ரத்து செய்",
+    saveChanges: "மாற்றங்களை சேமி",
+
+    explanationTitle: "AI முடிவின் காரண விளக்கம் & வெளிப்படைத்தன்மை",
+    explanationSubtitle: "அறுவடை மற்றும் விற்பனை பரிந்துரையை தீர்மானித்த காரணிகளின் விளக்கம்",
+    keyFactors: "முக்கிய காரணிகள்",
+    factorPrice: "கணிக்கப்பட்ட சந்தை விலை போக்கு",
+    factorShelfLife: "அறுவடைக்கு பிந்தைய பயிர் வாழ்நாள் & வானிலை",
+    factorBuyerESG: "வாங்குபவரின் நம்பகத்தன்மை & பணம் செலுத்தும் வேகம்",
+    factorLogistics: "போக்குவரத்து செலவு & குளிர்பதன தொலைவு",
+
+    compareBuyersTitle: "நேரடி வாங்குபவர் ஒப்பீடு",
+    compareBuyersSubtitle: "விலை, சரக்கு போக்குவரத்து, பணம் செலுத்தும் வேகம் மற்றும் நிகர லாபத்தை ஒப்பிடுக",
+    buyerName: "வாங்குபவர் பெயர்",
+    netRevenue: "நிகர வருமானம்",
+    selectBuyer: "இந்த வாங்குபவரை தேர்வு செய்க",
+
+    editFarmTitle: "பண்ணை விவரங்களை திருத்தவும்",
+    editFarmSubtitle: "பண்ணை அளவு, பயிர் வகை மற்றும் உபகரணங்களை புதுப்பிக்கவும்",
+
+    scheduleTaskTitle: "பண்ணைப் பணியை திட்டமிடுங்கள்",
+    scheduleTaskSubtitle: "உங்கள் பண்ணை பதிவேட்டில் ஒரு பணியை சேர்க்கவும்",
+    taskTitle: "பணி தலைப்பு",
+    category: "வகை",
+    priority: "முக்கியத்துவம்",
+    scheduledTime: "திட்டமிடப்பட்ட நாள் & நேரம்",
+    notes: "குறிப்புகள்",
+    createTask: "பணியை உருவாக்கு",
+
+    // Landing Page
+    heroBadge: "AI-அடிப்படையிலான அறுவடைக்கு பிந்தைய நுண்ணறிவு",
+    heroTitle: "அறிவுத்திறனும் நிலையான விவசாயமும் இணையும் தளம்",
+    heroSubtitle: "செயற்கைக்கோள் தரவு, எதிர்கால விலை முன்னறிவிப்பு மற்றும் பசுமை போக்குவரத்து உகப்பாக்கம் மூலம் விவசாயிகளின் லாபத்தை பெருக்கி உணவு இழப்பை ஒழிக்கிறது.",
+    exploreDashboard: "லைவ் டாஷ்போர்டை திறக்கவும்",
+    watchDemo: "இயங்கும் முறையை காணுங்கள்",
+    ctaTitle: "உங்கள் விவசாய விளைச்சலை மாற்றியமைக்க தயாரா?",
+    ctaSubtitle: "அக்ரிபல்ஸ் AI மூலம் லாபத்தை பெருக்கி, விரயத்தை குறைக்கும் நூற்றுக்கணக்கான முன்னோடி விவசாயிகளுடன் இணையுங்கள்.",
+    ctaButton: "லைவ் தளத்தை திறக்கவும்",
+    footerTagline: "விவசாயியின் பண்ணை முதல் மொத்த சந்தை வரை துல்லிய AI மூலம் இணைக்கும் தளம்.",
+    copyright: "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
+
+    tonnes: "டன்கள்",
+    acres: "ஏக்கர்",
+    inDays: "நாட்கள்",
+    km: "கி.மீ",
+    kg: "கிலோ",
+    positiveTradeoffsTitle: "சாதகமான அம்சங்கள்",
+    negativeTradeoffsTitle: "கவனிக்க வேண்டிய அபாயங்கள்",
   },
 
   hi: {
@@ -439,7 +1195,7 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     whatIfSimulator: "व्हाट-इफ सिम्युलेटर",
     buyerDemand: "खरीदार मांग बोर्ड",
 
-    welcomeBack: "वापसी पर स्वागत है, अरमान 👋",
+    welcomeBack: "वापसी पर स्वागत है",
     farmStatusToday: "आज आपके खेत में क्या हो रहा है, यहाँ देखें।",
     searchPlaceholder: "खेत, फसल, रिपोर्ट्स खोजें...",
     farmManager: "फार्म मैनेजर",
@@ -448,6 +1204,8 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     signOut: "साइन आउट",
     unreadAlerts: "अपठित",
     farmAlerts: "फार्म अलर्ट्स",
+    addTask: "कार्य शेड्यूल करें",
+    selectLanguage: "भाषा",
 
     totalFields: "कुल खेत",
     activeFields: "सक्रिय",
@@ -544,9 +1302,364 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     langEn: "English",
     langTa: "தமிழ்",
     langHi: "हिन्दी",
+
+    // Precision Intelligence
+    precisionTitle: "सटीक फार्म इंटेलिजेंस और सैटेलाइट NDVI",
+    precisionSubtitle: "हाइपर-लोकल मिट्टी की नमी और सूक्ष्म जलवायु मौसम के साथ संयुक्त मल्टी-स्पेक्ट्रल उपग्रह डेटा",
+    sentinelFeed: "सेंटीनेल-2 उपग्रह लाइव फीड",
+    cropHealth: "फसल स्वास्थ्य",
+    expectedYield: "अनुमानित उपज",
+    harvestWindow: "कटाई की समय-सीमा",
+    moistureDeficitRisk: "नमी की कमी का जोखिम",
+    pestDiseaseAlert: "कीट एवं रोग चेतावनी",
+    chlorophyllContent: "क्लोरोफिल मात्रा",
+    optimalWindow: "इष्टतम कटाई समय",
+    ndviTelemetry: "मल्टी-स्पेक्ट्रल NDVI टेलीमेट्री चार्ट",
+    actionableAdvisories: "व्यावहारिक फसल सलाह",
+    growthStage: "विकास अवस्था",
+    ndviIndex: "NDVI वनस्पति सूचकांक",
+    eviIndex: "EVI सूचकांक",
+    benchmark: "क्षेत्रीय मानक",
+    advisory1Title: "सेक्टर 3 में मृदा नमी की कमी",
+    advisory1Desc: "कल सुबह 05:00 बजे 22 मिमी ड्रिप सिंचाई करने की सलाह दी जाती है।",
+    advisory2Title: "अगेती झुलसा रोग कवक जोखिम",
+    advisory2Desc: "सूक्ष्म जलवायु सापेक्ष आर्द्रता 84% तक पहुँच गई है। जैविक कवकनाशी का छिड़काव करें।",
+    advisory3Title: "फलों में मिठास (ब्रिक्स) चरम स्तर पर",
+    advisory3Desc: "फसल प्रीमियम गुणवत्ता ग्रेड में प्रवेश कर रही है। 4 दिनों में कटाई हेतु पूरी तरह तैयार।",
+
+    // Decision Engine
+    decisionEngineTitle: "AI निर्णय इंजन और गतिशील रणनीति",
+    decisionEngineSubtitle: "लाभ को अधिकतम और कटाई के बाद फसल बर्बादी को न्यूनतम करने वाली सटीक सिफ़ारिशें",
+    currentStrategy: "वर्तमान रणनीति सिफ़ारिश",
+    confidenceScore: "सटीकता स्कोर",
+    estimatedNetRevenue: "अनुमानित शुद्ध आय",
+    foodLossRisk: "फसल बर्बादी जोखिम",
+    sellWindow: "अनुशंसित बिक्री समय",
+    breakdownLogic: "निर्णय विश्लेषण और तर्क",
+    directBuyerAllocation: "थोक खरीदार को सीधा आवंटन",
+    localHedgedRetention: "स्थानीय मंडी सुरक्षा स्टॉक",
+    candidateBuyersAnalysis: "संभावित खरीदार लाभप्रदता तुलना",
+    simulateNewScenario: "नया परिदृश्य सिम्युलेट करें",
+    exportDecisionBrief: "निर्णय सारांश डाउनलोड करें",
+    whyThisDecision: "यह निर्णय क्यों?",
+    buyer: "खरीदार",
+    offeredPrice: "प्रस्तावित मूल्य",
+    distance: "दूरी",
+    netPayout: "शुद्ध भुगतान",
+    creditScore: "ESG और साख",
+    status: "स्थिति",
+    selectAndRoute: "चुनें और वाहन भेजें",
+
+    // Price Prediction
+    pricePredictionTitle: "बहु-मंडी मूल्य पूर्वानुमान इंजन",
+    pricePredictionSubtitle: "क्षेत्रीय मंडियों में 90% सटीकता के साथ अगले 7 दिनों का मूल्य पूर्वानुमान",
+    predictedPeakPrice: "अनुमानित उच्चतम मूल्य",
+    currentAvgMandi: "वर्तमान मंडी औसत",
+    forecastAccuracy: "पूर्वानुमान सटीकता",
+    recommendedSellDay: "बिक्री का सर्वोत्तम दिन",
+    priceTrajectory: "मूल्य रुझान (7-दिवसीय पूर्वानुमान)",
+    predictedPrice: "अनुमानित मूल्य",
+    upperConfidence: "उच्चतम सीमा (90%)",
+    lowerConfidence: "न्यूनतम सीमा (90%)",
+    historicalPrice: "ऐतिहासिक मूल्य",
+    marketIntelligence: "मंडी आवक एवं आपूर्ति दबाव",
+    mandiName: "मंडी / बाज़ार केंद्र",
+    dailyArrivals: "दैनिक आवक",
+    priceTrend: "मूल्य रुझान",
+    sentiment: "बाज़ार धारणा",
+
+    // Buyer Matching
+    buyerMatchingTitle: "उचित-व्यापार खरीदार मिलान एवं रैंकिंग",
+    buyerMatchingSubtitle: "किसान के अधिकतम शुद्ध लाभ और समय पर भुगतान के आधार पर सत्यापित थोक खरीदार",
+    activeProcurementBuyers: "सक्रिय थोक खरीदार",
+    compareBuyers: "खरीदारों की तुलना करें",
+    filterDistance: "सभी दूरियाँ",
+    sortNetRevenue: "शुद्ध आय अनुसार क्रमबद्ध",
+    paymentTerms: "भुगतान शर्तें",
+    esgScore: "ESG स्कोर",
+    transportCost: "परिवहन लागत",
+    viewRouteLogistics: "रसद मार्ग देखें",
+    contactBuyer: "खरीदार से संपर्क करें",
+    verifiedBuyer: "सत्यापित खरीदार",
+    immediatePayment: "24 घंटे के भीतर",
+
+    // Logistics
+    logisticsTitle: "हरित रसद एवं मार्ग अनुकूलन",
+    logisticsSubtitle: "खेत से खरीदार तक कम लागत और न्यूनतम कार्बन उत्सर्जन वाला इको-रूटिंग मार्ग",
+    carbonCappedTransit: "कार्बन-सीमित परिवहन",
+    targetBuyer: "लक्षित खरीदार",
+    transitDistance: "परिवहन दूरी",
+    transitDuration: "अनुमानित यात्रा समय",
+    coldChainCompliance: "कोल्ड चेन अनुपालन",
+    estimatedCost: "अनुमानित माल-भाड़ा",
+    co2Emissions: "CO2e कार्बन उत्सर्जन",
+    vehicleFleetOption: "वाहन फ्लीट विकल्प",
+    electricCarrier: "इलेक्ट्रिक वाहन (EV)",
+    dieselTruck: "डीजल फ्रेट ट्रक",
+    optimalEcoRoute: "इष्टतम पर्यावरण-अनुकूल मार्ग",
+    dispatchOrder: "रसद वाहन रवाना करें",
+    viaHighway: "एग्रो कॉरिडोर के माध्यम से",
+    activeRefrigeration: "सक्रिय सेंसर प्रशीतन (4°C - 8°C)",
+    evGreenBenefit: "EV फ्लीट सामान्य ट्रकों की तुलना में 42% कम कार्बन उत्सर्जित करती है",
+
+    // Food Loss
+    foodLossTitle: "खाद्य हानि एवं शेल्फ-लाइफ पूर्वानुमान इंजन",
+    foodLossSubtitle: "कटाई समय, सूक्ष्म जलवायु और कोल्ड स्टोरेज के आधार पर शेल्फ-लाइफ मॉडलिंग",
+    perishabilityWindow: "खराब होने की समय-सीमा",
+    spoilageRiskDay3: "तीसरे दिन सड़ने का जोखिम",
+    savedCropValue: "सुरक्षित फसल मूल्य",
+    coldStorageAvailable: "कोल्ड स्टोरेज उपलब्धता",
+    spoilageCurve: "टमाटर सड़न प्रायिकता वक्र",
+    ambientStorage: "सामान्य शेड भंडारण",
+    coldChainStorage: "प्रशीतित कोल्ड चेन",
+    lossMitigationChecklist: "हानि रोकथाम चेकलिस्ट",
+    safeWindow: "सुरक्षित उपयोग अवधि",
+    criticalWindow: "तीव्र खराबी अवधि",
+
+    // What-If Simulator
+    whatIfTitle: "रणनीतिक व्हाट-इफ परिदृश्य सिम्युलेटर",
+    whatIfSubtitle: "कटाई तिथि, बाज़ार मूल्य उतार-चढ़ाव और परिवहन देरी का इंटरएक्टिव संवेदनशीलता विश्लेषण",
+    harvestTimingOffset: "कटाई समय बदलाव",
+    marketPriceShift: "बाज़ार मूल्य परिवर्तन",
+    logisticsDelayHours: "परिवहन देरी (घंटे)",
+    storageCondition: "भंडारण स्थिति",
+    simulatedOutcome: "सिम्युलेटेड वित्तीय एवं बर्बादी परिणाम",
+    netProjectedIncome: "अनुमानित शुद्ध आय",
+    projectedFoodLoss: "अनुमानित फसल हानि",
+    roiImpact: "सामान्य से अतिरिक्त लाभ",
+    applyToPlan: "इस परिदृश्य को सक्रिय योजना बनाएं",
+    resetDefaults: "डिफ़ॉल्ट सेटिंग्स रीसेट करें",
+
+    // Buyer Procurement
+    procurementTitle: "खरीदार मांग बोर्ड एवं अग्रिम अनुबंध",
+    procurementSubtitle: "खाद्य प्रसंस्करणकर्ताओं, सुपरमार्केट और जैविक निर्यातकों द्वारा जारी अनुबंध",
+    postBid: "अनुबंध प्रस्ताव पोस्ट करें",
+    requiredQuantity: "आवश्यक मात्रा",
+    targetPrice: "लक्षित मूल्य",
+    deliveryDeadline: "डिलीवरी समय-सीमा",
+    qualityGradeReq: "गुणवत्ता ग्रेड आवश्यकता",
+    acceptContract: "अनुबंध स्वीकार करें",
+    negotiateTerms: "जवाबी प्रस्ताव दें",
+
+    // Reports
+    reportsTitle: "फार्म प्रदर्शन एवं ESG रिपोर्ट्स",
+    reportsSubtitle: "सत्यापित स्थिरता मीट्रिक्स, उपज सटीकता, कार्बन क्रेडिट और राजस्व सारांश",
+    downloadPdf: "PDF सारांश डाउनलोड करें",
+    exportCsv: "CSV डेटा निर्यात करें",
+    weeklySummary: "साप्ताहिक परिचालन सारांश",
+    carbonOffsetLedger: "कार्बन बचत बहीखाता",
+    totalCropsHarvested: "कुल कटाई",
+    totalRevenueGenerated: "सकल राजस्व",
+    waterSavedM3: "ड्रिप सिंचाई द्वारा बचाई गई जल मात्रा",
+    dieselAvoided: "EV उपयोग से बचाई गई डीजल मात्रा",
+
+    // Alerts
+    alertsTitle: "फार्म अलर्ट्स एवं पूर्व चेतावनी केंद्र",
+    alertsSubtitle: "फसल तनाव, कीट और मूल्य परिवर्तन के संबंध में महत्वपूर्ण अलर्ट",
+    allAlerts: "सभी अलर्ट्स",
+    unreadOnly: "केवल अपठित",
+    markAllRead: "सभी को पढ़ा हुआ चिह्नित करें",
+    resolved: "समाधान हुआ",
+    takeAction: "कार्रवाई करें",
+    highPriority: "उच्च",
+    mediumPriority: "मध्यम",
+    lowPriority: "निम्न",
+
+    // Settings
+    settingsTitle: "सिस्टम एवं फार्म सेटिंग्स",
+    settingsSubtitle: "भाषा, सेंसर टेलीमेट्री अंतराल और अलर्ट सीमाओं को कॉन्फ़िगर करें",
+    languagePreference: "प्रदर्शन भाषा",
+    chooseInterfaceLanguage: "इंटरफ़ेस भाषा चुनें",
+    englishOption: "English",
+    tamilOption: "தமிழ் (Tamil)",
+    hindiOption: "हिन्दी (Hindi)",
+    telemetryInterval: "सेंसर टेलीमेट्री समन्वय आवृत्ति",
+    notificationChannels: "अलर्ट सूचना चैनल",
+    measurementUnits: "माप प्रणाली",
+    metricSystem: "मीट्रिक (हेक्टेयर, किग्रा, टन, °C)",
+    imperialSystem: "इंपीरियल (एकड़, पाउंड, °F)",
+    saveSettings: "सभी सेटिंग्स सहेजें",
+    settingsSaved: "सेटिंग्स सफलतापूर्वक सहेजी गईं!",
+
+    // Farm Profile
+    farmProfileTitle: "फार्म परिचालन प्रोफाइल",
+    farmProfileSubtitle: "मिट्टी का प्रकार, सिंचाई सुविधा, फसल किस्में और भू-स्थान विवरण",
+    farmerNameLabel: "किसान का पूरा नाम",
+    farmNameLabel: "फार्म / उद्यम का नाम",
+    cropTypeLabel: "मुख्य फसल",
+    cropVarietyLabel: "बीज किस्म",
+    farmSizeLabel: "फार्म आकार (एकड़)",
+    plantingDateLabel: "बुवाई की तारीख",
+    soilTypeLabel: "मृदा संरचना",
+    irrigationMethodLabel: "सिंचाई संरचना",
+    storageTypeLabel: "कटाई-उपरांत भंडारण सुविधा",
+    saveProfile: "प्रोफाइल सहेजें",
+
+    // Modals
+    voiceModalTitle: "एग्रीपल्स वॉइस को-पायलट",
+    voiceModalSubtitle: "अपनी स्वाभाविक भाषा में सवाल पूछें",
+    startSpeaking: "बोलने के लिए माइक दबाएँ",
+    stopSpeaking: "रोकने के लिए क्लिक करें",
+    listening: "सुन रहा हूँ... हिंदी में बोलें",
+    processing: "AI आपकी आवाज़ का विश्लेषण कर रहा है...",
+    suggestedQuestions: "सुझाए गए किसान प्रश्न",
+    close: "बंद करें",
+    cancel: "रद्द करें",
+    saveChanges: "बदलाव सहेजें",
+
+    explanationTitle: "AI निर्णय तर्क एवं व्याख्या",
+    explanationSubtitle: "कटाई और बिक्री सिफ़ारिश तय करने वाले कारकों का स्पष्ट विश्लेषण",
+    keyFactors: "प्रमुख निर्णायक कारक",
+    factorPrice: "अनुमानित बाज़ार मूल्य रुझान",
+    factorShelfLife: "कटाई के बाद शेल्फ-लाइफ एवं मौसम",
+    factorBuyerESG: "खरीदार साख एवं त्वरित भुगतान",
+    factorLogistics: "परिवहन लागत एवं कोल्ड स्टोरेज निकटता",
+
+    compareBuyersTitle: "खरीदारों की सीधी तुलना",
+    compareBuyersSubtitle: "मूल्य, माल-भाड़ा, भुगतान गति और शुद्ध मुनाफे की तुलना करें",
+    buyerName: "खरीदार का नाम",
+    netRevenue: "शुद्ध भुगतान",
+    selectBuyer: "यह खरीदार चुनें",
+
+    editFarmTitle: "फार्म परिचालन प्रोफाइल संपादित करें",
+    editFarmSubtitle: "फार्म आकार, फसल प्रकार और उपकरण अद्यतन करें",
+
+    scheduleTaskTitle: "फार्म कार्य शेड्यूल करें",
+    scheduleTaskSubtitle: "अपने फील्ड लॉग में एक नया कार्य जोड़ें",
+    taskTitle: "कार्य का शीर्षक",
+    category: "श्रेणी",
+    priority: "प्राथमिकता",
+    scheduledTime: "निर्धारित तिथि व समय",
+    notes: "परिचालन टिप्पणियाँ",
+    createTask: "कार्य बनाएँ",
+
+    // Landing Page
+    heroBadge: "AI-संचालित कटाई-उपरांत बुद्धिमत्ता",
+    heroTitle: "जहाँ बुद्धिमत्ता और सतत कृषि का संगम होता है",
+    heroSubtitle: "उपग्रह डेटा, मूल्य पूर्वानुमान और हरित रसद द्वारा किसानों के मुनाफे को बढ़ाना और फसल बर्बादी को समाप्त करना।",
+    exploreDashboard: "लाइव फार्म डैशबोर्ड खोलें",
+    watchDemo: "कार्यप्रणाली देखें",
+    ctaTitle: "अपनी कृषि उपज को उन्नत करने के लिए तैयार हैं?",
+    ctaSubtitle: "एग्रीपल्स AI के साथ जुड़कर मुनाफा बढ़ाने और फसल बर्बादी घटाने वाले सैकड़ों किसानों में शामिल हों।",
+    ctaButton: "लाइव प्लेटफॉर्म शुरू करें",
+    footerTagline: "खेत से थोक मंडियों तक सटीक एवं पारदर्शी AI द्वारा जोड़ने वाला मंच।",
+    copyright: "सर्वाधिकार सुरक्षित।",
+
+    tonnes: "टन",
+    acres: "एकड़",
+    inDays: "दिन",
+    km: "किमी",
+    kg: "किग्रा",
+    positiveTradeoffsTitle: "सकारात्मक पहलू",
+    negativeTradeoffsTitle: "सावधानी एवं जोखिम",
   },
 };
 
-export function getTranslation(lang: SupportedLanguage = "en"): TranslationDictionary {
-  return translations[lang] || translations.en;
+/**
+ * Dynamic Dictionary Translation Map
+ * Automatically translates common domain terms (crops, statuses, units, etc.)
+ */
+const dynamicDictionary: Record<string, Record<SupportedLanguage, string>> = {
+  // Crops
+  "Tomato": { en: "Tomato", ta: "தக்காளி", hi: "टमाटर" },
+  "Wheat": { en: "Wheat", ta: "கோதுமை", hi: "गेहूँ" },
+  "Corn": { en: "Corn", ta: "சோளம்", hi: "मक्का" },
+  "Soybean": { en: "Soybean", ta: "சோயாபீன்", hi: "सोयाबीन" },
+  "Chilli": { en: "Chilli", ta: "மிளகாய்", hi: "मिर्च" },
+  "Barley": { en: "Barley", ta: "பார்லி", hi: "जौ" },
+  "Other": { en: "Other", ta: "மற்றவை", hi: "अन्य" },
+
+  // Statuses
+  "Active": { en: "Active", ta: "செயலில்", hi: "सक्रिय" },
+  "Inactive": { en: "Inactive", ta: "செயலற்றது", hi: "निष्क्रिय" },
+  "Good": { en: "Good", ta: "நன்று", hi: "अच्छा" },
+  "Excellent": { en: "Excellent", ta: "மிகச் சிறந்தது", hi: "उत्कृष्ट" },
+  "Average": { en: "Average", ta: "சராசரி", hi: "औसत" },
+  "Poor": { en: "Poor", ta: "குறைவு", hi: "कमज़ोर" },
+  "Moderate": { en: "Moderate", ta: "மிதமான", hi: "मध्यम" },
+  "Stressed": { en: "Stressed", ta: "அழுத்தத்தில்", hi: "तनावग्रस्त" },
+  "Pending": { en: "Pending", ta: "நிலுவையில்", hi: "लंबित" },
+  "Completed": { en: "Completed", ta: "முடிந்தது", hi: "पूर्ण" },
+  "Done": { en: "Done", ta: "முடிந்தது", hi: "पूर्ण" },
+  "Upcoming": { en: "Upcoming", ta: "வரவிருப்பது", hi: "आगामी" },
+  "High": { en: "High", ta: "அதிகம்", hi: "उच्च" },
+  "Medium": { en: "Medium", ta: "நடுத்தரம்", hi: "मध्यम" },
+  "Low": { en: "Low", ta: "குறைவு", hi: "निम्न" },
+  "Negligible": { en: "Negligible", ta: "புறக்கணிக்கத்தக்கது", hi: "नगण्य" },
+  "Mild Warning": { en: "Mild Warning", ta: "லேசான எச்சரிக்கை", hi: "हल्की चेतावनी" },
+  "High Alert": { en: "High Alert", ta: "அதிதீவிர எச்சரிக்கை", hi: "उच्च चेतावनी" },
+  "Unread": { en: "Unread", ta: "புதியவை", hi: "अपठित" },
+  "Verified": { en: "Verified", ta: "சரிபார்க்கப்பட்டது", hi: "सत्यापित" },
+
+  // Days & Deadlines
+  "Today": { en: "Today", ta: "இன்று", hi: "आज" },
+  "Tomorrow": { en: "Tomorrow", ta: "நாளை", hi: "कल" },
+  "Due Today": { en: "Due Today", ta: "இன்று முடிக்க வேண்டும்", hi: "आज देय" },
+  "Due Tomorrow": { en: "Due Tomorrow", ta: "நாளை முடிக்க வேண்டும்", hi: "कल देय" },
+  "Due in 3 days": { en: "Due in 3 days", ta: "3 நாட்களில் முடிக்க வேண்டும்", hi: "3 दिनों में देय" },
+  "Mon": { en: "Mon", ta: "திங்கள்", hi: "सोम" },
+  "Tue": { en: "Tue", ta: "செவ்வாய்", hi: "मंगल" },
+  "Wed": { en: "Wed", ta: "புதன்", hi: "बुध" },
+  "Thu": { en: "Thu", ta: "வியாழன்", hi: "गुरु" },
+  "Fri": { en: "Fri", ta: "வெள்ளி", hi: "शुक्र" },
+  "Sat": { en: "Sat", ta: "சனி", hi: "शनि" },
+  "Sun": { en: "Sun", ta: "ஞாயிறு", hi: "रवि" },
+
+  // Task Categories
+  "Irrigation": { en: "Irrigation", ta: "நீர்ப்பாசனம்", hi: "सिंचाई" },
+  "Fertilizer": { en: "Fertilizer", ta: "உரமிடுதல்", hi: "उर्वरक" },
+  "Pest Monitoring": { en: "Pest Monitoring", ta: "பூச்சி கண்காணிப்பு", hi: "कीट निगरानी" },
+  "Harvest Prep": { en: "Harvest Prep", ta: "அறுவடை தயாரிப்பு", hi: "कटाई तैयारी" },
+  "Logistics Pickup": { en: "Logistics Pickup", ta: "போக்குவரத்து எடுப்பு", hi: "रसद पिकअप" },
+
+  // Storage Types
+  "Ambient Shed": { en: "Ambient Shed", ta: "சாதாரண அறை சேமிப்பு", hi: "सामान्य शेड भंडारण" },
+  "Cold Storage": { en: "Cold Storage", ta: "குளிர்பதன கிடங்கு", hi: "कोल्ड स्टोरेज" },
+  "Ventilated Warehouse": { en: "Ventilated Warehouse", ta: "காற்றோட்ட கிடங்கு", hi: "हवादार गोदाम" },
+  "None": { en: "None", ta: "இல்லை", hi: "कोई नहीं" },
+
+  // Irrigation Methods
+  "Drip Irrigation": { en: "Drip Irrigation", ta: "சொட்டு நீர் பாசனம்", hi: "ड्रिप सिंचाई" },
+  "Sprinkler": { en: "Sprinkler", ta: "தெளிப்பு நீர் பாசனம்", hi: "फव्वारा सिंचाई" },
+  "Flood Canal": { en: "Flood Canal", ta: "கால்வாய் பாசனம்", hi: "नहर सिंचाई" },
+  "Smart Sensor Drip": { en: "Smart Sensor Drip", ta: "ஸ்மார்ட் சென்சார் சொட்டு நீர்", hi: "स्मार्ट सेंसर ड्रिप" },
+
+  // Common UI words
+  "tonnes": { en: "tonnes", ta: "டன்கள்", hi: "टन" },
+  "acres": { en: "acres", ta: "ஏக்கர்", hi: "एकड़" },
+  "ha": { en: "ha", ta: "ஹெக்", hi: "हेक्टेयर" },
+  "km": { en: "km", ta: "கி.மீ", hi: "किमी" },
+  "kg": { en: "kg", ta: "கிலோ", hi: "किग्रा" },
+  "days": { en: "days", ta: "நாட்கள்", hi: "दिन" },
+  "hours": { en: "hours", ta: "மணிகள்", hi: "घंटे" },
+};
+
+/**
+ * Universal dynamic word translator
+ */
+export function translateWord(text: string, lang: SupportedLanguage = "en"): string {
+  if (!text) return "";
+  if (lang === "en") return text;
+  
+  const trimmed = text.trim();
+  if (dynamicDictionary[trimmed] && dynamicDictionary[trimmed][lang]) {
+    return dynamicDictionary[trimmed][lang];
+  }
+
+  // Check lowercase match
+  for (const [key, mapping] of Object.entries(dynamicDictionary)) {
+    if (key.toLowerCase() === trimmed.toLowerCase()) {
+      return mapping[lang] || text;
+    }
+  }
+
+  return text;
+}
+
+export function getTranslation(lang: SupportedLanguage = "en"): TranslationDictionary & { tr: (text: string) => string } {
+  const dict = translations[lang] || translations.en;
+  return {
+    ...dict,
+    tr: (text: string) => translateWord(text, lang),
+  };
 }

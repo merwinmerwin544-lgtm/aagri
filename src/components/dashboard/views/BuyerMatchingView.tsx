@@ -15,6 +15,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { Buyer } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface BuyerMatchingViewProps {
   buyers: Buyer[];
@@ -29,6 +30,7 @@ export default function BuyerMatchingView({
   onSelectBuyer,
   onOpenCompare,
 }: BuyerMatchingViewProps) {
+  const { t, tr } = useLanguage();
   const [sortBy, setSortBy] = useState<"match" | "price" | "distance">("match");
   const [filterQuality, setFilterQuality] = useState<string>("All");
   const [activeBuyerModal, setActiveBuyerModal] = useState<Buyer | null>(null);
@@ -59,14 +61,14 @@ export default function BuyerMatchingView({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold text-white tracking-tight">
-                  AI Commercial Buyer Matching
+                  {t.buyerMatchingTitle}
                 </h2>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">
-                  Weighted Ranking Engine
+                  {t.verifiedBuyer}
                 </span>
               </div>
               <p className="text-xs text-slate-400">
-                Direct procurement matching without middleman cuts: Price (30%), Quality (20%), Proximity (15%), Demand (15%), Quantity (10%), Reliability (10%)
+                {t.buyerMatchingSubtitle}
               </p>
             </div>
           </div>
@@ -76,7 +78,7 @@ export default function BuyerMatchingView({
             className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-400/40 text-emerald-300 hover:text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md cursor-pointer shrink-0"
           >
             <Scale className="w-4 h-4 text-emerald-400" />
-            <span>Compare All Buyers Matrix</span>
+            <span>{t.compareBuyers}</span>
           </button>
         </div>
       </div>
@@ -86,7 +88,7 @@ export default function BuyerMatchingView({
         <div className="flex items-center gap-2">
           <span className="text-slate-400 flex items-center gap-1 font-medium">
             <ArrowUpDown className="w-3.5 h-3.5" />
-            <span>Sort by:</span>
+            <span>{t.sortNetRevenue}:</span>
           </span>
           <button
             onClick={() => setSortBy("match")}
@@ -96,7 +98,7 @@ export default function BuyerMatchingView({
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            Match Score %
+            {t.confidenceScore} %
           </button>
           <button
             onClick={() => setSortBy("price")}
@@ -106,7 +108,7 @@ export default function BuyerMatchingView({
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            Highest Price
+            {t.offeredPrice}
           </button>
           <button
             onClick={() => setSortBy("distance")}
@@ -116,25 +118,25 @@ export default function BuyerMatchingView({
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            Closest Distance
+            {t.distance}
           </button>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-slate-400 font-medium">Quality Filter:</span>
+          <span className="text-slate-400 font-medium">{t.qualityGradeReq}:</span>
           <select
             value={filterQuality}
             onChange={(e) => setFilterQuality(e.target.value)}
             className="px-2.5 py-1 rounded-lg bg-[#02100b] border border-emerald-500/30 text-white text-xs focus:outline-none"
           >
-            <option value="All">All Grades</option>
-            <option value="Grade A">Grade A Only</option>
-            <option value="Grade B">Grade B Processing</option>
+            <option value="All">{t.filterDistance}</option>
+            <option value="Grade A">Grade A</option>
+            <option value="Grade B">Grade B</option>
           </select>
         </div>
       </div>
 
-      {/* Buyer Cards Grid (Prompt Section 9 Spec: Buyer A, Buyer B, Buyer C, Buyer D) */}
+      {/* Buyer Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {filtered.map((buyer) => {
           const isSelected = buyer.id === selectedBuyerId;
@@ -155,7 +157,7 @@ export default function BuyerMatchingView({
                       <h3 className="text-lg font-bold text-white">{buyer.name}</h3>
                       {buyer.matchPercentage >= 90 && (
                         <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
-                          Top Match
+                          {t.good}
                         </span>
                       )}
                     </div>
@@ -171,33 +173,33 @@ export default function BuyerMatchingView({
                       {buyer.matchPercentage}%
                     </div>
                     <div className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
-                      Match Score
+                      {t.confidenceScore}
                     </div>
                   </div>
                 </div>
 
                 {/* Match Reason Banner */}
                 <div className="p-3 rounded-xl bg-black/40 border border-emerald-500/15 mb-4 text-xs text-emerald-300 leading-snug">
-                  <span className="font-bold text-white">Why Matched: </span>
+                  <span className="font-bold text-white">{t.whyThisDecision}: </span>
                   {buyer.matchReason}
                 </div>
 
                 {/* Metrics Grid */}
                 <div className="grid grid-cols-3 gap-2 p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/15 mb-4 text-xs text-center">
                   <div>
-                    <span className="text-[10px] text-slate-400 block">Offered Rate</span>
+                    <span className="text-[10px] text-slate-400 block">{t.offeredPrice}</span>
                     <span className="font-extrabold text-emerald-400 text-sm">
                       ₹{buyer.offeredPricePerKg}/kg
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">Required Vol</span>
+                    <span className="text-[10px] text-slate-400 block">{t.requiredQuantity}</span>
                     <span className="font-bold text-white text-sm">
-                      {buyer.quantityRequiredTonnes} tonnes
+                      {buyer.quantityRequiredTonnes} {t.tonnes}
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">Spec Grade</span>
+                    <span className="text-[10px] text-slate-400 block">{t.qualityGradeReq}</span>
                     <span className="font-bold text-teal-300 text-sm">
                       {buyer.qualityRequirement}
                     </span>
@@ -207,19 +209,19 @@ export default function BuyerMatchingView({
                 {/* Detailed Scoring Weights */}
                 <div className="space-y-1.5 text-[11px] mb-4">
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Price Score (30% wt):</span>
+                    <span className="text-slate-400">{t.factorPrice}:</span>
                     <span className="font-bold text-white">{buyer.scoring.priceScore}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Quality Spec (20% wt):</span>
+                    <span className="text-slate-400">{t.qualityGradeReq}:</span>
                     <span className="font-bold text-white">{buyer.scoring.qualityScore}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Proximity (15% wt):</span>
+                    <span className="text-slate-400">{t.distance}:</span>
                     <span className="font-bold text-white">{buyer.scoring.distanceScore}%</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Reliability & Escrow (10% wt):</span>
+                    <span className="text-slate-400">{t.creditScore}:</span>
                     <span className="font-bold text-amber-300">
                       ★ {buyer.reliabilityRating} ({buyer.scoring.reliabilityScore}%)
                     </span>
@@ -231,23 +233,23 @@ export default function BuyerMatchingView({
               <div className="pt-4 border-t border-emerald-500/15 flex items-center justify-between">
                 <button
                   onClick={() => setActiveBuyerModal(buyer)}
-                  className="text-xs text-slate-300 hover:text-emerald-300 font-semibold flex items-center gap-1"
+                  className="text-xs text-slate-300 hover:text-emerald-300 font-semibold flex items-center gap-1 cursor-pointer"
                 >
-                  <span>View Details</span>
+                  <span>{t.viewDetails}</span>
                   <ExternalLink className="w-3 h-3" />
                 </button>
 
                 {isSelected ? (
                   <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-400/40">
                     <Check className="w-4 h-4" />
-                    <span>Selected for Dispatch</span>
+                    <span>{t.selectAndRoute}</span>
                   </span>
                 ) : (
                   <button
                     onClick={() => onSelectBuyer(buyer.id)}
-                    className="px-4 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-bold text-xs transition-colors"
+                    className="px-4 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-bold text-xs transition-colors cursor-pointer"
                   >
-                    Select This Buyer
+                    {t.selectBuyer}
                   </button>
                 )}
               </div>
@@ -264,23 +266,23 @@ export default function BuyerMatchingView({
             <p className="text-xs text-slate-400 mb-4">{activeBuyerModal.organization}</p>
             <div className="space-y-2 text-xs text-slate-300 mb-5">
               <div className="flex justify-between py-1 border-b border-emerald-500/15">
-                <span className="text-slate-400">Delivery Window:</span>
+                <span className="text-slate-400">{t.deliveryDeadline}:</span>
                 <span className="font-semibold text-white">{activeBuyerModal.deliveryWindow}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-emerald-500/15">
-                <span className="text-slate-400">Payment Escrow:</span>
-                <span className="font-semibold text-emerald-400">{activeBuyerModal.paymentTerms}</span>
+                <span className="text-slate-400">{t.paymentTerms}:</span>
+                <span className="font-semibold text-emerald-400">{tr(activeBuyerModal.paymentTerms)}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-emerald-500/15">
-                <span className="text-slate-400">Contact Desk (Demo):</span>
+                <span className="text-slate-400">{t.contactBuyer}:</span>
                 <span className="font-semibold text-white">{activeBuyerModal.phoneDemo}</span>
               </div>
             </div>
             <button
               onClick={() => setActiveBuyerModal(null)}
-              className="w-full py-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold text-xs"
+              className="w-full py-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold text-xs cursor-pointer"
             >
-              Close Details
+              {t.close}
             </button>
           </div>
         </div>

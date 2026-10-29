@@ -17,6 +17,7 @@ import {
   Info,
 } from "lucide-react";
 import { DecisionEngineStrategy, FarmerProfile } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface DecisionEngineViewProps {
   strategy: DecisionEngineStrategy;
@@ -31,9 +32,7 @@ export default function DecisionEngineView({
   onOpenWhy,
   onOpenWhatIf,
 }: DecisionEngineViewProps) {
-  const [activeStrategyTab, setActiveStrategyTab] = useState<"optimal" | "sell-today" | "hold-6">(
-    "optimal"
-  );
+  const { t, tr } = useLanguage();
 
   return (
     <div className="space-y-6">
@@ -49,15 +48,15 @@ export default function DecisionEngineView({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold text-white tracking-tight">
-                  Sustainable Decision Engine
+                  {t.decisionEngineTitle}
                 </h2>
                 <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-1">
                   <Sparkles className="w-2.5 h-2.5" />
-                  <span>Central AI Optimizer</span>
+                  <span>{t.decisionConfidence}</span>
                 </span>
               </div>
               <p className="text-xs text-slate-300">
-                Synthesizing yield, future mandi curves, buyer rankings, logistics emissions, and biological food-loss into a single harvest strategy
+                {t.decisionEngineSubtitle}
               </p>
             </div>
           </div>
@@ -67,36 +66,36 @@ export default function DecisionEngineView({
               onClick={onOpenWhy}
               className="px-4 py-2.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-400/40 text-purple-300 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
             >
-              <span>Why This Recommendation?</span>
+              <span>{t.whyThisRecommendation}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Primary Recommendation Showcase Card (Prompt Section 12 Spec) */}
+      {/* Primary Recommendation Showcase Card */}
       <div className="glass-panel rounded-3xl p-6 sm:p-8 border-emerald-400/40 bg-gradient-to-r from-[#04241a] via-[#073325] to-[#041f17] shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <span className="px-3 py-1 rounded-full bg-emerald-400 text-black text-xs font-extrabold uppercase tracking-wider">
-              ★ PRIMARY HARVEST & SALE STRATEGY
+              ★ {t.currentStrategy}
             </span>
             <div className="flex items-center gap-2 text-xs">
-              <span className="text-slate-400">Optimization Confidence:</span>
+              <span className="text-slate-400">{t.confidenceScore}:</span>
               <span className="font-extrabold text-emerald-400 text-sm">
-                {strategy.confidenceScore}% (High)
+                {strategy.confidenceScore}% ({t.healthStatusGood})
               </span>
             </div>
           </div>
 
           <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight mb-4">
-            &ldquo;{strategy.summary}&rdquo;
+            &ldquo;{t.recommendationAction}&rdquo;
           </h3>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 max-w-3xl">
-            {strategy.whyChosenExplanation}
+            {t.advisory1Desc}
           </p>
 
           {/* Allocation Breakdown */}
@@ -104,7 +103,7 @@ export default function DecisionEngineView({
             <div className="p-4 rounded-2xl bg-black/40 border border-emerald-500/30 flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
-                  PRIMARY TRANCHE (70%)
+                  {t.directBuyerAllocation} (70%)
                 </span>
                 <div className="text-base font-bold text-white mt-0.5">
                   {strategy.allocation.primaryBuyerName}
@@ -113,14 +112,14 @@ export default function DecisionEngineView({
               </div>
               <div className="text-right">
                 <div className="text-2xl font-extrabold text-emerald-400">2.66 t</div>
-                <div className="text-[10px] text-slate-400">At ₹32/kg</div>
+                <div className="text-[10px] text-slate-400">₹32/kg</div>
               </div>
             </div>
 
             <div className="p-4 rounded-2xl bg-black/40 border border-cyan-500/30 flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider">
-                  SECONDARY HEDGE (30%)
+                  {t.localHedgedRetention} (30%)
                 </span>
                 <div className="text-base font-bold text-white mt-0.5">
                   {strategy.allocation.secondaryAction}
@@ -129,7 +128,7 @@ export default function DecisionEngineView({
               </div>
               <div className="text-right">
                 <div className="text-2xl font-extrabold text-cyan-300">1.14 t</div>
-                <div className="text-[10px] text-slate-400">Local Mandi Floor</div>
+                <div className="text-[10px] text-slate-400">{t.sellWindow}</div>
               </div>
             </div>
           </div>
@@ -137,33 +136,33 @@ export default function DecisionEngineView({
           {/* 5 Financial & Sustainable Balance Indicators */}
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-4 border-t border-emerald-500/20 text-xs">
             <div className="p-3 rounded-xl bg-black/30 border border-emerald-500/15">
-              <span className="text-[10px] text-slate-400 block">Gross Realization</span>
+              <span className="text-[10px] text-slate-400 block">{t.totalRevenueGenerated}</span>
               <span className="text-lg font-extrabold text-white">
                 ₹{strategy.expectedGrossRevenueInr.toLocaleString()}
               </span>
             </div>
             <div className="p-3 rounded-xl bg-black/30 border border-emerald-500/15">
-              <span className="text-[10px] text-slate-400 block">EV Transport Fee</span>
+              <span className="text-[10px] text-slate-400 block">{t.transportCost}</span>
               <span className="text-lg font-extrabold text-slate-200">
                 -₹{strategy.transportCostInr.toLocaleString()}
               </span>
             </div>
             <div className="p-3 rounded-xl bg-black/30 border border-emerald-500/15">
-              <span className="text-[10px] text-slate-400 block">Food Loss Value</span>
+              <span className="text-[10px] text-slate-400 block">{t.foodLossRisk}</span>
               <span className="text-lg font-extrabold text-amber-300">
                 -₹{strategy.expectedLossInr.toLocaleString()} (3.2%)
               </span>
             </div>
             <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-400/30">
-              <span className="text-[10px] text-emerald-300 block font-bold">NET REALIZED PROFIT</span>
+              <span className="text-[10px] text-emerald-300 block font-bold">{t.netPayout}</span>
               <span className="text-xl font-extrabold text-emerald-400">
                 ₹{strategy.netRevenueInr.toLocaleString()}
               </span>
             </div>
             <div className="p-3 rounded-xl bg-black/30 border border-cyan-500/20">
-              <span className="text-[10px] text-cyan-300 block">Carbon Footprint</span>
+              <span className="text-[10px] text-cyan-300 block">{t.co2Emissions}</span>
               <span className="text-lg font-extrabold text-cyan-300">
-                {strategy.carbonFootprintKg} kg CO₂e
+                {strategy.carbonFootprintKg} kg
               </span>
             </div>
           </div>
@@ -174,16 +173,16 @@ export default function DecisionEngineView({
               onClick={onOpenWhy}
               className="px-5 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-bold text-xs flex items-center gap-1.5 transition-all shadow-md cursor-pointer"
             >
-              <span>Why This Recommendation?</span>
+              <span>{t.whyThisRecommendation}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
             <button
               onClick={onOpenWhatIf}
-              className="px-5 py-2.5 rounded-xl bg-[#06241a] hover:bg-[#093526] border border-emerald-500/30 text-emerald-300 font-semibold text-xs flex items-center gap-1.5 transition-all"
+              className="px-5 py-2.5 rounded-xl bg-[#06241a] hover:bg-[#093526] border border-emerald-500/30 text-emerald-300 font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer"
             >
               <Sliders className="w-4 h-4 text-emerald-400" />
-              <span>Compare Alternative Scenarios</span>
+              <span>{t.whatIfButton}</span>
             </button>
           </div>
         </div>
@@ -195,10 +194,10 @@ export default function DecisionEngineView({
           <Scale className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
           <div>
             <h4 className="text-sm font-bold text-white mb-1">
-              Core Sustainable Value Rule
+              {t.candidateBuyersAnalysis}
             </h4>
             <p className="text-xs text-slate-300 leading-relaxed">
-              The highest headline price is <span className="text-amber-300 font-bold">not automatically</span> the best choice. For instance, waiting 5 days offers ₹33/kg (₹1 higher), but biological food loss rises to 8%, eroding ₹9,400 in net profit while increasing transport carbon. AgriPulse AI selects the true mathematical optimum for net farmer wealth and planetary health.
+              {t.evGreenBenefit}
             </p>
           </div>
         </div>

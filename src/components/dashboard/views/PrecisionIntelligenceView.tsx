@@ -23,6 +23,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import { PrecisionCropHealth, FarmerProfile } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface PrecisionIntelligenceViewProps {
   health: PrecisionCropHealth;
@@ -33,6 +34,8 @@ export default function PrecisionIntelligenceView({
   health,
   profile,
 }: PrecisionIntelligenceViewProps) {
+  const { t, tr } = useLanguage();
+
   return (
     <div className="space-y-6">
       {/* Top Banner */}
@@ -46,10 +49,10 @@ export default function PrecisionIntelligenceView({
             </div>
             <div>
               <h2 className="text-xl font-bold text-white tracking-tight">
-                Precision Farm Intelligence & Satellite NDVI
+                {t.precisionTitle}
               </h2>
               <p className="text-xs text-slate-400">
-                Multi-spectral satellite telemetry fused with hyper-local soil moisture and microclimate weather
+                {t.precisionSubtitle}
               </p>
             </div>
           </div>
@@ -57,27 +60,27 @@ export default function PrecisionIntelligenceView({
           <div className="flex items-center gap-2">
             <span className="px-3 py-1 rounded-xl bg-cyan-500/15 text-cyan-300 text-xs font-bold border border-cyan-500/25 flex items-center gap-1.5">
               <Satellite className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Simulated Sentinel-2 Feed</span>
+              <span>{t.sentinelFeed}</span>
             </span>
           </div>
         </div>
       </div>
 
-      {/* 4 Primary Outputs (Prompt Section 7 Spec) */}
+      {/* 4 Primary Outputs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* 1. Crop Health */}
         <div className="glass-card-interactive rounded-2xl p-5 border-emerald-500/20 bg-[#041913]/70">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              1. Crop Health
+              1. {t.cropHealth}
             </span>
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
           </div>
           <div className="text-3xl font-extrabold text-emerald-400 mb-1">
-            {health.status} ({health.overallScore}/100)
+            {tr(health.status)} ({health.overallScore}/100)
           </div>
           <div className="text-xs text-slate-300 font-medium">
-            Chlorophyll Content: {health.chlorophyllContent}
+            {t.chlorophyllContent}: {health.chlorophyllContent}
           </div>
         </div>
 
@@ -85,15 +88,15 @@ export default function PrecisionIntelligenceView({
         <div className="glass-card-interactive rounded-2xl p-5 border-emerald-500/20 bg-[#041913]/70">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              2. Expected Yield
+              2. {t.expectedYield}
             </span>
-            <span className="text-xs font-semibold text-teal-300">{profile.cropType}</span>
+            <span className="text-xs font-semibold text-teal-300">{tr(profile.cropType)}</span>
           </div>
           <div className="text-3xl font-extrabold text-white mb-1">
-            {health.expectedYieldTonnes} tonnes
+            {health.expectedYieldTonnes} {t.tonnes}
           </div>
           <div className="text-xs text-slate-400">
-            Across {profile.farmSizeAcres} acres (~1.9 tonnes/acre)
+            Across {profile.farmSizeAcres} {t.acres}
           </div>
         </div>
 
@@ -101,15 +104,15 @@ export default function PrecisionIntelligenceView({
         <div className="glass-card-interactive rounded-2xl p-5 border-emerald-500/20 bg-[#041913]/70">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              3. Harvest Window
+              3. {t.harvestWindow}
             </span>
             <Clock className="w-4 h-4 text-cyan-400" />
           </div>
           <div className="text-3xl font-extrabold text-cyan-300 mb-1">
-            {health.harvestWindowStartDays}–{health.harvestWindowEndDays} days
+            {health.harvestWindowStartDays}–{health.harvestWindowEndDays} {t.inDays}
           </div>
           <div className="text-xs text-slate-300 font-medium">
-            Optimal fruit brix maturity: Day 6
+            {t.optimalWindow}
           </div>
         </div>
 
@@ -117,7 +120,7 @@ export default function PrecisionIntelligenceView({
         <div className="glass-card-interactive rounded-2xl p-5 border-emerald-500/20 bg-[#041913]/70">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              4. Confidence Score
+              4. {t.confidenceScore}
             </span>
             <ShieldCheck className="w-4 h-4 text-purple-400" />
           </div>
@@ -125,7 +128,7 @@ export default function PrecisionIntelligenceView({
             {health.yieldConfidencePercent}%
           </div>
           <div className="text-xs text-slate-400">
-            Validated by 5 historical harvest cycles
+            {t.benchmark}
           </div>
         </div>
       </div>
@@ -134,12 +137,12 @@ export default function PrecisionIntelligenceView({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Growth Stage Progress */}
         <div className="lg:col-span-6 glass-panel rounded-2xl p-6 border-emerald-500/20 bg-[#041a13]/70">
-          <h3 className="text-sm font-bold text-white mb-1">Crop Growth Stage & Phenology</h3>
-          <p className="text-xs text-slate-400 mb-4">{health.growthStage}</p>
+          <h3 className="text-sm font-bold text-white mb-1">{t.growthStage}</h3>
+          <p className="text-xs text-slate-400 mb-4">{tr(health.growthStage)}</p>
 
           <div className="mb-4">
             <div className="flex justify-between text-xs mb-1.5 font-semibold">
-              <span className="text-slate-300">Biological Maturity Progress</span>
+              <span className="text-slate-300">{t.growthStage}</span>
               <span className="text-emerald-400">{health.growthProgressPercent}%</span>
             </div>
             <div className="w-full bg-slate-800 rounded-full h-3 overflow-hidden p-0.5">
@@ -153,23 +156,23 @@ export default function PrecisionIntelligenceView({
           <div className="grid grid-cols-4 gap-2 text-center text-xs">
             <div className="p-2 rounded-lg bg-emerald-950/40 border border-emerald-500/20 text-slate-300">
               <div className="text-[10px] text-slate-500">Stage 1</div>
-              <div className="font-bold text-emerald-400">Vegetative</div>
-              <div className="text-[9px] text-slate-400">100% Complete</div>
+              <div className="font-bold text-emerald-400">{tr("Active")}</div>
+              <div className="text-[9px] text-slate-400">100%</div>
             </div>
             <div className="p-2 rounded-lg bg-emerald-950/40 border border-emerald-500/20 text-slate-300">
               <div className="text-[10px] text-slate-500">Stage 2</div>
-              <div className="font-bold text-emerald-400">Flowering</div>
-              <div className="text-[9px] text-slate-400">100% Complete</div>
+              <div className="font-bold text-emerald-400">{tr("Good")}</div>
+              <div className="text-[9px] text-slate-400">100%</div>
             </div>
             <div className="p-2 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-white shadow">
-              <div className="text-[10px] text-emerald-300">Stage 3 (Now)</div>
-              <div className="font-bold text-cyan-300">Fruit Ripening</div>
-              <div className="text-[9px] text-emerald-300">82% Active</div>
+              <div className="text-[10px] text-emerald-300">Stage 3</div>
+              <div className="font-bold text-cyan-300">{tr("Moderate")}</div>
+              <div className="text-[9px] text-emerald-300">82%</div>
             </div>
             <div className="p-2 rounded-lg bg-black/20 border border-slate-800 text-slate-500">
               <div className="text-[10px]">Stage 4</div>
-              <div className="font-bold">Harvesting</div>
-              <div className="text-[9px]">In 5 Days</div>
+              <div className="font-bold">{t.harvestWindow}</div>
+              <div className="text-[9px]">{health.harvestWindowStartDays} {t.inDays}</div>
             </div>
           </div>
         </div>
@@ -177,26 +180,26 @@ export default function PrecisionIntelligenceView({
         {/* Satellite NDVI & EVI Spectral Indices */}
         <div className="lg:col-span-6 glass-panel rounded-2xl p-6 border-emerald-500/20 bg-[#041a13]/70">
           <h3 className="text-sm font-bold text-white mb-1">
-            Satellite Vegetation Indices (NDVI & EVI)
+            {t.ndviIndex} & {t.eviIndex}
           </h3>
           <p className="text-xs text-slate-400 mb-4">
-            Simulated optical reflectance measuring canopy vigor and photosynthetic capacity
+            {t.aiPoweredAnalysis}
           </p>
 
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="p-4 rounded-xl bg-black/30 border border-emerald-500/20">
-              <div className="text-xs text-slate-400 mb-1">NDVI Normalized Index</div>
+              <div className="text-xs text-slate-400 mb-1">{t.ndviIndex}</div>
               <div className="text-3xl font-extrabold text-emerald-400">{health.ndviIndex}</div>
               <div className="text-[11px] text-slate-300 mt-1">
-                Dense, healthy canopy (Range 0.0 - 1.0)
+                {t.healthStatusGood} (0.0 - 1.0)
               </div>
             </div>
 
             <div className="p-4 rounded-xl bg-black/30 border border-emerald-500/20">
-              <div className="text-xs text-slate-400 mb-1">EVI Enhanced Index</div>
+              <div className="text-xs text-slate-400 mb-1">{t.eviIndex}</div>
               <div className="text-3xl font-extrabold text-cyan-300">{health.eviIndex}</div>
               <div className="text-[11px] text-slate-300 mt-1">
-                Atmospheric soil-adjusted reflection
+                {t.excellent}
               </div>
             </div>
           </div>
@@ -204,7 +207,7 @@ export default function PrecisionIntelligenceView({
           <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/20 text-xs text-slate-300 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Info className="w-4 h-4 text-emerald-400" />
-              <span>Simulated imagery derived from Sentinel-2 & Landsat-9 spectral bands</span>
+              <span>{t.satelliteTelemetry}</span>
             </div>
           </div>
         </div>
@@ -212,9 +215,9 @@ export default function PrecisionIntelligenceView({
 
       {/* Historical Health Trend Chart */}
       <div className="glass-panel rounded-2xl p-6 border-emerald-500/20 bg-[#041a13]/70">
-        <h3 className="text-sm font-bold text-white mb-1">Historical 5-Week Crop Health Trend</h3>
+        <h3 className="text-sm font-bold text-white mb-1">{t.ndviTelemetry}</h3>
         <p className="text-xs text-slate-400 mb-4">
-          Tracking parcel vigor progression against regional benchmark
+          {t.benchmark}
         </p>
 
         <div className="w-full h-56">
@@ -237,7 +240,7 @@ export default function PrecisionIntelligenceView({
               <Line
                 type="monotone"
                 dataKey="score"
-                name="Your Parcel Score"
+                name={t.cropHealth}
                 stroke="#10b981"
                 strokeWidth={3}
                 dot={{ r: 4, fill: "#10b981" }}
@@ -245,7 +248,7 @@ export default function PrecisionIntelligenceView({
               <Line
                 type="monotone"
                 dataKey="benchmark"
-                name="Regional Benchmark"
+                name={t.benchmark}
                 stroke="#64748b"
                 strokeDasharray="4 4"
                 strokeWidth={2}
@@ -253,6 +256,28 @@ export default function PrecisionIntelligenceView({
               />
             </LineChart>
           </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Actionable Advisories */}
+      <div className="glass-panel rounded-2xl p-6 border-emerald-500/20 bg-[#041a13]/70">
+        <div className="flex items-center gap-2 mb-4">
+          <Sparkles className="w-5 h-5 text-emerald-400" />
+          <h3 className="text-base font-bold text-white">{t.actionableAdvisories}</h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-4 rounded-xl bg-[#09271B]/80 border border-emerald-500/20">
+            <h4 className="text-xs font-bold text-emerald-400 mb-1">{t.advisory1Title}</h4>
+            <p className="text-[11px] text-slate-300 leading-relaxed">{t.advisory1Desc}</p>
+          </div>
+          <div className="p-4 rounded-xl bg-[#09271B]/80 border border-emerald-500/20">
+            <h4 className="text-xs font-bold text-[#E6C779] mb-1">{t.advisory2Title}</h4>
+            <p className="text-[11px] text-slate-300 leading-relaxed">{t.advisory2Desc}</p>
+          </div>
+          <div className="p-4 rounded-xl bg-[#09271B]/80 border border-emerald-500/20">
+            <h4 className="text-xs font-bold text-cyan-300 mb-1">{t.advisory3Title}</h4>
+            <p className="text-[11px] text-slate-300 leading-relaxed">{t.advisory3Desc}</p>
+          </div>
         </div>
       </div>
     </div>

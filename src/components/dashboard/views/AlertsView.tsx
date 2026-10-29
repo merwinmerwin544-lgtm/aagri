@@ -11,6 +11,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { FarmAlert } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface AlertsViewProps {
   alerts: FarmAlert[];
@@ -18,6 +19,8 @@ interface AlertsViewProps {
 }
 
 export default function AlertsView({ alerts, onSelectTab }: AlertsViewProps) {
+  const { t, tr } = useLanguage();
+
   return (
     <div className="space-y-6">
       <div className="glass-panel rounded-2xl p-6 border-emerald-500/25 bg-[#041a13]/70">
@@ -29,10 +32,10 @@ export default function AlertsView({ alerts, onSelectTab }: AlertsViewProps) {
           </div>
           <div>
             <h2 className="text-xl font-bold text-white tracking-tight">
-              Agronomic Signals & Early Warning Alerts
+              {t.alertsTitle}
             </h2>
             <p className="text-xs text-slate-400">
-              Live automated triggers from microclimate sensors, market price spikes, and buyer requests
+              {t.alertsSubtitle}
             </p>
           </div>
         </div>
@@ -71,7 +74,7 @@ export default function AlertsView({ alerts, onSelectTab }: AlertsViewProps) {
 
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h4 className="text-sm font-bold text-white">{alert.title}</h4>
+                  <h4 className="text-sm font-bold text-white">{tr(alert.title)}</h4>
                   <span
                     className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${
                       alert.severity === "urgent"
@@ -81,11 +84,11 @@ export default function AlertsView({ alerts, onSelectTab }: AlertsViewProps) {
                         : "bg-cyan-500/20 text-cyan-300"
                     }`}
                   >
-                    {alert.severity}
+                    {alert.severity === "urgent" ? t.highPriority : alert.severity === "warning" ? t.mediumPriority : t.lowPriority}
                   </span>
                 </div>
                 <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
-                  {alert.description}
+                  {tr(alert.description)}
                 </p>
                 <div className="text-[10px] text-slate-500 mt-2">{alert.timeAgo}</div>
               </div>
@@ -94,9 +97,9 @@ export default function AlertsView({ alerts, onSelectTab }: AlertsViewProps) {
             {alert.actionRoute && (
               <button
                 onClick={() => onSelectTab(alert.actionRoute)}
-                className="px-4 py-2 rounded-xl bg-black/40 hover:bg-black/60 border border-emerald-500/30 text-emerald-300 font-semibold text-xs flex items-center gap-1.5 shrink-0"
+                className="px-4 py-2 rounded-xl bg-black/40 hover:bg-black/60 border border-emerald-500/30 text-emerald-300 font-semibold text-xs flex items-center gap-1.5 shrink-0 cursor-pointer"
               >
-                <span>Take Action</span>
+                <span>{t.takeAction}</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </button>
             )}

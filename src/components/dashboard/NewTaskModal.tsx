@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { X, Plus, Calendar, CheckSquare } from "lucide-react";
 import { FarmTask } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface NewTaskModalProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface NewTaskModalProps {
 }
 
 export default function NewTaskModal({ isOpen, onClose, onAddTask }: NewTaskModalProps) {
+  const { t, tr } = useLanguage();
   const [title, setTitle] = useState("");
   const [fieldName, setFieldName] = useState("Field 3 - Tomato East Parcel");
   const [scheduledTime, setScheduledTime] = useState("Tomorrow at 09:00 AM");
@@ -54,15 +56,15 @@ export default function NewTaskModal({ isOpen, onClose, onAddTask }: NewTaskModa
             <CheckSquare className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white tracking-tight">Schedule Farm Task</h3>
-            <p className="text-xs text-slate-400">Add an operational activity to your field log</p>
+            <h3 className="text-lg font-bold text-white tracking-tight">{t.scheduleTaskTitle}</h3>
+            <p className="text-xs text-slate-400">{t.scheduleTaskSubtitle}</p>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3.5">
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1">
-              Task Title *
+              {t.taskTitle} *
             </label>
             <input
               type="text"
@@ -77,52 +79,40 @@ export default function NewTaskModal({ isOpen, onClose, onAddTask }: NewTaskModa
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Category
+                {t.category}
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as any)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#02100b] border border-emerald-500/25 text-white text-xs focus:outline-none focus:border-emerald-400"
               >
-                <option value="Irrigation">Irrigation</option>
-                <option value="Fertilizer">Fertilizer</option>
-                <option value="Pest Monitoring">Pest Monitoring</option>
-                <option value="Harvest Prep">Harvest Prep</option>
-                <option value="Logistics Pickup">Logistics Pickup</option>
+                <option value="Irrigation">{tr("Irrigation")}</option>
+                <option value="Fertilizer">{tr("Fertilizer")}</option>
+                <option value="Pest Monitoring">{tr("Pest Monitoring")}</option>
+                <option value="Harvest Prep">{tr("Harvest Prep")}</option>
+                <option value="Logistics Pickup">{tr("Logistics Pickup")}</option>
               </select>
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Priority
+                {t.priority}
               </label>
               <select
                 value={priority}
                 onChange={(e) => setPriority(e.target.value as any)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#02100b] border border-emerald-500/25 text-white text-xs focus:outline-none focus:border-emerald-400"
               >
-                <option value="High">High (Immediate)</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
+                <option value="High">{tr("High")}</option>
+                <option value="Medium">{tr("Medium")}</option>
+                <option value="Low">{tr("Low")}</option>
               </select>
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1">
-              Field / Parcel Target
-            </label>
-            <input
-              type="text"
-              value={fieldName}
-              onChange={(e) => setFieldName(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-emerald-500/25 text-white text-xs focus:outline-none focus:border-emerald-400"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1">
-              Scheduled Date & Time
+              {t.scheduledTime}
             </label>
             <input
               type="text"
@@ -134,13 +124,12 @@ export default function NewTaskModal({ isOpen, onClose, onAddTask }: NewTaskModa
 
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1">
-              Notes & Soil Parameters
+              {t.notes}
             </label>
             <textarea
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Operational details for field worker or autonomous sensor..."
               className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-emerald-500/25 text-white text-xs focus:outline-none focus:border-emerald-400"
             />
           </div>
@@ -151,14 +140,14 @@ export default function NewTaskModal({ isOpen, onClose, onAddTask }: NewTaskModa
               onClick={onClose}
               className="px-4 py-2 rounded-xl bg-black/40 border border-emerald-500/20 text-slate-300 hover:text-white text-xs font-semibold"
             >
-              Cancel
+              {t.cancel}
             </button>
             <button
               type="submit"
               className="px-5 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-bold text-xs flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
-              <span>Create Task</span>
+              <span>{t.createTask}</span>
             </button>
           </div>
         </form>

@@ -59,9 +59,11 @@ import {
   sampleAlerts,
 } from "@/services/mockData";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<DashboardTab>("overview");
-  const [language, setLanguage] = useState<SupportedLanguage>("en");
+  const { language, setLanguage, t, tr } = useLanguage();
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 

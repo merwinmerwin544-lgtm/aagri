@@ -23,8 +23,10 @@ import {
 } from "recharts";
 import { FoodLossScenario } from "@/types";
 import { sampleFoodLossScenarios } from "@/services/mockData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function FoodLossView() {
+  const { t, tr } = useLanguage();
   const [ambientTempC, setAmbientTempC] = useState(26);
   const [storageDays, setStorageDays] = useState(3);
   const [crateType, setCrateType] = useState<"ventilated" | "gunny">("ventilated");
@@ -33,7 +35,7 @@ export default function FoodLossView() {
   const calculateDynamicLoss = (days: number) => {
     let base = days * 1.1;
     if (ambientTempC > 28) base += (ambientTempC - 28) * 0.8;
-    if (crateType === "gunny") base *= 1.6; // gunny sacks trap heat & crush
+    if (crateType === "gunny") base *= 1.6;
     return Math.min(18, Math.max(1.8, parseFloat(base.toFixed(1))));
   };
 
@@ -43,10 +45,10 @@ export default function FoodLossView() {
 
   // Spoilage curve
   const curveData = [
-    { day: "Day 0 (Pick)", loss: 1.5 },
+    { day: "Day 0", loss: 1.5 },
     { day: "Day 1", loss: calculateDynamicLoss(1) },
     { day: "Day 2", loss: calculateDynamicLoss(2) },
-    { day: "Day 3 (Peak)", loss: calculateDynamicLoss(3) },
+    { day: "Day 3", loss: calculateDynamicLoss(3) },
     { day: "Day 4", loss: calculateDynamicLoss(4) },
     { day: "Day 5", loss: calculateDynamicLoss(5) },
     { day: "Day 6", loss: calculateDynamicLoss(6) },
@@ -66,110 +68,110 @@ export default function FoodLossView() {
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-bold text-white tracking-tight">
-                  Microclimate Food-Loss & Spoilage Prediction
+                  {t.foodLossTitle}
                 </h2>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300">
-                  Biological Decay Modeling
+                  {t.foodLoss}
                 </span>
               </div>
               <p className="text-xs text-slate-400">
-                Simulating post-harvest cellular respiration, moisture loss, and transit impact across holding windows
+                {t.foodLossSubtitle}
               </p>
             </div>
           </div>
 
           <span className="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30">
-            -65% Waste Mitigated
+            {t.safeWindow}
           </span>
         </div>
       </div>
 
-      {/* Comparison Cards (Prompt Section 11 Spec: Sell Today 2%, Wait 3 Days 4%, Wait 6 Days 9%) */}
+      {/* Comparison Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Sell Today */}
+        {/* Scenario A: Sell Today */}
         <div className="glass-card-interactive rounded-2xl p-5 border-emerald-500/20 bg-[#041913]/70">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-300">Scenario A</span>
+            <span className="text-xs font-bold text-slate-300">{t.today}</span>
             <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-300">
-              Low Decay
+              {t.lowPriority}
             </span>
           </div>
-          <div className="text-xl font-extrabold text-white mb-1">Sell Today</div>
-          <div className="text-3xl font-extrabold text-emerald-400 mb-2">2.0% Loss</div>
+          <div className="text-xl font-extrabold text-white mb-1">{t.today}</div>
+          <div className="text-3xl font-extrabold text-emerald-400 mb-2">2.0% {t.foodLoss}</div>
           <div className="space-y-1 text-xs text-slate-300 border-t border-emerald-500/15 pt-3">
             <div className="flex justify-between">
-              <span className="text-slate-400">Est. Quantity Lost:</span>
-              <span className="font-semibold text-white">0.076 tonnes</span>
+              <span className="text-slate-400">{t.projectedFoodLoss}:</span>
+              <span className="font-semibold text-white">0.076 {t.tonnes}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Holding Age:</span>
-              <span className="font-semibold text-white">0 days</span>
+              <span className="text-slate-400">{t.perishabilityWindow}:</span>
+              <span className="font-semibold text-white">0 {t.inDays}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Risk Profile:</span>
-              <span className="font-semibold text-emerald-400">Minimal (Safe)</span>
+              <span className="text-slate-400">{t.status}:</span>
+              <span className="font-semibold text-emerald-400">{t.goodLevel}</span>
             </div>
           </div>
         </div>
 
-        {/* Wait 3 Days */}
+        {/* Scenario B: Wait 3 Days (Optimal) */}
         <div className="glass-card-interactive rounded-2xl p-5 border-emerald-400 ring-2 ring-emerald-400/30 bg-[#05251b]/80 shadow-xl shadow-emerald-950">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-emerald-300">Scenario B (Optimal Window)</span>
+            <span className="text-xs font-bold text-emerald-300">{t.optimalWindow}</span>
             <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-400 text-black">
-              ★ Recommended
+              ★ {t.currentStrategy}
             </span>
           </div>
-          <div className="text-xl font-extrabold text-white mb-1">Wait 3 Days</div>
-          <div className="text-3xl font-extrabold text-emerald-300 mb-2">3.2% - 4.0% Loss</div>
+          <div className="text-xl font-extrabold text-white mb-1">3 {t.inDays}</div>
+          <div className="text-3xl font-extrabold text-emerald-300 mb-2">3.2% - 4.0% {t.foodLoss}</div>
           <div className="space-y-1 text-xs text-slate-300 border-t border-emerald-500/20 pt-3">
             <div className="flex justify-between">
-              <span className="text-slate-300">Est. Quantity Lost:</span>
-              <span className="font-semibold text-white">0.122 tonnes</span>
+              <span className="text-slate-300">{t.projectedFoodLoss}:</span>
+              <span className="font-semibold text-white">0.122 {t.tonnes}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-300">Holding Age:</span>
-              <span className="font-semibold text-white">3 days (Shaded Crate)</span>
+              <span className="text-slate-300">{t.perishabilityWindow}:</span>
+              <span className="font-semibold text-white">3 {t.inDays}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-300">Net Verdict:</span>
-              <span className="font-semibold text-emerald-300">₹11.3k Profit Over Loss</span>
+              <span className="text-slate-300">{t.roiImpact}:</span>
+              <span className="font-semibold text-emerald-300">+₹11,300</span>
             </div>
           </div>
         </div>
 
-        {/* Wait 6 Days */}
+        {/* Scenario C: Wait 6 Days */}
         <div className="glass-card-interactive rounded-2xl p-5 border-emerald-500/20 bg-[#041913]/70">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold text-slate-300">Scenario C</span>
+            <span className="text-xs font-bold text-slate-300">{t.criticalWindow}</span>
             <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-rose-500/20 text-rose-300">
-              High Spoilage
+              {t.highPriority}
             </span>
           </div>
-          <div className="text-xl font-extrabold text-white mb-1">Wait 6 Days</div>
-          <div className="text-3xl font-extrabold text-rose-400 mb-2">9.0% Loss</div>
+          <div className="text-xl font-extrabold text-white mb-1">6 {t.inDays}</div>
+          <div className="text-3xl font-extrabold text-rose-400 mb-2">9.0% {t.foodLoss}</div>
           <div className="space-y-1 text-xs text-slate-300 border-t border-emerald-500/15 pt-3">
             <div className="flex justify-between">
-              <span className="text-slate-400">Est. Quantity Lost:</span>
-              <span className="font-semibold text-white">0.342 tonnes</span>
+              <span className="text-slate-400">{t.projectedFoodLoss}:</span>
+              <span className="font-semibold text-white">0.342 {t.tonnes}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Holding Age:</span>
-              <span className="font-semibold text-white">6 days</span>
+              <span className="text-slate-400">{t.perishabilityWindow}:</span>
+              <span className="font-semibold text-white">6 {t.inDays}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-400">Risk Profile:</span>
-              <span className="font-semibold text-rose-400">Severe Breakdown</span>
+              <span className="text-slate-400">{t.status}:</span>
+              <span className="font-semibold text-rose-400">{t.poor}</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Interactive Microclimate Sliders & Custom Simulation Controls */}
+      {/* Interactive Microclimate Sliders */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-5 glass-panel rounded-2xl p-6 border-emerald-500/20 bg-[#041a13]/70 space-y-5">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white">Microclimate Simulation Controls</h3>
+            <h3 className="text-sm font-bold text-white">{t.whatIfTitle}</h3>
             <Sliders className="w-4 h-4 text-emerald-400" />
           </div>
 
@@ -178,7 +180,7 @@ export default function FoodLossView() {
             <div className="flex justify-between text-xs mb-1">
               <span className="text-slate-300 flex items-center gap-1">
                 <Thermometer className="w-3.5 h-3.5 text-amber-400" />
-                <span>Ambient Storage Temperature:</span>
+                <span>{t.weather}:</span>
               </span>
               <span className="font-bold text-white">{ambientTempC}°C</span>
             </div>
@@ -190,11 +192,6 @@ export default function FoodLossView() {
               onChange={(e) => setAmbientTempC(parseInt(e.target.value))}
               className="w-full accent-emerald-400 cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-500 mt-1">
-              <span>18°C (Cold)</span>
-              <span>28°C (Threshold)</span>
-              <span>36°C (Extreme)</span>
-            </div>
           </div>
 
           {/* Storage Duration Slider */}
@@ -202,9 +199,9 @@ export default function FoodLossView() {
             <div className="flex justify-between text-xs mb-1">
               <span className="text-slate-300 flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Planned Holding Duration:</span>
+                <span>{t.perishabilityWindow}:</span>
               </span>
-              <span className="font-bold text-white">{storageDays} Days</span>
+              <span className="font-bold text-white">{storageDays} {t.inDays}</span>
             </div>
             <input
               type="range"
@@ -214,17 +211,12 @@ export default function FoodLossView() {
               onChange={(e) => setStorageDays(parseInt(e.target.value))}
               className="w-full accent-cyan-400 cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-500 mt-1">
-              <span>0 Days (Today)</span>
-              <span>3 Days (Optimal)</span>
-              <span>7 Days</span>
-            </div>
           </div>
 
           {/* Packaging Type */}
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-              Handling & Stacking Vessel:
+              {t.storageCondition}:
             </label>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <button
@@ -236,8 +228,8 @@ export default function FoodLossView() {
                     : "bg-black/30 border-slate-700 text-slate-400"
                 }`}
               >
-                <div>Plastic Crates</div>
-                <div className="text-[10px] text-emerald-400 font-normal">Ventilated (-45% crush)</div>
+                <div>{t.coldChainStorage}</div>
+                <div className="text-[10px] text-emerald-400 font-normal">{t.good}</div>
               </button>
               <button
                 type="button"
@@ -248,8 +240,8 @@ export default function FoodLossView() {
                     : "bg-black/30 border-slate-700 text-slate-400"
                 }`}
               >
-                <div>Jute / Gunny Sack</div>
-                <div className="text-[10px] text-amber-400 font-normal">Heat trapped (+60% loss)</div>
+                <div>{t.ambientStorage}</div>
+                <div className="text-[10px] text-amber-400 font-normal">{t.average}</div>
               </button>
             </div>
           </div>
@@ -257,22 +249,22 @@ export default function FoodLossView() {
           {/* Dynamic Result Box */}
           <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/25">
             <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-1">
-              DYNAMIC SCENARIO RESULT
+              {t.simulatedOutcome}
             </div>
             <div className="text-2xl font-extrabold text-white mb-1">
-              {dynamicLossPct}% Expected Spoilage
+              {dynamicLossPct}% {t.foodLoss}
             </div>
             <div className="text-xs text-slate-300">
-              Loss of ~{dynamicLossQty} tonnes (~₹{dynamicLossValue.toLocaleString()} value) over {storageDays} days at {ambientTempC}°C.
+              ~{dynamicLossQty} {t.tonnes} (~₹{dynamicLossValue.toLocaleString()}) {t.perishabilityWindow}: {storageDays} {t.inDays} @ {ambientTempC}°C.
             </div>
           </div>
         </div>
 
         {/* Spoilage Progression Curve */}
         <div className="lg:col-span-7 glass-panel rounded-2xl p-6 border-emerald-500/20 bg-[#041a13]/70">
-          <h3 className="text-sm font-bold text-white mb-1">Biological Spoilage vs Holding Days</h3>
+          <h3 className="text-sm font-bold text-white mb-1">{t.spoilageCurve}</h3>
           <p className="text-xs text-slate-400 mb-4">
-            Curvature shows non-linear acceleration past Day 4 under {ambientTempC}°C ambient heat
+            {t.foodLossSubtitle}
           </p>
 
           <div className="w-full h-64">
@@ -292,7 +284,7 @@ export default function FoodLossView() {
                 <Line
                   type="monotone"
                   dataKey="loss"
-                  name="Expected Spoilage Loss"
+                  name={t.foodLoss}
                   stroke="#10b981"
                   strokeWidth={3}
                   dot={{ r: 4, fill: "#10b981" }}
@@ -303,9 +295,7 @@ export default function FoodLossView() {
 
           <div className="mt-4 pt-3 border-t border-emerald-500/15 text-xs text-slate-400 flex items-center gap-2">
             <Info className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>
-              Recommendation: Discharging before Day 4 ensures spoilage remains bounded below 4%, preserving maximum Grade A certification.
-            </span>
+            <span>{t.lossMitigationChecklist}</span>
           </div>
         </div>
       </div>

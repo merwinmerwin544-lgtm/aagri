@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { X, Tractor, Save, CheckCircle2 } from "lucide-react";
 import { FarmerProfile, CropType, CropQualityGrade } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface EditFarmModalProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ export default function EditFarmModal({
   profile,
   onSave,
 }: EditFarmModalProps) {
+  const { t, tr } = useLanguage();
   const [formData, setFormData] = useState({
     farmerName: profile.farmerName,
     farmName: profile.farmName,
@@ -61,10 +63,10 @@ export default function EditFarmModal({
           </div>
           <div>
             <h3 className="text-xl font-bold text-white tracking-tight">
-              Edit Farm Profile & Crop Input Layer
+              {t.editFarmTitle}
             </h3>
             <p className="text-xs text-slate-400">
-              Update crop telemetry parameters. Changes dynamically update all dashboard intelligence.
+              {t.editFarmSubtitle}
             </p>
           </div>
         </div>
@@ -73,7 +75,7 @@ export default function EditFarmModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Farmer Name
+                {t.farmerNameLabel}
               </label>
               <input
                 type="text"
@@ -86,7 +88,7 @@ export default function EditFarmModal({
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Farm Holding
+                {t.farmNameLabel}
               </label>
               <input
                 type="text"
@@ -101,25 +103,25 @@ export default function EditFarmModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Crop Type
+                {t.cropTypeLabel}
               </label>
               <select
                 value={formData.cropType}
                 onChange={(e) => setFormData({ ...formData, cropType: e.target.value as CropType })}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#02100b] border border-emerald-500/25 text-white text-xs focus:outline-none focus:border-emerald-400"
               >
-                <option value="Tomato">Tomato (Pusa Ruby Hybrid)</option>
-                <option value="Wheat">Wheat (Sharbati Gold)</option>
-                <option value="Corn">Corn / Maize</option>
-                <option value="Soybean">Soybean (JS-335)</option>
-                <option value="Chilli">Guntur Chilli</option>
-                <option value="Barley">Barley</option>
+                <option value="Tomato">{tr("Tomato")}</option>
+                <option value="Wheat">{tr("Wheat")}</option>
+                <option value="Corn">{tr("Corn")}</option>
+                <option value="Soybean">{tr("Soybean")}</option>
+                <option value="Chilli">{tr("Chilli")}</option>
+                <option value="Barley">{tr("Barley")}</option>
               </select>
             </div>
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Quality Grade Spec
+                {t.qualityGradeReq}
               </label>
               <select
                 value={formData.qualityGrade}
@@ -128,10 +130,10 @@ export default function EditFarmModal({
                 }
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#02100b] border border-emerald-500/25 text-white text-xs focus:outline-none focus:border-emerald-400"
               >
-                <option value="Grade A">Grade A (Firm, Unblemished, Export/Retail)</option>
-                <option value="Grade B">Grade B (Commercial Processing / Puree)</option>
-                <option value="Grade C">Grade C (Standard Mandi Feed)</option>
-                <option value="Export Grade">Export Grade (Global GAP)</option>
+                <option value="Grade A">Grade A</option>
+                <option value="Grade B">Grade B</option>
+                <option value="Grade C">Grade C</option>
+                <option value="Export Grade">Export Grade</option>
               </select>
             </div>
           </div>
@@ -139,7 +141,7 @@ export default function EditFarmModal({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Farm Size (Acres)
+                {t.farmSizeLabel}
               </label>
               <input
                 type="number"
@@ -154,7 +156,7 @@ export default function EditFarmModal({
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Expected Yield (Tonnes)
+                {t.expectedYield} ({t.tonnes})
               </label>
               <input
                 type="number"
@@ -169,7 +171,7 @@ export default function EditFarmModal({
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Estimated Harvest (Days)
+                {t.harvestWindow} ({t.inDays})
               </label>
               <input
                 type="number"
@@ -185,7 +187,7 @@ export default function EditFarmModal({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Storage Availability (Days)
+                {t.perishabilityWindow} ({t.inDays})
               </label>
               <input
                 type="number"
@@ -199,24 +201,24 @@ export default function EditFarmModal({
 
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Storage Infrastructure
+                {t.storageTypeLabel}
               </label>
               <select
                 value={formData.storageType}
                 onChange={(e) => setFormData({ ...formData, storageType: e.target.value as any })}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-[#02100b] border border-emerald-500/25 text-white text-xs focus:outline-none focus:border-emerald-400"
               >
-                <option value="Ventilated Warehouse">Ventilated Warehouse</option>
-                <option value="Cold Storage">Cold Storage (Controlled Atmosphere)</option>
-                <option value="Ambient Shed">Ambient Shed (Shaded Crate Holding)</option>
-                <option value="None">None (Direct Field-Side Dispatch)</option>
+                <option value="Ventilated Warehouse">{tr("Ventilated Warehouse")}</option>
+                <option value="Cold Storage">{tr("Cold Storage")}</option>
+                <option value="Ambient Shed">{tr("Ambient Shed")}</option>
+                <option value="None">{tr("None")}</option>
               </select>
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1">
-              Farm Location & Region
+              {t.turkeyLocation}
             </label>
             <input
               type="text"
@@ -229,7 +231,7 @@ export default function EditFarmModal({
           {savedSuccess && (
             <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
-              <span>Farm parameters updated and saved to local state!</span>
+              <span>{t.settingsSaved}</span>
             </div>
           )}
 
@@ -239,14 +241,14 @@ export default function EditFarmModal({
               onClick={onClose}
               className="px-4 py-2.5 rounded-xl bg-black/40 border border-emerald-500/20 text-slate-300 hover:text-white text-xs font-semibold"
             >
-              Cancel
+              {t.cancel}
             </button>
             <button
               type="submit"
               className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 text-black font-bold text-xs hover:shadow-lg hover:shadow-emerald-400/25 flex items-center gap-1.5 cursor-pointer"
             >
               <Save className="w-4 h-4" />
-              <span>Save Farm Changes</span>
+              <span>{t.saveChanges}</span>
             </button>
           </div>
         </form>

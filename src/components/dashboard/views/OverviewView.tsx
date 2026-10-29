@@ -39,6 +39,7 @@ import {
   WeatherCondition,
   FarmTask,
 } from "@/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface OverviewViewProps {
   profile: FarmerProfile;
@@ -73,16 +74,18 @@ export default function OverviewView({
   onOpenEditProfile,
   onOpenNewTask,
 }: OverviewViewProps) {
-  // Crop distribution doughnut data matching reference screenshot
+  const { t, tr, language } = useLanguage();
+
+  // Crop distribution doughnut data with localized names
   const cropDistData = [
-    { name: "Wheat", area: 45.2, percent: 36, color: "#E6C779" },
-    { name: "Corn", area: 32.8, percent: 26, color: "#A8D86D" },
-    { name: "Soybean", area: 25.6, percent: 20, color: "#267A45" },
-    { name: "Barley", area: 12.5, percent: 10, color: "#B8CCAE" },
-    { name: "Other", area: 9.5, percent: 8, color: "#165036" },
+    { name: tr("Wheat"), area: 45.2, percent: 36, color: "#E6C779" },
+    { name: tr("Corn"), area: 32.8, percent: 26, color: "#A8D86D" },
+    { name: tr("Soybean"), area: 25.6, percent: 20, color: "#267A45" },
+    { name: tr("Barley"), area: 12.5, percent: 10, color: "#B8CCAE" },
+    { name: tr("Other"), area: 9.5, percent: 8, color: "#165036" },
   ];
 
-  // Soil moisture trend line data matching reference screenshot (dates Jun 14 to Jun 26)
+  // Soil moisture trend line data
   const soilMoistureData = [
     { date: "Jun 14", actual: 68, forecast: 68 },
     { date: "Jun 16", actual: 60, forecast: 60 },
@@ -96,28 +99,28 @@ export default function OverviewView({
   return (
     <div className="space-y-4">
       {/* =========================================================================
-          1. WELCOME SECTION (Exactly matching Reference Screenshot)
+          1. WELCOME SECTION (Dynamic localization)
           ========================================================================= */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-[#F4F7EF] tracking-tight flex items-center gap-2">
-            <span>Welcome back, {profile.farmerName?.split(" ")[0] || "Arman"} 👋</span>
+            <span>
+              {t.welcomeBack}, {profile.farmerName?.split(" ")[0] || "Arman"} 👋
+            </span>
           </h1>
-          <p className="text-xs text-[#B8CCAE] mt-0.5">
-            Here&apos;s what&apos;s happening on your farm today.
-          </p>
+          <p className="text-xs text-[#B8CCAE] mt-0.5">{t.farmStatusToday}</p>
         </div>
 
-        {/* Date Selector matching reference screenshot */}
+        {/* Date Selector */}
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl glass-panel-agri text-xs text-[#F4F7EF] border border-[#E1F5DC]/16 shadow-sm cursor-pointer">
           <Calendar className="w-3.5 h-3.5 text-[#A8D86D]" />
-          <span className="font-medium">Jun 20 - Jun 26, 2024</span>
+          <span className="font-medium">{t.dateRange}</span>
           <ChevronDown className="w-3.5 h-3.5 text-[#B8CCAE]" />
         </div>
       </div>
 
       {/* =========================================================================
-          2. TOP 4 METRIC CARDS (Exactly matching Reference Screenshot)
+          2. TOP 4 METRIC CARDS
           ========================================================================= */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {/* Total Fields */}
@@ -126,17 +129,17 @@ export default function OverviewView({
             <div className="w-6 h-6 rounded-lg bg-[#123D2B] flex items-center justify-center text-[#A8D86D]">
               <Sprout className="w-3.5 h-3.5" />
             </div>
-            <span className="text-[11px] font-medium text-[#B8CCAE]">Total Fields</span>
+            <span className="text-[11px] font-medium text-[#B8CCAE]">{t.totalFields}</span>
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-[#F4F7EF] mb-1">24</div>
           <div className="text-[10px] text-[#B8CCAE] flex items-center gap-2">
             <span className="flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A8D86D]" />
-              <strong className="text-[#F4F7EF]">14</strong> Active
+              <strong className="text-[#F4F7EF]">14</strong> {t.activeFields}
             </span>
             <span className="flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-slate-500" />
-              <strong className="text-[#F4F7EF]">10</strong> Inactive
+              <strong className="text-[#F4F7EF]">10</strong> {t.inactiveFields}
             </span>
           </div>
         </div>
@@ -147,12 +150,12 @@ export default function OverviewView({
             <div className="w-6 h-6 rounded-lg bg-[#123D2B] flex items-center justify-center text-[#A8D86D]">
               <Layers className="w-3.5 h-3.5" />
             </div>
-            <span className="text-[11px] font-medium text-[#B8CCAE]">Total Area</span>
+            <span className="text-[11px] font-medium text-[#B8CCAE]">{t.totalArea}</span>
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-[#F4F7EF] mb-1">125.6 ha</div>
           <div className="text-[10px] text-[#A8D86D] flex items-center gap-1">
             <ArrowUpRight className="w-3 h-3" />
-            <span>8.4 ha this month</span>
+            <span>{t.areaGrowthMonth}</span>
           </div>
         </div>
 
@@ -162,11 +165,11 @@ export default function OverviewView({
             <div className="w-6 h-6 rounded-lg bg-[#123D2B] flex items-center justify-center text-[#A8D86D]">
               <Wheat className="w-3.5 h-3.5" />
             </div>
-            <span className="text-[11px] font-medium text-[#B8CCAE]">Crops Growing</span>
+            <span className="text-[11px] font-medium text-[#B8CCAE]">{t.cropsGrowing}</span>
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-[#F4F7EF] mb-1">6</div>
           <div className="text-[10px] text-[#B8CCAE] truncate">
-            Wheat, Corn, Soybean...
+            {t.cropSampleList}
           </div>
         </div>
 
@@ -176,13 +179,13 @@ export default function OverviewView({
             <div className="w-6 h-6 rounded-lg bg-[#123D2B] flex items-center justify-center text-[#A8D86D]">
               <Activity className="w-3.5 h-3.5" />
             </div>
-            <span className="text-[11px] font-medium text-[#B8CCAE]">AI Health Score</span>
+            <span className="text-[11px] font-medium text-[#B8CCAE]">{t.aiHealthScore}</span>
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-[#F4F7EF] mb-1 flex items-baseline gap-1">
             <span>86</span>
             <span className="text-xs text-[#B8CCAE] font-normal">/100</span>
           </div>
-          <div className="text-[10px] text-[#A8D86D] font-medium">Good</div>
+          <div className="text-[10px] text-[#A8D86D] font-medium">{t.healthStatusGood}</div>
         </div>
       </div>
 
@@ -193,8 +196,8 @@ export default function OverviewView({
         {/* Left: Field Health Overview */}
         <div className="lg:col-span-3 glass-card-agri rounded-2xl p-4 border border-[#E1F5DC]/16 flex flex-col justify-between">
           <div>
-            <h3 className="text-xs font-bold text-[#F4F7EF]">Field Health Overview</h3>
-            <p className="text-[10px] text-[#B8CCAE] mb-3">AI-powered vegetation & soil analysis</p>
+            <h3 className="text-xs font-bold text-[#F4F7EF]">{t.fieldHealthOverview}</h3>
+            <p className="text-[10px] text-[#B8CCAE] mb-3">{t.aiPoweredAnalysis}</p>
 
             {/* Circular Progress Gauge */}
             <div className="relative w-28 h-28 mx-auto my-2 flex items-center justify-center">
@@ -221,37 +224,37 @@ export default function OverviewView({
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
                 <span className="text-2xl font-extrabold text-[#F4F7EF] leading-none">86</span>
-                <span className="text-[9px] text-[#A8D86D] font-bold mt-0.5">Good</span>
+                <span className="text-[9px] text-[#A8D86D] font-bold mt-0.5">{t.healthStatusGood}</span>
               </div>
             </div>
 
-            {/* Breakdown List (Matching Reference Image) */}
+            {/* Breakdown List */}
             <div className="space-y-1.5 text-xs mt-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[#A8D86D]" />
-                  <span className="text-[#B8CCAE] text-[11px]">Excellent</span>
+                  <span className="text-[#B8CCAE] text-[11px]">{t.excellent}</span>
                 </div>
                 <span className="font-bold text-[#F4F7EF] text-[11px]">35%</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[#267A45]" />
-                  <span className="text-[#B8CCAE] text-[11px]">Good</span>
+                  <span className="text-[#B8CCAE] text-[11px]">{t.good}</span>
                 </div>
                 <span className="font-bold text-[#F4F7EF] text-[11px]">40%</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[#E6C779]" />
-                  <span className="text-[#B8CCAE] text-[11px]">Average</span>
+                  <span className="text-[#B8CCAE] text-[11px]">{t.average}</span>
                 </div>
                 <span className="font-bold text-[#F4F7EF] text-[11px]">15%</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-[#E06A55]" />
-                  <span className="text-[#B8CCAE] text-[11px]">Poor</span>
+                  <span className="text-[#B8CCAE] text-[11px]">{t.poor}</span>
                 </div>
                 <span className="font-bold text-[#F4F7EF] text-[11px]">10%</span>
               </div>
@@ -260,22 +263,21 @@ export default function OverviewView({
 
           <div className="mt-3 pt-2 border-t border-[#E1F5DC]/10 text-[10px] text-[#A8D86D] flex items-center gap-1">
             <ArrowUpRight className="w-3 h-3" />
-            <span>12% improvement from last week</span>
+            <span>{t.weeklyImprovement}</span>
           </div>
         </div>
 
-        {/* Center: Interactive Aerial Farmland Field Section (Matching Screenshot) */}
+        {/* Center: Interactive Aerial Farmland Field Section */}
         <div className="lg:col-span-5 relative rounded-2xl overflow-hidden border border-[#E1F5DC]/16 min-h-[250px] flex flex-col justify-between p-4 group">
-          {/* Background image showing through */}
+          {/* Background image */}
           <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
             style={{ backgroundImage: "url('/images/farmland_bg.jpg')" }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#09271B]/80 via-transparent to-[#09271B]/40" />
 
-          {/* Glowing Green Neon Field Polygon Boundary matching screenshot */}
+          {/* Glowing Green Neon Field Polygon Boundary */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 250">
-            {/* Glowing field outline */}
             <polygon
               points="190,130 260,120 250,170 170,185"
               fill="rgba(168, 216, 109, 0.12)"
@@ -300,19 +302,19 @@ export default function OverviewView({
           {/* Top Label */}
           <div className="relative z-10 flex items-center justify-between">
             <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#123D2B]/85 text-[#F4F7EF] border border-[#E1F5DC]/20 backdrop-blur-md">
-              Satellite Telemetry • Sentinel-2
+              {t.satelliteTelemetry}
             </span>
           </div>
 
-          {/* Interactive Floating Card in Bottom Right matching screenshot ("Geork Field") */}
+          {/* Interactive Floating Card in Bottom Right */}
           <div className="relative z-10 self-end glass-panel-agri rounded-xl p-3 border border-[#E1F5DC]/25 max-w-[200px] shadow-xl backdrop-blur-md">
             <div className="flex items-center justify-between text-xs font-bold text-[#F4F7EF] mb-0.5">
-              <span>Geork Field</span>
+              <span>{t.georkField}</span>
               <span>&gt;</span>
             </div>
-            <div className="text-[10px] text-[#B8CCAE] mb-1">Wheat • 2.0 ha</div>
+            <div className="text-[10px] text-[#B8CCAE] mb-1">{t.wheatCrop}</div>
             <div className="text-[10px] text-[#A8D86D] font-bold flex items-center justify-between">
-              <span>Health Score: 92</span>
+              <span>{t.healthScoreText}</span>
               <span>&gt;</span>
             </div>
           </div>
@@ -320,14 +322,14 @@ export default function OverviewView({
 
         {/* Right Stack: Weather Today & Soil Health Summary */}
         <div className="lg:col-span-4 flex flex-col gap-3">
-          {/* Weather Today Card (Matching Screenshot) */}
+          {/* Weather Today Card */}
           <div className="glass-card-agri rounded-2xl p-4 border border-[#E1F5DC]/16">
             <div className="flex items-start justify-between mb-2">
               <div>
-                <h3 className="text-xs font-bold text-[#F4F7EF]">Weather Today</h3>
+                <h3 className="text-xs font-bold text-[#F4F7EF]">{t.weatherToday}</h3>
                 <div className="text-[10px] text-[#B8CCAE] flex items-center gap-1">
                   <MapPin className="w-2.5 h-2.5 text-[#A8D86D]" />
-                  <span>Mamasinan, Turkey</span>
+                  <span>{t.turkeyLocation}</span>
                 </div>
               </div>
 
@@ -337,20 +339,20 @@ export default function OverviewView({
 
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-3xl font-extrabold text-[#F4F7EF]">22°C</span>
-              <span className="text-xs text-[#B8CCAE]">Partly Cloudy</span>
+              <span className="text-xs text-[#B8CCAE]">{t.partlyCloudy}</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 text-[10px] mb-3 text-[#B8CCAE] border-y border-[#E1F5DC]/10 py-1.5">
               <div>
-                <span>Humidity</span>
+                <span>{t.humidity}</span>
                 <div className="font-bold text-[#F4F7EF]">48%</div>
               </div>
               <div>
-                <span>Wind</span>
+                <span>{t.wind}</span>
                 <div className="font-bold text-[#F4F7EF]">9 km/h</div>
               </div>
               <div>
-                <span>Rain</span>
+                <span>{t.rain}</span>
                 <div className="font-bold text-[#A8D86D]">10%</div>
               </div>
             </div>
@@ -358,48 +360,48 @@ export default function OverviewView({
             {/* 5-Day Mini Forecast */}
             <div className="grid grid-cols-5 gap-1 text-center text-[10px]">
               <div>
-                <div className="text-[#B8CCAE]">Sun</div>
+                <div className="text-[#B8CCAE]">{tr("Sun")}</div>
                 <CloudSun className="w-3.5 h-3.5 text-[#E6C779] mx-auto my-0.5" />
                 <div className="text-[#F4F7EF] font-bold">21°/14°</div>
               </div>
               <div>
-                <div className="text-[#A8D86D] font-bold">Mon</div>
+                <div className="text-[#A8D86D] font-bold">{tr("Mon")}</div>
                 <CloudSun className="w-3.5 h-3.5 text-[#A8D86D] mx-auto my-0.5" />
                 <div className="text-[#F4F7EF] font-bold">22°/15°</div>
               </div>
               <div>
-                <div className="text-[#B8CCAE]">Tue</div>
+                <div className="text-[#B8CCAE]">{tr("Tue")}</div>
                 <CloudSun className="w-3.5 h-3.5 text-[#E6C779] mx-auto my-0.5" />
                 <div className="text-[#F4F7EF] font-bold">24°/16°</div>
               </div>
               <div>
-                <div className="text-[#B8CCAE]">Wed</div>
+                <div className="text-[#B8CCAE]">{tr("Wed")}</div>
                 <CloudSun className="w-3.5 h-3.5 text-[#B8CCAE] mx-auto my-0.5" />
                 <div className="text-[#F4F7EF] font-bold">23°/15°</div>
               </div>
               <div>
-                <div className="text-[#B8CCAE]">Thu</div>
+                <div className="text-[#B8CCAE]">{tr("Thu")}</div>
                 <CloudSun className="w-3.5 h-3.5 text-[#E6C779] mx-auto my-0.5" />
                 <div className="text-[#F4F7EF] font-bold">25°/17°</div>
               </div>
             </div>
           </div>
 
-          {/* Soil Health Summary Card (Matching Screenshot) */}
+          {/* Soil Health Summary Card */}
           <div className="glass-card-agri rounded-2xl p-4 border border-[#E1F5DC]/16 flex-1 flex flex-col justify-between">
             <div>
-              <h3 className="text-xs font-bold text-[#F4F7EF]">Soil Health Summary</h3>
-              <p className="text-[10px] text-[#B8CCAE] mb-3">Average across all fields</p>
+              <h3 className="text-xs font-bold text-[#F4F7EF]">{t.soilHealthSummary}</h3>
+              <p className="text-[10px] text-[#B8CCAE] mb-3">{t.averageAcrossFields}</p>
 
-              {/* NPK Pills matching screenshot */}
+              {/* NPK Pills */}
               <div className="grid grid-cols-3 gap-2 mb-3">
                 <div className="p-2 rounded-xl bg-[#09271B]/80 border border-[#E1F5DC]/10 flex items-center gap-2">
                   <div className="w-5 h-5 rounded-full bg-[#123D2B] text-[#A8D86D] text-[10px] font-bold flex items-center justify-center shrink-0">
                     N
                   </div>
                   <div>
-                    <span className="text-[9px] text-[#B8CCAE] block">Nitrogen</span>
-                    <span className="text-[10px] font-bold text-[#F4F7EF]">Medium</span>
+                    <span className="text-[9px] text-[#B8CCAE] block">{t.nitrogen}</span>
+                    <span className="text-[10px] font-bold text-[#F4F7EF]">{t.medium}</span>
                   </div>
                 </div>
 
@@ -408,8 +410,8 @@ export default function OverviewView({
                     P
                   </div>
                   <div>
-                    <span className="text-[9px] text-[#B8CCAE] block">Phosphorus</span>
-                    <span className="text-[10px] font-bold text-[#A8D86D]">High</span>
+                    <span className="text-[9px] text-[#B8CCAE] block">{t.phosphorus}</span>
+                    <span className="text-[10px] font-bold text-[#A8D86D]">{t.high}</span>
                   </div>
                 </div>
 
@@ -418,8 +420,8 @@ export default function OverviewView({
                     K
                   </div>
                   <div>
-                    <span className="text-[9px] text-[#B8CCAE] block">Potassium</span>
-                    <span className="text-[10px] font-bold text-[#F4F7EF]">Medium</span>
+                    <span className="text-[9px] text-[#B8CCAE] block">{t.potassium}</span>
+                    <span className="text-[10px] font-bold text-[#F4F7EF]">{t.medium}</span>
                   </div>
                 </div>
               </div>
@@ -427,13 +429,13 @@ export default function OverviewView({
               {/* Soil Organic Matter Progress Bar */}
               <div>
                 <div className="flex justify-between text-[11px] mb-1">
-                  <span className="text-[#B8CCAE]">Soil Organic Matter</span>
+                  <span className="text-[#B8CCAE]">{t.soilOrganicMatter}</span>
                   <span className="font-bold text-[#F4F7EF]">2.8%</span>
                 </div>
                 <div className="w-full bg-[#09271B] rounded-full h-2 overflow-hidden border border-[#E1F5DC]/10">
                   <div className="bg-gradient-to-r from-[#267A45] to-[#A8D86D] h-2 rounded-full w-[65%]" />
                 </div>
-                <div className="text-[10px] text-[#A8D86D] font-medium mt-1">Good level</div>
+                <div className="text-[10px] text-[#A8D86D] font-medium mt-1">{t.goodLevel}</div>
               </div>
             </div>
           </div>
@@ -441,14 +443,14 @@ export default function OverviewView({
       </div>
 
       {/* =========================================================================
-          4. BOTTOM ROW: Upcoming Tasks + Soil Moisture Trend + Crop Distribution (Matching Screenshot)
+          4. BOTTOM ROW: Upcoming Tasks + Soil Moisture Trend + Crop Distribution
           ========================================================================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
         {/* Card 1 (Left): Upcoming Tasks */}
         <div className="lg:col-span-4 glass-card-agri rounded-2xl p-4 border border-[#E1F5DC]/16 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-bold text-[#F4F7EF]">Upcoming Tasks</h3>
+              <h3 className="text-xs font-bold text-[#F4F7EF]">{t.upcomingTasks}</h3>
             </div>
 
             <div className="space-y-2">
@@ -472,16 +474,18 @@ export default function OverviewView({
                           task.status === "Completed" ? "line-through text-slate-500" : "text-[#F4F7EF]"
                         }`}
                       >
-                        {task.title}
+                        {tr(task.title)}
                       </div>
                       <div className="text-[10px] text-[#B8CCAE]">{task.fieldName}</div>
                     </div>
                   </div>
 
                   <div className="text-right shrink-0">
-                    <span className="text-[10px] text-[#B8CCAE] block">{task.scheduledTime.split("at")[0]}</span>
+                    <span className="text-[10px] text-[#B8CCAE] block">
+                      {tr(task.scheduledTime.split("at")[0])}
+                    </span>
                     <span className="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-[#A8D86D]/15 text-[#A8D86D]">
-                      {task.status === "Completed" ? "Done" : "Upcoming"}
+                      {task.status === "Completed" ? t.doneBadge : t.upcomingBadge}
                     </span>
                   </div>
                 </div>
@@ -493,7 +497,7 @@ export default function OverviewView({
             onClick={onOpenNewTask}
             className="w-full mt-3 py-1.5 text-center text-xs font-semibold text-[#A8D86D] hover:text-[#F4F7EF] border-t border-[#E1F5DC]/10 transition-colors cursor-pointer"
           >
-            View All Tasks
+            {t.viewAllTasks}
           </button>
         </div>
 
@@ -501,7 +505,7 @@ export default function OverviewView({
         <div className="lg:col-span-4 glass-card-agri rounded-2xl p-4 border border-[#E1F5DC]/16 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xs font-bold text-[#F4F7EF]">Soil Moisture Trend</h3>
+              <h3 className="text-xs font-bold text-[#F4F7EF]">{t.soilMoistureTrend}</h3>
               <span className="text-[10px] text-[#B8CCAE]">%</span>
             </div>
 
@@ -543,10 +547,10 @@ export default function OverviewView({
 
           <div className="flex items-center justify-center gap-4 text-[10px] text-[#B8CCAE] pt-2 border-t border-[#E1F5DC]/10">
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-0.5 bg-[#A8D86D]" /> Actual
+              <span className="w-2.5 h-0.5 bg-[#A8D86D]" /> {t.actualMoisture}
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-2.5 h-0.5 border-t border-dotted border-[#A8D86D]" /> Forecast
+              <span className="w-2.5 h-0.5 border-t border-dotted border-[#A8D86D]" /> {t.forecastMoisture}
             </span>
           </div>
         </div>
@@ -555,8 +559,8 @@ export default function OverviewView({
         <div className="lg:col-span-4 glass-card-agri rounded-2xl p-4 border border-[#E1F5DC]/16 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xs font-bold text-[#F4F7EF]">Crop Distribution</h3>
-              <span className="text-[10px] text-[#B8CCAE]">By Area</span>
+              <h3 className="text-xs font-bold text-[#F4F7EF]">{t.cropDistribution}</h3>
+              <span className="text-[10px] text-[#B8CCAE]">{t.byArea}</span>
             </div>
 
             <div className="grid grid-cols-12 gap-2 items-center">
@@ -581,11 +585,11 @@ export default function OverviewView({
                 </ResponsiveContainer>
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center">
                   <span className="text-xs font-extrabold text-[#F4F7EF]">125.6 ha</span>
-                  <span className="text-[8px] text-[#B8CCAE]">Total</span>
+                  <span className="text-[8px] text-[#B8CCAE]">{t.totalText}</span>
                 </div>
               </div>
 
-              {/* Legend List matching screenshot */}
+              {/* Legend List */}
               <div className="col-span-7 space-y-1 text-[11px]">
                 {cropDistData.map((c) => (
                   <div key={c.name} className="flex items-center justify-between">
@@ -607,7 +611,7 @@ export default function OverviewView({
             onClick={onOpenEditProfile}
             className="w-full mt-2 py-1 text-center text-xs font-semibold text-[#A8D86D] hover:text-[#F4F7EF] border-t border-[#E1F5DC]/10 transition-colors cursor-pointer"
           >
-            View Details
+            {t.viewDetails}
           </button>
         </div>
       </div>
@@ -623,14 +627,14 @@ export default function OverviewView({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-[#A8D86D] uppercase tracking-wider">
-                AGRIPULSE DECISION RECOMMENDATION
+                {t.decisionRecTitle}
               </span>
               <span className="px-2 py-0.2 rounded-full text-[9px] font-bold bg-[#A8D86D] text-[#09271B]">
-                88% Confidence
+                {t.decisionConfidence}
               </span>
             </div>
             <div className="text-sm font-bold text-[#F4F7EF]">
-              Sell 70% to Buyer A (₹32/kg in 3 days) • Retain 30% for local hedge (+₹11,300 net gain)
+              {t.recommendationAction}
             </div>
           </div>
         </div>
@@ -640,14 +644,14 @@ export default function OverviewView({
             onClick={onOpenWhyRecommendation}
             className="flex-1 md:flex-none px-3.5 py-1.5 rounded-xl bg-[#A8D86D] hover:bg-[#b8e483] text-[#09271B] font-bold text-xs transition-colors cursor-pointer"
           >
-            Why This Recommendation?
+            {t.whyThisRecommendation}
           </button>
           <button
             onClick={onOpenWhatIf}
             className="flex-1 md:flex-none px-3.5 py-1.5 rounded-xl bg-[#123D2B] hover:bg-[#1c553d] border border-[#A8D86D]/40 text-[#F4F7EF] font-semibold text-xs transition-colors cursor-pointer flex items-center gap-1"
           >
             <Sliders className="w-3.5 h-3.5 text-[#A8D86D]" />
-            <span>What-If Simulator</span>
+            <span>{t.whatIfButton}</span>
           </button>
         </div>
       </div>
