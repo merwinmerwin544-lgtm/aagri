@@ -396,11 +396,69 @@ export interface TranslationDictionary {
   kg: string;
   positiveTradeoffsTitle: string;
   negativeTradeoffsTitle: string;
+
+  trackLocation: string;
+  detectGps: string;
+  searchLocationPlaceholder: string;
+  liveClimate: string;
+  coordinates: string;
+  soilTemperature: string;
+  uvIndex: string;
+  sprayingAdvisor: string;
+  sprayingSafe: string;
+  sprayingWindCaution: string;
+  sprayingRainCaution: string;
+  satelliteParcelInspector: string;
+  cloudCover: string;
+  nextPass: string;
+  orbitalSensor: string;
+  sensorTelemetry: string;
+  internationalPresets: string;
+  farmLocationLabel: string;
+  clickToInspectParcel: string;
+  openPrecisionAnalytics: string;
+  weatherForecast7Day: string;
+  solarRadiationText: string;
+  soilMoisture: string;
+  optimal: string;
+
+  photoGradingTitle: string;
+  photoGradingSubtitle: string;
+  takeOrUploadPhoto: string;
+  scanningProduce: string;
+  samplePhotos: string;
+  aiVisionAnalysis: string;
+  detectedGrade: string;
+  ripenessIndex: string;
+  visibleDamage: string;
+  confidence: string;
+  matchingBuyersNotice: string;
+  applyGradeAndMatch: string;
+  viewSpoilageClock: string;
+  officialCertificate: string;
+
+  spoilageClockTitle: string;
+  spoilageClockSubtitle: string;
+  sellWithin: string;
+  orLoseValue: string;
+  valueLoss: string;
+  currentBatchValue: string;
+  projectedValueAtRisk: string;
+  ambientVsCold: string;
+  activateColdStorage: string;
+  simulateInWhatIf: string;
+  lockInBuyer: string;
+  hours: string;
+  minutes: string;
+  seconds: string;
+  freshStatus: string;
+  warningStatus: string;
+  criticalStatus: string;
 }
 
 export const translations: Record<SupportedLanguage, TranslationDictionary> = {
   en: {
-    brandName: "AgriPulse AI",
+    brandName: "Uzhavan AI",
     tagline: "Sustainable Agriculture",
     dashboard: "Dashboard",
     cropManagement: "Crop Management",
@@ -415,7 +473,7 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     aiAssistant: "AI Assistant",
     askAiAssistant: "Ask AI Assistant",
     aiAssistantSubtitle: "Hello! I'm your AI farming assistant. Ask me anything about your farm.",
-    agripulseEngine: "AgriPulse Engine",
+    agripulseEngine: "Uzhavan AI Engine",
 
     decisionEngine: "Decision Engine",
     priceForecast: "Price Forecasting",
@@ -726,7 +784,7 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     saveProfile: "Save Profile Updates",
 
     // Modals
-    voiceModalTitle: "AgriPulse Voice Co-pilot",
+    voiceModalTitle: "Uzhavan AI Voice Assistant",
     voiceModalSubtitle: "Ask questions in your natural spoken language",
     startSpeaking: "Click microphone to speak",
     stopSpeaking: "Click to stop listening",
@@ -782,10 +840,68 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     kg: "kg",
     positiveTradeoffsTitle: "Positive Trade-offs",
     negativeTradeoffsTitle: "Care Requirements & Risks",
+
+    trackLocation: "Track Location",
+    detectGps: "Detect My GPS Location",
+    searchLocationPlaceholder: "Search international city or farm region...",
+    liveClimate: "Live International Climate",
+    coordinates: "Coordinates",
+    soilTemperature: "Soil Temperature",
+    uvIndex: "UV Index",
+    sprayingAdvisor: "Spraying & Agro Operations",
+    sprayingSafe: "Optimal - Safe for Drone & Tractor Spraying",
+    sprayingWindCaution: "Caution - High Wind Drift Risk",
+    sprayingRainCaution: "Unsafe - Rain Imminent (Washout Risk)",
+    satelliteParcelInspector: "Satellite Parcel Telemetry Inspector",
+    cloudCover: "Cloud Cover",
+    nextPass: "Next Satellite Pass",
+    orbitalSensor: "Orbital Sensor",
+    sensorTelemetry: "Ground Sensor Telemetry",
+    internationalPresets: "International Agricultural Belts",
+    farmLocationLabel: "Farm Location & Region",
+    clickToInspectParcel: "Click to inspect Sentinel-2 parcel telemetry",
+    openPrecisionAnalytics: "Open Full Precision Analytics",
+    weatherForecast7Day: "5-Day Numerical Weather Forecast",
+    solarRadiationText: "Solar Radiation",
+    soilMoisture: "Soil Moisture",
+    optimal: "Optimal",
+
+    photoGradingTitle: "Photo-Based Quality Grading",
+    photoGradingSubtitle: "AI Vision Scanner: Detects grade, ripeness, and blemishes to qualify buyers and set the spoilage clock",
+    takeOrUploadPhoto: "Take Photo or Upload Harvest Sample",
+    scanningProduce: "Analyzing Produce Cuticle & Defects...",
+    samplePhotos: "Quick Test Photos",
+    aiVisionAnalysis: "AI Vision Inspection Results",
+    detectedGrade: "Assigned Quality Grade",
+    ripenessIndex: "Ripeness Index",
+    visibleDamage: "Visible Damage / Defect Rate",
+    confidence: "Vision Confidence",
+    matchingBuyersNotice: "Matches only buyers accepting this quality standard",
+    applyGradeAndMatch: "Apply Grade & View Matched Buyers",
+    viewSpoilageClock: "View Batch Spoilage Clock",
+    officialCertificate: "AgriPulse Digital Quality Certificate",
+
+    spoilageClockTitle: "Per-Batch Spoilage Clock",
+    spoilageClockSubtitle: "Real-time 'Sell-By' countdown computed from crop kinetics, grade, forecast temperature, and transit time",
+    sellWithin: "Sell Within",
+    orLoseValue: "or lose approx",
+    valueLoss: "Value Loss",
+    currentBatchValue: "Current Batch Value",
+    projectedValueAtRisk: "Value at Risk",
+    ambientVsCold: "Storage Condition Buffer",
+    activateColdStorage: "Simulate Cold Storage (+72h)",
+    simulateInWhatIf: "Simulate in Store vs. Sell What-If",
+    lockInBuyer: "Lock in Matched Buyer",
+    hours: "hours",
+    minutes: "mins",
+    seconds: "secs",
+    freshStatus: "Fresh (Peak Value)",
+    warningStatus: "Decision Window",
+    criticalStatus: "Critical Spoilage Alert",
   },
 
   ta: {
-    brandName: "அக்ரிபல்ஸ் AI",
+    brandName: "உழவன் AI",
     tagline: "நிலையான விவசாய உகப்பாக்கம்",
     dashboard: "டாஷ்போர்டு",
     cropManagement: "பயிர் மேலாண்மை",
@@ -800,7 +916,7 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     aiAssistant: "AI உதவியாளர்",
     askAiAssistant: "AI உதவியாளரிடம் கேளுங்கள்",
     aiAssistantSubtitle: "வணக்கம்! நான் உங்கள் விவசாய AI உதவியாளர். உங்கள் பண்ணை பற்றி எதையும் கேளுங்கள்.",
-    agripulseEngine: "அக்ரிபல்ஸ் இயங்குதளம்",
+    agripulseEngine: "உழவன் AI இயங்குதளம்",
 
     decisionEngine: "முடிவெடுக்கும் இயந்திரம்",
     priceForecast: "விலை கணிப்பு",
@@ -1111,7 +1227,7 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     saveProfile: "சுயவிவரத்தை சேமிக்கவும்",
 
     // Modals
-    voiceModalTitle: "அக்ரிபல்ஸ் குரல் உதவியாளர்",
+    voiceModalTitle: "உழவன் AI குரல் உதவியாளர்",
     voiceModalSubtitle: "உங்கள் சொந்த மொழியில் இயல்பாக கேள்விகளை கேளுங்கள்",
     startSpeaking: "பேச மைக்ரோஃபோனை அழுத்தவும்",
     stopSpeaking: "பேசுவதை நிறுத்த அழுத்தவும்",
@@ -1167,10 +1283,68 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     kg: "கிலோ",
     positiveTradeoffsTitle: "சாதகமான அம்சங்கள்",
     negativeTradeoffsTitle: "கவனிக்க வேண்டிய அபாயங்கள்",
+
+    trackLocation: "இருப்பிடத்தை கண்காணிக்கவும்",
+    detectGps: "என் GPS இருப்பிடத்தைக் கண்டறி",
+    searchLocationPlaceholder: "சர்வதேச நகரம் அல்லது பண்ணைப் பகுதியைத் தேடுக...",
+    liveClimate: "நேரலை சர்வதேச காலநிலை",
+    coordinates: "ஆயத்தொலைவுகள்",
+    soilTemperature: "மண் வெப்பநிலை",
+    uvIndex: "புற ஊதா குறியீடு",
+    sprayingAdvisor: "மருந்தடிப்பது & விவசாயப் பணிகள்",
+    sprayingSafe: "ஏற்றது - ட்ரோன்/டிராக்டர் தெளிக்க பாதுகாப்பானது",
+    sprayingWindCaution: "எச்சரிக்கை - அதிக காற்று காரணமாக விலகிச்செல்லும் ஆபத்து",
+    sprayingRainCaution: "பாதுகாப்பற்றது - மழை பெய்யும் வாய்ப்பு (கரைசல் வீணாகும்)",
+    satelliteParcelInspector: "செயற்கைக்கோள் நில தொலை அளவீட்டு ஆய்வு",
+    cloudCover: "மேக மூட்டம்",
+    nextPass: "அடுத்த செயற்கைக்கோள் வருகை",
+    orbitalSensor: "சுற்றுப்பாதை சென்சார்",
+    sensorTelemetry: "தரை சென்சார் தொலை அளவீடு",
+    internationalPresets: "சர்வதேச விவசாய மண்டலங்கள்",
+    farmLocationLabel: "பண்ணை இருப்பிடம் & மண்டலம்",
+    clickToInspectParcel: "சென்டினல்-2 நில அளவீடுகளை ஆய்வு செய்ய கிளிக் செய்க",
+    openPrecisionAnalytics: "முழு நுண்ணறிவு பகுப்பாய்வை திறக்கவும்",
+    weatherForecast7Day: "5 நாள் விரிவான வானிலை முன்னறிவிப்பு",
+    solarRadiationText: "சூரிய கதிர்வீச்சு",
+    soilMoisture: "மண் ஈரப்பதம்",
+    optimal: "உகந்தது",
+
+    photoGradingTitle: "புகைப்பட அடிப்படையிலான தர நிர்ணயம்",
+    photoGradingSubtitle: "AI விஷன் ஸ்கேனர்: தரம், பழுக்கும் நிலை மற்றும் குறைபாடுகளைக் கண்டறிந்து வாங்குபவர்களை இணைக்கிறது",
+    takeOrUploadPhoto: "புகைப்படம் எடுக்கவும் அல்லது பதிவேற்றவும்",
+    scanningProduce: "பயிரின் தோற்றம் மற்றும் குறைபாடுகள் பகுப்பாய்வு செய்யப்படுகிறது...",
+    samplePhotos: "சோதனை மாதிரிகள்",
+    aiVisionAnalysis: "AI பார்வை ஆய்வு முடிவுகள்",
+    detectedGrade: "நிர்ணயிக்கப்பட்ட தரம்",
+    ripenessIndex: "பழுத்த நிலை குறியீடு",
+    visibleDamage: "கண்டறியப்பட்ட குறைபாடுகள்",
+    confidence: "நம்பகத்தன்மை",
+    matchingBuyersNotice: "இந்த தரத்தை ஏற்றுக்கொள்ளும் வாங்குபவர்களுடன் மட்டுமே இணைக்கும்",
+    applyGradeAndMatch: "தரத்தை உறுதிப்படுத்தி வாங்குபவர்களைக் காண்க",
+    viewSpoilageClock: "கெட்டுப்போகும் நேரக் கடிகாரத்தைக் காண்க",
+    officialCertificate: "அக்ரிபல்ஸ் டிஜிட்டல் தரச் சான்றிதழ்",
+
+    spoilageClockTitle: "தொகுதி வாரியான கெட்டுப்போகும் நேரக் கடிகாரம்",
+    spoilageClockSubtitle: "பயிர் வகை, தரம், வானிலை வெப்பநிலை மற்றும் பயண நேரத்தைக் கொண்டு கணக்கிடப்படும் நேரலை விற்பனை நேரம்",
+    sellWithin: "இதற்குள் விற்கவும்",
+    orLoseValue: "இல்லையெனில் இழப்பு சுமார்",
+    valueLoss: "மதிப்பு இழப்பு",
+    currentBatchValue: "தற்போதைய மொத்த மதிப்பு",
+    projectedValueAtRisk: "ஆபத்தில் உள்ள மதிப்பு",
+    ambientVsCold: "சேமிப்பு முறை",
+    activateColdStorage: "குளிர்சாதன சேமிப்பை இயக்கு (+72 மணி)",
+    simulateInWhatIf: "'சேமி அல்லது விற்பனை செய்' மாதிரியை இயக்கு",
+    lockInBuyer: "வாங்குபவரை இப்போதே உறுதி செய்க",
+    hours: "மணிநேரம்",
+    minutes: "நிமிடம்",
+    seconds: "விநாடி",
+    freshStatus: "புதியது (முழு மதிப்பு)",
+    warningStatus: "முடிவெடுக்கும் தருணம்",
+    criticalStatus: "கடுமையான எச்சரிக்கை",
   },
 
   hi: {
-    brandName: "एग्रीपल्स AI",
+    brandName: "उझवन AI",
     tagline: "सतत कृषि अनुकूलन",
     dashboard: "डैशबोर्ड",
     cropManagement: "फसल प्रबंधन",
@@ -1185,7 +1359,7 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     aiAssistant: "AI सहायक",
     askAiAssistant: "AI सहायक से पूछें",
     aiAssistantSubtitle: "नमस्ते! मैं आपका कृषि AI सहायक हूँ। अपने खेत के बारे में कुछ भी पूछें।",
-    agripulseEngine: "एग्रीपल्स इंजन",
+    agripulseEngine: "उझवन AI इंजन",
 
     decisionEngine: "निर्णय इंजन",
     priceForecast: "मूल्य पूर्वानुमान",
@@ -1496,7 +1670,7 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     saveProfile: "प्रोफाइल सहेजें",
 
     // Modals
-    voiceModalTitle: "एग्रीपल्स वॉइस को-पायलट",
+    voiceModalTitle: "उझवन AI आवाज़ सहायक",
     voiceModalSubtitle: "अपनी स्वाभाविक भाषा में सवाल पूछें",
     startSpeaking: "बोलने के लिए माइक दबाएँ",
     stopSpeaking: "रोकने के लिए क्लिक करें",
@@ -1552,6 +1726,64 @@ export const translations: Record<SupportedLanguage, TranslationDictionary> = {
     kg: "किग्रा",
     positiveTradeoffsTitle: "सकारात्मक पहलू",
     negativeTradeoffsTitle: "सावधानी एवं जोखिम",
+
+    trackLocation: "स्थान ट्रैक करें",
+    detectGps: "मेरा जीपीएस स्थान पहचानें",
+    searchLocationPlaceholder: "अंतर्राष्ट्रीय शहर या खेत क्षेत्र खोजें...",
+    liveClimate: "लाइव अंतर्राष्ट्रीय जलवायु",
+    coordinates: "निर्देशांक",
+    soilTemperature: "मिट्टी का तापमान",
+    uvIndex: "यूवी सूचकांक",
+    sprayingAdvisor: "छिड़काव एवं कृषि कार्य",
+    sprayingSafe: "अनुकूल - ड्रोन एवं ट्रैक्टर छिड़काव सुरक्षित",
+    sprayingWindCaution: "सावधानी - तेज हवा से बहाव का खतरा",
+    sprayingRainCaution: "असुरक्षित - बारिश की संभावना (धुलने का जोखिम)",
+    satelliteParcelInspector: "उपग्रह भूखंड टेलीमेट्री निरीक्षक",
+    cloudCover: "बादल छाए रहना",
+    nextPass: "अगला उपग्रह चक्र",
+    orbitalSensor: "कक्षीय सेंसर",
+    sensorTelemetry: "भूमि सेंसर टेलीमेट्री",
+    internationalPresets: "अंतर्राष्ट्रीय कृषि क्षेत्र",
+    farmLocationLabel: "खेत का स्थान और क्षेत्र",
+    clickToInspectParcel: "सेंटिनल-2 भूखंड टेलीमेट्री देखने के लिए क्लिक करें",
+    openPrecisionAnalytics: "पूर्ण सटीक विश्लेषण खोलें",
+    weatherForecast7Day: "5-दिवसीय संख्यात्मक मौसम पूर्वानुमान",
+    solarRadiationText: "सौर विकिरण",
+    soilMoisture: "मिट्टी की नमी",
+    optimal: "इष्टतम",
+
+    photoGradingTitle: "फोटो-आधारित गुणवत्ता ग्रेडिंग",
+    photoGradingSubtitle: "AI विज़न स्कैनर: ग्रेड, परिपक्वता और खामियों की पहचान कर खरीदारों से मिलाता है",
+    takeOrUploadPhoto: "फोटो लें या फसल का नमूना अपलोड करें",
+    scanningProduce: "फसल की सतह और खामियों का विश्लेषण जारी...",
+    samplePhotos: "त्वरित परीक्षण फोटो",
+    aiVisionAnalysis: "AI विज़न निरीक्षण परिणाम",
+    detectedGrade: "निर्धारित गुणवत्ता ग्रेड",
+    ripenessIndex: "परिपक्वता सूचकांक",
+    visibleDamage: "दिखने वाली खामियाँ / क्षति दर",
+    confidence: "विश्वसनीयता",
+    matchingBuyersNotice: "केवल इस गुणवत्ता को स्वीकार करने वाले खरीदारों से जोड़ता है",
+    applyGradeAndMatch: "ग्रेड लागू करें और खरीदार देखें",
+    viewSpoilageClock: "खराब होने की उलटी गिनती देखें",
+    officialCertificate: "एग्रीपल्स डिजिटल गुणवत्ता प्रमाण पत्र",
+
+    spoilageClockTitle: "बैच-वार खराब होने की उलटी गिनती",
+    spoilageClockSubtitle: "फसल, ग्रेड, तापमान और परिवहन समय के आधार पर वास्तविक समय की 'बिक्री उलटी गिनती'",
+    sellWithin: "इसके भीतर बेचें",
+    orLoseValue: "अन्यथा नुकसान लगभग",
+    valueLoss: "मूल्य हानि",
+    currentBatchValue: "वर्तमान बैच मूल्य",
+    projectedValueAtRisk: "जोखिम में मूल्य",
+    ambientVsCold: "भंडारण स्थिति",
+    activateColdStorage: "कोल्ड स्टोरेज सक्रिय करें (+72 घंटे)",
+    simulateInWhatIf: "'भंडारण बनाम बिक्री' सिमुलेशन चलाएँ",
+    lockInBuyer: "अभी खरीदार सुरक्षित करें",
+    hours: "घंटे",
+    minutes: "मिनट",
+    seconds: "सेकंड",
+    freshStatus: "ताज़ा (पूर्ण मूल्य)",
+    warningStatus: "निर्णय का समय",
+    criticalStatus: "गंभीर चेतावनी",
   },
 };
 

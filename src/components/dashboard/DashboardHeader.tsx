@@ -175,14 +175,14 @@ export default function DashboardHeader({
                 }}
               />
               <div className="w-full h-full bg-[#123D2B] flex items-center justify-center text-[10px] font-bold text-[#A8D86D]">
-                AM
+                UZ
               </div>
             </div>
 
             {/* Profile text */}
             <div className="hidden sm:block text-left">
               <div className="text-xs font-bold text-[#F4F7EF] leading-tight flex items-center gap-1">
-                <span>{farmerName || "Arman Merlo"}</span>
+                <span>{farmerName || "Uzhavan"}</span>
               </div>
               <div className="text-[10px] text-[#B8CCAE] leading-none">{t.farmManager}</div>
             </div>

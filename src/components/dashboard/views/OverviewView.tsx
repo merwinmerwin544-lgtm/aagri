@@ -9,6 +9,8 @@ import {
   Activity,
   Droplet,
   CloudSun,
+  CloudRain,
+  Sun,
   Layers,
   ArrowUpRight,
   TrendingUp,
@@ -19,6 +21,7 @@ import {
   Sliders,
   Sparkles,
   Info,
+  Camera,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -38,6 +41,7 @@ import {
   SoilHealthTelemetry,
   WeatherCondition,
   FarmTask,
+  QualityGradingResult,
 } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -48,6 +52,7 @@ interface OverviewViewProps {
   soilHealth: SoilHealthTelemetry;
   weather: WeatherCondition;
   tasks: FarmTask[];
+  currentGrading?: QualityGradingResult | null;
   onToggleTask: (taskId: string) => void;
   onOpenWhyRecommendation: () => void;
   onOpenWhatIf: () => void;
@@ -56,6 +61,8 @@ interface OverviewViewProps {
   onOpenVoice: () => void;
   onOpenEditProfile: () => void;
   onOpenNewTask: () => void;
+  onOpenSatelliteModal?: () => void;
+  onSelectTab?: (tab: any) => void;
 }
 
 export default function OverviewView({
@@ -65,6 +72,7 @@ export default function OverviewView({
   soilHealth,
   weather,
   tasks,
+  currentGrading,
   onToggleTask,
   onOpenWhyRecommendation,
   onOpenWhatIf,
@@ -73,6 +81,8 @@ export default function OverviewView({
   onOpenVoice,
   onOpenEditProfile,
   onOpenNewTask,
+  onOpenSatelliteModal,
+  onSelectTab,
 }: OverviewViewProps) {
   const { t, tr, language } = useLanguage();
 
@@ -105,7 +115,7 @@ export default function OverviewView({
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-[#F4F7EF] tracking-tight flex items-center gap-2">
             <span>
-              {t.welcomeBack}, {profile.farmerName?.split(" ")[0] || "Arman"} 👋
+              {t.welcomeBack}, {profile.farmerName?.split(" ")[0] || "Uzhavan"} 👋
             </span>
           </h1>
           <p className="text-xs text-[#B8CCAE] mt-0.5">{t.farmStatusToday}</p>
@@ -189,6 +199,47 @@ export default function OverviewView({
         </div>
       </div>
 
+      {/* Live Spoilage Clock & Photo Grading Quick Banner */}
+      <div className="glass-panel-agri rounded-2xl p-3.5 sm:p-4 border border-[#A8D86D]/35 bg-gradient-to-r from-[#123D2B]/90 via-[#09271B]/95 to-[#123D2B]/85 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 shadow-xl">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#A8D86D] text-[#09271B] flex items-center justify-center shrink-0 shadow-md">
+            <Clock className="w-5 h-5 animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#A8D86D] text-[#09271B]">
+                {t.spoilageClockTitle}
+              </span>
+              <span className="text-[10px] text-[#A8D86D] font-mono">
+                Batch {currentGrading?.batchId || "BATCH-TOM-GA-01"} • {currentGrading?.grade || profile.qualityGrade || "Grade A"}
+              </span>
+            </div>
+            <div className="text-xs sm:text-sm font-bold text-[#F4F7EF] mt-0.5 flex items-center gap-2">
+              <span>{t.sellWithin} <strong className="text-[#A8D86D]">41 {t.hours}</strong> {t.orLoseValue} <strong className="text-rose-400">12% {t.valueLoss}</strong></span>
+              <span className="text-xs text-[#B8CCAE] font-normal hidden sm:inline">(₹12,768 at risk)</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 w-full md:w-auto">
+          <button
+            onClick={() => onSelectTab && onSelectTab("spoilage-clock")}
+            className="flex-1 md:flex-none px-3.5 py-2 rounded-xl text-xs font-bold text-[#09271B] bg-[#A8D86D] hover:bg-[#b9e584] shadow-md transition-all flex items-center justify-center gap-1.5"
+          >
+            <Clock className="w-3.5 h-3.5" />
+            <span>{t.spoilageClockTitle}</span>
+          </button>
+
+          <button
+            onClick={() => onSelectTab && onSelectTab("quality-grading")}
+            className="flex-1 md:flex-none px-3.5 py-2 rounded-xl text-xs font-semibold text-[#F4F7EF] bg-[#123D2B] hover:bg-[#1a523a] border border-[#E1F5DC]/15 transition-colors flex items-center justify-center gap-1.5"
+          >
+            <Camera className="w-3.5 h-3.5 text-[#A8D86D]" />
+            <span>{t.photoGradingTitle}</span>
+          </button>
+        </div>
+      </div>
+
       {/* =========================================================================
           3. MIDDLE SECTION: Field Health Overview (Left) + Aerial Parcel (Center) + Weather & Soil (Right)
           ========================================================================= */}
@@ -268,53 +319,82 @@ export default function OverviewView({
         </div>
 
         {/* Center: Interactive Aerial Farmland Field Section */}
-        <div className="lg:col-span-5 relative rounded-2xl overflow-hidden border border-[#E1F5DC]/16 min-h-[250px] flex flex-col justify-between p-4 group">
+        <div
+          onClick={onOpenSatelliteModal}
+          className="lg:col-span-5 relative rounded-2xl overflow-hidden border border-[#E1F5DC]/16 min-h-[250px] flex flex-col justify-between p-4 group cursor-pointer hover:border-[#A8D86D]/50 transition-all shadow-lg"
+          title={t.clickToInspectParcel}
+        >
           {/* Background image */}
           <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
             style={{ backgroundImage: "url('/images/farmland_bg.jpg')" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#09271B]/80 via-transparent to-[#09271B]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#09271B]/85 via-transparent to-[#09271B]/40" />
 
           {/* Glowing Green Neon Field Polygon Boundary */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 250">
             <polygon
               points="190,130 260,120 250,170 170,185"
-              fill="rgba(168, 216, 109, 0.12)"
+              fill="rgba(168, 216, 109, 0.16)"
               stroke="#A8D86D"
               strokeWidth="2.5"
               strokeLinejoin="round"
-              filter="drop-shadow(0 0 8px #A8D86D)"
+              filter="drop-shadow(0 0 10px #A8D86D)"
             />
           </svg>
 
-          {/* Floating Leaf GPS Pins */}
-          <div className="absolute left-[38%] top-[45%] -translate-x-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#123D2B]/90 border border-[#A8D86D] text-[#A8D86D] shadow-lg animate-pulse">
-            <Sprout className="w-3.5 h-3.5" />
+          {/* Floating Leaf GPS Pins with Tooltips */}
+          <div className="absolute left-[38%] top-[45%] -translate-x-1/2 -translate-y-1/2 group/pin">
+            <div className="p-1.5 rounded-full bg-[#123D2B]/90 border border-[#A8D86D] text-[#A8D86D] shadow-lg animate-pulse">
+              <Sprout className="w-3.5 h-3.5" />
+            </div>
+            <div className="opacity-0 group-hover/pin:opacity-100 transition-opacity absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-black/90 text-[9px] text-[#A8D86D] whitespace-nowrap border border-[#A8D86D]/30 pointer-events-none">
+              Node A: {weather.soilMoisturePercent + 2}% Moisture
+            </div>
           </div>
-          <div className="absolute left-[52%] top-[40%] -translate-x-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#123D2B]/90 border border-[#A8D86D] text-[#A8D86D] shadow-lg">
-            <Sprout className="w-3.5 h-3.5" />
+          <div className="absolute left-[52%] top-[40%] -translate-x-1/2 -translate-y-1/2 group/pin">
+            <div className="p-1.5 rounded-full bg-[#123D2B]/90 border border-[#A8D86D] text-[#A8D86D] shadow-lg">
+              <Sprout className="w-3.5 h-3.5" />
+            </div>
+            <div className="opacity-0 group-hover/pin:opacity-100 transition-opacity absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-black/90 text-[9px] text-[#A8D86D] whitespace-nowrap border border-[#A8D86D]/30 pointer-events-none">
+              Node B: NDVI {health.ndviIndex}
+            </div>
           </div>
-          <div className="absolute left-[62%] top-[55%] -translate-x-1/2 -translate-y-1/2 p-1.5 rounded-full bg-[#123D2B]/90 border border-[#A8D86D] text-[#A8D86D] shadow-lg">
-            <Sprout className="w-3.5 h-3.5" />
+          <div className="absolute left-[62%] top-[55%] -translate-x-1/2 -translate-y-1/2 group/pin">
+            <div className="p-1.5 rounded-full bg-[#123D2B]/90 border border-[#A8D86D] text-[#A8D86D] shadow-lg">
+              <Sprout className="w-3.5 h-3.5" />
+            </div>
+            <div className="opacity-0 group-hover/pin:opacity-100 transition-opacity absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-black/90 text-[9px] text-[#A8D86D] whitespace-nowrap border border-[#A8D86D]/30 pointer-events-none">
+              Node C: {weather.soilTempC ?? weather.currentTempC - 2}°C Soil
+            </div>
           </div>
 
           {/* Top Label */}
           <div className="relative z-10 flex items-center justify-between">
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#123D2B]/85 text-[#F4F7EF] border border-[#E1F5DC]/20 backdrop-blur-md">
-              {t.satelliteTelemetry}
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#123D2B]/85 text-[#F4F7EF] border border-[#E1F5DC]/20 backdrop-blur-md flex items-center gap-1.5">
+              <span>{t.satelliteTelemetry}</span>
+              <span className="text-[#A8D86D] font-mono">
+                {weather.latitude
+                  ? `${weather.latitude > 0 ? `${weather.latitude.toFixed(2)}°N` : `${Math.abs(weather.latitude).toFixed(2)}°S`}, ${weather.longitude ? (weather.longitude > 0 ? `${weather.longitude.toFixed(2)}°E` : `${Math.abs(weather.longitude).toFixed(2)}°W`) : ""}`
+                  : "11.00°N, 76.96°E"}
+              </span>
+            </span>
+            <span className="px-2 py-0.5 rounded-md text-[9px] font-semibold bg-[#A8D86D] text-[#09271B] opacity-0 group-hover:opacity-100 transition-opacity">
+              {t.clickToInspectParcel}
             </span>
           </div>
 
           {/* Interactive Floating Card in Bottom Right */}
-          <div className="relative z-10 self-end glass-panel-agri rounded-xl p-3 border border-[#E1F5DC]/25 max-w-[200px] shadow-xl backdrop-blur-md">
+          <div className="relative z-10 self-end glass-panel-agri rounded-xl p-3 border border-[#E1F5DC]/25 max-w-[210px] shadow-xl backdrop-blur-md group-hover:border-[#A8D86D]/60 transition-colors">
             <div className="flex items-center justify-between text-xs font-bold text-[#F4F7EF] mb-0.5">
-              <span>{t.georkField}</span>
-              <span>&gt;</span>
+              <span className="truncate pr-1">{profile.farmName || t.georkField}</span>
+              <span className="text-[#A8D86D]">&gt;</span>
             </div>
-            <div className="text-[10px] text-[#B8CCAE] mb-1">{t.wheatCrop}</div>
+            <div className="text-[10px] text-[#B8CCAE] mb-1">
+              {tr(profile.cropType)} • {profile.farmSizeAcres} {t.acres}
+            </div>
             <div className="text-[10px] text-[#A8D86D] font-bold flex items-center justify-between">
-              <span>{t.healthScoreText}</span>
+              <span>{t.cropHealth}: {health.overallScore}/100</span>
               <span>&gt;</span>
             </div>
           </div>
@@ -322,68 +402,75 @@ export default function OverviewView({
 
         {/* Right Stack: Weather Today & Soil Health Summary */}
         <div className="lg:col-span-4 flex flex-col gap-3">
-          {/* Weather Today Card */}
-          <div className="glass-card-agri rounded-2xl p-4 border border-[#E1F5DC]/16">
+          {/* Weather Today Card - Clickable to open full climate tracker */}
+          <div
+            onClick={() => onSelectTab && onSelectTab("weather")}
+            className="glass-card-agri rounded-2xl p-4 border border-[#E1F5DC]/16 cursor-pointer hover:border-[#A8D86D]/50 transition-all group/weather relative"
+            title="Click to track international climate & weather"
+          >
             <div className="flex items-start justify-between mb-2">
               <div>
-                <h3 className="text-xs font-bold text-[#F4F7EF]">{t.weatherToday}</h3>
-                <div className="text-[10px] text-[#B8CCAE] flex items-center gap-1">
-                  <MapPin className="w-2.5 h-2.5 text-[#A8D86D]" />
-                  <span>{t.turkeyLocation}</span>
+                <div className="flex items-center gap-1.5">
+                  <h3 className="text-xs font-bold text-[#F4F7EF]">{t.weatherToday}</h3>
+                  <span className="text-[9px] text-[#A8D86D] opacity-0 group-hover/weather:opacity-100 transition-opacity">
+                    (Click to track)
+                  </span>
+                </div>
+                <div className="text-[10px] text-[#B8CCAE] flex items-center gap-1 mt-0.5">
+                  <MapPin className="w-2.5 h-2.5 text-[#A8D86D] shrink-0" />
+                  <span className="truncate max-w-[160px]">
+                    {weather.locationName || profile.location || "Coimbatore South, Tamil Nadu"}
+                  </span>
                 </div>
               </div>
 
               {/* Sun & Cloud Graphic */}
-              <CloudSun className="w-7 h-7 text-[#E6C779]" />
+              <div className="text-[#E6C779]">
+                {weather.precipitationProbPercent > 40 ? (
+                  <CloudRain className="w-7 h-7 text-cyan-400" />
+                ) : weather.condition.toLowerCase().includes("cloud") ? (
+                  <CloudSun className="w-7 h-7 text-[#E6C779]" />
+                ) : (
+                  <Sun className="w-7 h-7 text-[#E6C779]" />
+                )}
+              </div>
             </div>
 
             <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-3xl font-extrabold text-[#F4F7EF]">22°C</span>
-              <span className="text-xs text-[#B8CCAE]">{t.partlyCloudy}</span>
+              <span className="text-3xl font-extrabold text-[#F4F7EF]">{weather.currentTempC}°C</span>
+              <span className="text-xs text-[#B8CCAE]">{tr(weather.condition)}</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 text-[10px] mb-3 text-[#B8CCAE] border-y border-[#E1F5DC]/10 py-1.5">
               <div>
                 <span>{t.humidity}</span>
-                <div className="font-bold text-[#F4F7EF]">48%</div>
+                <div className="font-bold text-[#F4F7EF]">{weather.humidityPercent}%</div>
               </div>
               <div>
                 <span>{t.wind}</span>
-                <div className="font-bold text-[#F4F7EF]">9 km/h</div>
+                <div className="font-bold text-[#F4F7EF]">{weather.windSpeedKmh} {t.km}/h</div>
               </div>
               <div>
                 <span>{t.rain}</span>
-                <div className="font-bold text-[#A8D86D]">10%</div>
+                <div className="font-bold text-[#A8D86D]">{weather.precipitationProbPercent}%</div>
               </div>
             </div>
 
             {/* 5-Day Mini Forecast */}
             <div className="grid grid-cols-5 gap-1 text-center text-[10px]">
-              <div>
-                <div className="text-[#B8CCAE]">{tr("Sun")}</div>
-                <CloudSun className="w-3.5 h-3.5 text-[#E6C779] mx-auto my-0.5" />
-                <div className="text-[#F4F7EF] font-bold">21°/14°</div>
-              </div>
-              <div>
-                <div className="text-[#A8D86D] font-bold">{tr("Mon")}</div>
-                <CloudSun className="w-3.5 h-3.5 text-[#A8D86D] mx-auto my-0.5" />
-                <div className="text-[#F4F7EF] font-bold">22°/15°</div>
-              </div>
-              <div>
-                <div className="text-[#B8CCAE]">{tr("Tue")}</div>
-                <CloudSun className="w-3.5 h-3.5 text-[#E6C779] mx-auto my-0.5" />
-                <div className="text-[#F4F7EF] font-bold">24°/16°</div>
-              </div>
-              <div>
-                <div className="text-[#B8CCAE]">{tr("Wed")}</div>
-                <CloudSun className="w-3.5 h-3.5 text-[#B8CCAE] mx-auto my-0.5" />
-                <div className="text-[#F4F7EF] font-bold">23°/15°</div>
-              </div>
-              <div>
-                <div className="text-[#B8CCAE]">{tr("Thu")}</div>
-                <CloudSun className="w-3.5 h-3.5 text-[#E6C779] mx-auto my-0.5" />
-                <div className="text-[#F4F7EF] font-bold">25°/17°</div>
-              </div>
+              {weather.forecast.map((fc, i) => (
+                <div key={i}>
+                  <div className={i === 0 ? "text-[#A8D86D] font-bold" : "text-[#B8CCAE]"}>
+                    {i === 0 ? t.today : tr(fc.day)}
+                  </div>
+                  {fc.rainProb > 40 ? (
+                    <CloudRain className="w-3.5 h-3.5 text-cyan-400 mx-auto my-0.5" />
+                  ) : (
+                    <CloudSun className="w-3.5 h-3.5 text-[#E6C779] mx-auto my-0.5" />
+                  )}
+                  <div className="text-[#F4F7EF] font-bold">{fc.tempHigh}°/{fc.tempLow}°</div>
+                </div>
+              ))}
             </div>
           </div>
 

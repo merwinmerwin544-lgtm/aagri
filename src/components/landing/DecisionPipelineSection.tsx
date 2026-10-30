@@ -69,7 +69,7 @@ export default function DecisionPipelineSection() {
         </h2>
         <p className="text-slate-300 text-base sm:text-lg">
           Traditional agtech treats weather, mandi prices, and logistics as separate apps.
-          AgriPulse AI connects telemetry directly into a continuous harvest-to-sale optimization pipeline.
+          Uzhavan AI connects telemetry directly into a continuous harvest-to-sale optimization pipeline.
         </p>
       </div>
 
@@ -125,7 +125,7 @@ export default function DecisionPipelineSection() {
             High headline prices don&apos;t matter if 10% rots or shipping costs eat your margin.
           </div>
           <div className="text-sm text-slate-400 mt-1">
-            AgriPulse AI optimizes for <span className="text-emerald-300 font-semibold">Net Realized Profit</span> and <span className="text-cyan-300 font-semibold">Lowest Carbon Emissions</span>.
+            Uzhavan AI optimizes for <span className="text-emerald-300 font-semibold">Net Realized Profit</span> and <span className="text-cyan-300 font-semibold">Lowest Carbon Emissions</span>.
           </div>
         </div>
         <a

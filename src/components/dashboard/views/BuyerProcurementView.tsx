@@ -36,7 +36,7 @@ export default function BuyerProcurementView() {
 
   const handleAction = (buyerName: string, action: string) => {
     setDemoNotice(
-      `Demo Action: "${action}" sent to ${buyerName}. In production, this dispatches verified contract requests through the AgriPulse buyer escrow desk.`
+      `Demo Action: "${action}" sent to ${buyerName}. In production, this dispatches verified contract requests through the Uzhavan AI buyer escrow desk.`
     );
     setTimeout(() => setDemoNotice(null), 4500);
   };

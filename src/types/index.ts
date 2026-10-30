@@ -20,6 +20,8 @@ export interface FarmerProfile {
   variety: string;
   location: string;
   region: string;
+  latitude?: number;
+  longitude?: number;
   farmSizeAcres: number;
   plantingDate: string;
   expectedYieldTonnes: number;
@@ -182,12 +184,22 @@ export interface WeatherCondition {
   windSpeedKmh: number;
   precipitationProbPercent: number;
   soilMoisturePercent: number;
+  locationName?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
+  uvIndex?: number;
+  soilTempC?: number;
+  solarRadiation?: number;
+  sprayingCondition?: "Optimal" | "Caution - High Wind" | "Unsafe - Rain Expected";
+  lastUpdated?: string;
   forecast: {
     day: string;
     tempHigh: number;
     tempLow: number;
     condition: string;
     rainProb: number;
+    windSpeedKmh?: number;
   }[];
 }
 
@@ -250,4 +262,43 @@ export interface BuyerProcurementPost {
   postedDate: string;
   status: "Open" | "Fulfilling" | "Closed";
   matchesFound: number;
+}
+
+export interface QualityGradingResult {
+  batchId: string;
+  timestamp: string;
+  cropType: CropType;
+  variety: string;
+  imageUrl?: string;
+  grade: CropQualityGrade;
+  confidenceScore: number; // e.g. 96.5%
+  ripenessPercentage: number; // e.g. 88%
+  ripenessStage: "Unripe / Green" | "Breaker / Turning" | "Firm Ripe" | "Full Ripe" | "Overripe";
+  visibleDefectPercent: number; // e.g. 2.1%
+  defectDetails: {
+    blemishRate: number;
+    bruisingRate: number;
+    pestDamageRate: number;
+    shapeUniformity: number;
+  };
+  recommendedShelfLifeHours: number; // e.g. 48 hours
+  certificateCode: string; // e.g. "AGRI-QC-2026-X812"
+  inspectorVerdict: string;
+}
+
+export interface SpoilageClockState {
+  batchId: string;
+  cropType: CropType;
+  grade: CropQualityGrade;
+  initialHours: number;
+  remainingSeconds: number;
+  criticalThresholdHours: number; // e.g. 41 hours
+  valueLossAtThresholdPercent: number; // e.g. 12%
+  currentValueInr: number;
+  projectedLossInr: number;
+  effectiveTemperatureC: number;
+  effectiveHumidityPercent: number;
+  transportDurationHours: number;
+  isColdStorageActive: boolean;
+  status: "Fresh" | "Decision Window" | "Critical Decay";
 }

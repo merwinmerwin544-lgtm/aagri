@@ -14,7 +14,7 @@ import {
   Scale,
   ExternalLink,
 } from "lucide-react";
-import { Buyer } from "@/types";
+import { CropQualityGrade, Buyer } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface BuyerMatchingViewProps {
@@ -22,22 +22,40 @@ interface BuyerMatchingViewProps {
   selectedBuyerId: string;
   onSelectBuyer: (id: string) => void;
   onOpenCompare: () => void;
+  verifiedGrade?: CropQualityGrade;
+  onOpenPhotoGrading?: () => void;
 }
+
+const GRADE_RANK: Record<CropQualityGrade, number> = {
+  "Export Grade": 4,
+  "Grade A": 3,
+  "Grade B": 2,
+  "Grade C": 1,
+};
 
 export default function BuyerMatchingView({
   buyers,
   selectedBuyerId,
   onSelectBuyer,
   onOpenCompare,
+  verifiedGrade = "Grade A",
+  onOpenPhotoGrading,
 }: BuyerMatchingViewProps) {
   const { t, tr } = useLanguage();
   const [sortBy, setSortBy] = useState<"match" | "price" | "distance">("match");
   const [filterQuality, setFilterQuality] = useState<string>("All");
+  const [onlyMatchingSpecs, setOnlyMatchingSpecs] = useState<boolean>(true);
   const [activeBuyerModal, setActiveBuyerModal] = useState<Buyer | null>(null);
 
-  // Filter & Sort
+  // Filter & Sort based on photo-verified grade specs
   const filtered = buyers
     .filter((b) => {
+      if (verifiedGrade && onlyMatchingSpecs) {
+        // Only match if farmer's verified batch meets or exceeds buyer requirement
+        const batchRank = GRADE_RANK[verifiedGrade] ?? 3;
+        const buyerRank = GRADE_RANK[b.qualityRequirement as CropQualityGrade] ?? 3;
+        if (batchRank < buyerRank) return false;
+      }
       if (filterQuality === "All") return true;
       return b.qualityRequirement === filterQuality;
     })
@@ -78,8 +96,51 @@ export default function BuyerMatchingView({
             className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-400/40 text-emerald-300 hover:text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md cursor-pointer shrink-0"
           >
             <Scale className="w-4 h-4 text-emerald-400" />
-            <span>{t.compareBuyers}</span>
           </button>
+        </div>
+      </div>
+
+      {/* Photo-Verified Quality Spec Lock Banner */}
+      <div className="p-4 rounded-2xl bg-[#123D2B]/80 border border-[#A8D86D]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-[#A8D86D] text-[#09271B] flex items-center justify-center font-black text-sm shrink-0 shadow">
+            ✓
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-[#F4F7EF]">
+                Photo-Verified Quality: <strong className="text-[#A8D86D]">{verifiedGrade}</strong>
+              </span>
+              <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#A8D86D]/20 text-[#A8D86D]">
+                Spec Enforced
+              </span>
+            </div>
+            <p className="text-[11px] text-[#B8CCAE] mt-0.5">
+              Buyers below are filtered strictly to those accepting {verifiedGrade} or lower. Removes market wrangling.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <button
+            onClick={() => setOnlyMatchingSpecs(!onlyMatchingSpecs)}
+            className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+              onlyMatchingSpecs
+                ? "bg-[#A8D86D] text-[#09271B] font-bold border-[#A8D86D]"
+                : "bg-black/40 text-slate-400 border-white/10"
+            }`}
+          >
+            {onlyMatchingSpecs ? "Only Qualified Buyers" : "Show All Buyers"}
+          </button>
+
+          {onOpenPhotoGrading && (
+            <button
+              onClick={onOpenPhotoGrading}
+              className="px-3 py-1.5 rounded-xl text-xs font-semibold text-[#F4F7EF] bg-black/40 hover:bg-black/60 border border-[#E1F5DC]/15 transition-colors"
+            >
+              Re-scan Photo
+            </button>
+          )}
         </div>
       </div>
 

@@ -18,7 +18,7 @@ export default function Footer() {
                 </div>
               </div>
               <span className="text-xl font-bold tracking-tight text-white">
-                AgriPulse<span className="text-emerald-400">.ai</span>
+                Uzhavan<span className="text-emerald-400"> AI</span>
               </span>
             </Link>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm mb-6">
@@ -128,7 +128,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-emerald-500/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            © 2026 AgriPulse AI. All rights reserved. Built for sustainable agriculture.
+            © 2026 Uzhavan AI. All rights reserved. Built for sustainable agriculture.
           </div>
           <div className="flex items-center gap-6">
             <span className="hover:text-slate-400 transition-colors cursor-pointer">Privacy Policy</span>

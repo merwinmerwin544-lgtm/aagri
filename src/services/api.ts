@@ -229,14 +229,43 @@ export async function getBuyerProcurementFeed(): Promise<BuyerProcurementPost[]>
 }
 
 /**
- * BACKEND HOOK: POST /api/ai/assistant-chat
+ * BACKEND HOOK: POST /api/ai-assistant
  */
 export async function queryAIAssistant(
   prompt: string,
-  _lang: SupportedLanguage = "en"
+  lang: SupportedLanguage = "en",
+  farmContext?: any
 ): Promise<{ text: string; audioSummary: string }> {
-  await new Promise((res) => setTimeout(res, 350));
+  try {
+    const res = await fetch("/api/ai-assistant", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: prompt,
+        language: lang,
+        farmContext: farmContext || {
+          farmerName: "Uzhavan",
+          cropType: "Tomato",
+          qualityGrade: "Grade A",
+          spoilageHours: 41,
+          expectedYieldTonnes: 3.8,
+          currentTempC: 22,
+        },
+      }),
+    });
 
+    if (res.ok) {
+      const data = await res.json();
+      return {
+        text: data.text,
+        audioSummary: data.audioSummary || data.text,
+      };
+    }
+  } catch (err) {
+    console.warn("Backend /api/ai-assistant fetch failed, using fallback:", err);
+  }
+
+  // Graceful fallback if offline
   const matched = regionalQuestions[prompt];
   if (matched) {
     return {
@@ -245,9 +274,21 @@ export async function queryAIAssistant(
     };
   }
 
-  // Fallback intelligent agricultural response template
+  if (lang === "ta") {
+    return {
+      text: "உழவன் AI உங்கள் பயிரை கண்காணித்து வருகிறது. தற்போதைய சந்தை கணிப்பின்படி 3 நாட்களில் விற்பனை செய்வது அதிகபட்ச நிகர லாபம் ஈட்டும்.",
+      audioSummary: "மூன்று நாட்களில் விற்பனை செய்வது அதிகபட்ச லாபம் ஈட்டும்.",
+    };
+  }
+  if (lang === "hi") {
+    return {
+      text: "उझवन AI आपकी फसल की निगरानी कर रहा है। पूर्वानुमान के अनुसार 3 दिनों में बेचने पर अधिकतम मुनाफा होगा।",
+      audioSummary: "तीन दिनों में बेचने पर अधिकतम लाभ होगा।",
+    };
+  }
+
   return {
-    text: `Based on your farm's 2.0-acre Tomato plot telemetry and western Tamil Nadu market projections, optimal strategy indicates harvesting in 5-7 days and routing 70% to Kovai Fresh Mart at ₹32/kg. Soil moisture is at 34% (recommend 45-min evening drip pulse). Let me know if you would like me to simulate alternative holding windows!`,
-    audioSummary: "Analysis indicates harvesting in five to seven days and routing to Kovai Fresh Mart.",
+    text: `Based on your farm's 2.0-acre Tomato plot telemetry, optimal strategy indicates harvesting in 3-5 days and routing to Kovai Fresh Mart at ₹32/kg. Soil moisture is at 34% (recommend 45-min evening drip pulse).`,
+    audioSummary: "Analysis indicates harvesting in three to five days and routing to Kovai Fresh Mart.",
   };
 }

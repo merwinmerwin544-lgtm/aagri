@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AgriPulse AI — Where Intelligence Meets Sustainable Agriculture",
+  title: "Uzhavan AI (உழவன் AI) — Where Intelligence Meets Sustainable Agriculture",
   description:
-    "AI-driven sustainable farm-to-market optimization. Empowering farmers with precision crop intelligence, dynamic price forecasting, smart buyer matching, and food-loss reduction.",
+    "AI-driven sustainable farm-to-market optimization with Uzhavan AI. Empowering farmers with precision crop intelligence, photo-based quality grading, live spoilage clock, dynamic price forecasting, smart buyer matching, and food-loss reduction.",
   icons: {
     icon: "/favicon.ico",
   },

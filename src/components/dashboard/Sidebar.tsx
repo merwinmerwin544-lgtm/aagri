@@ -27,6 +27,8 @@ import {
   LogOut,
   X,
   Layers,
+  Camera,
+  Clock,
 } from "lucide-react";
 import { SupportedLanguage } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
@@ -48,7 +50,9 @@ export type DashboardTab =
   | "logistics"
   | "food-loss"
   | "what-if"
-  | "buyer-procurement";
+  | "buyer-procurement"
+  | "quality-grading"
+  | "spoilage-clock";
 
 interface SidebarProps {
   activeTab: DashboardTab;
@@ -96,6 +100,8 @@ export default function Sidebar({
 
   // AgriPulse Intelligence Suite items with dynamic translations
   const intelligenceNavItems = [
+    { id: "quality-grading", label: t.photoGradingTitle, icon: Camera, badge: "VISION" },
+    { id: "spoilage-clock", label: t.spoilageClockTitle, icon: Clock, badge: "LIVE" },
     { id: "decision-engine", label: t.decisionEngine, icon: BrainCircuit, badge: "AI" },
     { id: "price-forecast", label: t.priceForecast, icon: TrendingUp },
     { id: "buyer-matching", label: t.buyerMatching, icon: Target },
@@ -143,7 +149,8 @@ export default function Sidebar({
             </div>
             <div>
               <div className="text-base font-bold text-[#F4F7EF] tracking-tight leading-none">
-                AgriPulse <span className="text-[#A8D86D]">AI</span>
+                {language === "ta" ? "உழவன்" : language === "hi" ? "उझवन" : "Uzhavan"}{" "}
+                <span className="text-[#A8D86D]">AI</span>
               </div>
               <div className="text-[10px] text-[#B8CCAE] font-medium tracking-wide mt-0.5">
                 {t.tagline}

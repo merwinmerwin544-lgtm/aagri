@@ -42,17 +42,23 @@ export default function VoiceCopilotModal({
 
   const initialBotWelcome =
     language === "ta"
-      ? "வணக்கம்! நான் உங்கள் அக்ரிபல்ஸ் AI குரல் உதவியாளர். உங்கள் பயிர் அறுவடை, மண்டி விலைகள் அல்லது நீர்ப்பாசனம் பற்றி எதையும் கேளுங்கள்."
+      ? "வணக்கம் உழவரே! நான் உங்கள் உழவன் AI குரல் உதவியாளர். அறுவடை நேரம், சந்தை விலை, வாங்குபவர் இணைப்பு, அழுகல் கடிகாரம் அல்லது புகைப்படத் தரம் பற்றி என்னிடம் கேளுங்கள்."
       : language === "hi"
-      ? "नमस्ते! मैं आपका एग्रीपल्स AI आवाज़ सहायक हूँ। अपनी फसल कटाई, मंडी भाव या सिंचाई के बारे में कुछ भी पूछें।"
-      : "Vanakkam / Namaste / Hello! I am your AgriPulse AI voice assistant. Ask me anything about your harvest, mandi prices, or irrigation schedule.";
+      ? "नमस्ते किसान भाई! मैं आपका उझवन AI आवाज़ सहायक हूँ। अपनी फसल कटाई, मंडी भाव, स्पॉइलेज घड़ी या फोटो गुणवत्ता के बारे में कुछ भी पूछें।"
+      : "Vanakkam / Namaste / Hello! I am your Uzhavan AI voice assistant. Ask me anything about your harvest, mandi prices, spoilage countdown, or photo quality grading.";
 
   const [messages, setMessages] = useState<
-    { sender: "user" | "bot"; text: string; time: string }[]
+    { sender: "user" | "bot"; text: string; audioSummary?: string; time: string }[]
   >([
     {
       sender: "bot",
       text: initialBotWelcome,
+      audioSummary:
+        language === "ta"
+          ? "வணக்கம் உழவரே! உங்கள் விவசாயம் தொடர்பான எந்த கேள்வியையும் என்னிடம் கேளுங்கள்."
+          : language === "hi"
+          ? "नमस्ते! आप अपनी फसल, भाव या खेती से जुड़ा कोई भी सवाल पूछ सकते हैं।"
+          : "Hello! I am your Uzhavan AI voice assistant. Ask me anything about your farm.",
       time: "Just now",
     },
   ]);
@@ -62,6 +68,12 @@ export default function VoiceCopilotModal({
       {
         sender: "bot",
         text: initialBotWelcome,
+        audioSummary:
+          language === "ta"
+            ? "வணக்கம் உழவரே! உங்கள் விவசாயம் தொடர்பான எந்த கேள்வியையும் என்னிடம் கேளுங்கள்."
+            : language === "hi"
+            ? "नमस्ते! आप अपनी फसल, भाव या खेती से जुड़ा कोई भी सवाल पूछ सकते हैं।"
+            : "Hello! I am your Uzhavan AI voice assistant. Ask me anything about your farm.",
         time: "Just now",
       },
     ]);
@@ -72,6 +84,16 @@ export default function VoiceCopilotModal({
   const [speechSynthesisEnabled, setSpeechSynthesisEnabled] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // Pre-load voices for speech synthesis
+  useEffect(() => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.getVoices();
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+  }, []);
+
   const sampleQuestions = [
     t.sampleQ1,
     t.sampleQ2,
@@ -80,7 +102,7 @@ export default function VoiceCopilotModal({
     t.sampleQ5,
   ];
 
-  // Speech Recognition Setup
+  // Speech Recognition Setup with exact regional language code
   const toggleListening = () => {
     if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
       alert(
@@ -98,6 +120,7 @@ export default function VoiceCopilotModal({
       const SpeechRecognition =
         (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
+      // Match exact spoken language: Tamil (ta-IN), Hindi (hi-IN), English (en-US / en-IN)
       recognition.lang = language === "ta" ? "ta-IN" : language === "hi" ? "hi-IN" : "en-US";
       recognition.continuous = false;
       recognition.interimResults = false;
@@ -125,17 +148,36 @@ export default function VoiceCopilotModal({
     }
   };
 
-  const speakText = (text: string) => {
+  // Multilingual Speech Synthesis targeting regional language
+  const speakText = (text: string, overrideLang?: SupportedLanguage) => {
     if (!speechSynthesisEnabled || typeof window === "undefined" || !("speechSynthesis" in window))
       return;
     try {
       window.speechSynthesis.cancel();
+      const currentTargetLang = overrideLang || language;
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = language === "ta" ? "ta-IN" : language === "hi" ? "hi-IN" : "en-US";
-      utterance.rate = 0.95;
+      const targetCode = currentTargetLang === "ta" ? "ta-IN" : currentTargetLang === "hi" ? "hi-IN" : "en-US";
+      utterance.lang = targetCode;
+      utterance.rate = 0.92;
+      utterance.pitch = 1.0;
+
+      // Select authentic voice if browser has native regional voices installed
+      const voices = window.speechSynthesis.getVoices();
+      if (voices && voices.length > 0) {
+        const langPrefix = currentTargetLang === "ta" ? "ta" : currentTargetLang === "hi" ? "hi" : "en";
+        const matched = voices.find(
+          (v) =>
+            v.lang.toLowerCase().startsWith(langPrefix) ||
+            v.lang.toLowerCase().includes(targetCode.toLowerCase())
+        );
+        if (matched) {
+          utterance.voice = matched;
+        }
+      }
+
       window.speechSynthesis.speak(utterance);
-    } catch {
-      // ignore
+    } catch (e) {
+      console.warn("Speech synthesis error", e);
     }
   };
 
@@ -153,20 +195,37 @@ export default function VoiceCopilotModal({
     setIsProcessing(true);
 
     try {
-      const result = await queryAIAssistant(query, language);
+      // Connects directly to backend API /api/ai-assistant with farm context
+      const result = await queryAIAssistant(query, language, {
+        farmerName: "Uzhavan",
+        cropType: "Tomato",
+        qualityGrade: "Grade A",
+        spoilageHours: 41,
+        expectedYieldTonnes: 3.8,
+        currentTempC: 22,
+      });
+
       const botMsg = {
         sender: "bot" as const,
         text: result.text,
+        audioSummary: result.audioSummary,
         time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, botMsg]);
       speakText(result.audioSummary);
     } catch {
+      const errorFallback =
+        language === "ta"
+          ? "மன்னிக்கவும், தரவு இணைப்பில் சிறிய தாமதம். தயவுசெய்து மீண்டும் முயற்சிக்கவும்."
+          : language === "hi"
+          ? "क्षमा करें, डेटा कनेक्शन में त्रुटि है। कृपया पुनः प्रयास करें।"
+          : "Telemetry processing error. Please retry.";
+
       setMessages((prev) => [
         ...prev,
         {
           sender: "bot",
-          text: "Telemetry processing error. Please retry.",
+          text: errorFallback,
           time: "Just now",
         },
       ]);
@@ -190,9 +249,9 @@ export default function VoiceCopilotModal({
             </div>
             <div>
               <div className="text-base font-bold text-white flex items-center gap-2">
-                <span>{t.voiceCopilotTitle}</span>
+                <span>{t.voiceModalTitle}</span>
                 <span className="px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">
-                  {language === "ta" ? "தமிழ் ஆடியோ" : language === "hi" ? "हिंदी ऑडियो" : "Live Audio"}
+                  {language === "ta" ? "தமிழ் குரல் AI" : language === "hi" ? "हिंदी आवाज़ AI" : "Multilingual Voice AI"}
                 </span>
               </div>
               <div className="text-[11px] text-slate-400">
@@ -252,7 +311,7 @@ export default function VoiceCopilotModal({
             {/* Close */}
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 transition-colors"
+              className="p-2 rounded-xl text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -270,7 +329,7 @@ export default function VoiceCopilotModal({
               <button
                 key={idx}
                 onClick={() => handleSendQuestion(q)}
-                className="px-2.5 py-1 rounded-lg bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/20 text-[11px] text-slate-300 hover:text-emerald-300 transition-colors"
+                className="px-2.5 py-1 rounded-lg bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/20 text-[11px] text-slate-300 hover:text-emerald-300 transition-colors cursor-pointer"
               >
                 {q}
               </button>
@@ -294,16 +353,31 @@ export default function VoiceCopilotModal({
               )}
 
               <div
-                className={`max-w-[80%] rounded-2xl p-3 text-xs leading-relaxed ${
+                className={`max-w-[82%] rounded-2xl p-3 text-xs leading-relaxed ${
                   msg.sender === "user"
                     ? "bg-gradient-to-r from-emerald-500/30 to-teal-500/20 text-white border border-emerald-400/30 rounded-tr-none"
                     : "bg-[#051c14] text-slate-200 border border-emerald-500/20 rounded-tl-none shadow-md"
                 }`}
               >
-                <p>{msg.text}</p>
-                <span className="block text-[9px] text-slate-400 mt-1 text-right">
-                  {msg.time}
-                </span>
+                <p className="whitespace-pre-line">{msg.text}</p>
+                <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-emerald-500/10">
+                  {msg.sender === "bot" ? (
+                    <button
+                      type="button"
+                      onClick={() => speakText(msg.audioSummary || msg.text)}
+                      className="inline-flex items-center gap-1 text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold cursor-pointer py-0.5 px-1.5 rounded bg-emerald-950/60 border border-emerald-500/20 transition-colors"
+                      title="Listen audio in selected language"
+                    >
+                      <Volume2 className="w-3 h-3" />
+                      <span>{language === "ta" ? "மீண்டும் கேள்" : language === "hi" ? "दोबारा सुनें" : "Listen"}</span>
+                    </button>
+                  ) : (
+                    <span />
+                  )}
+                  <span className="text-[9px] text-slate-400">
+                    {msg.time}
+                  </span>
+                </div>
               </div>
 
               {msg.sender === "user" && (
@@ -334,7 +408,7 @@ export default function VoiceCopilotModal({
           <button
             type="button"
             onClick={toggleListening}
-            className={`p-3 rounded-2xl border transition-all flex items-center justify-center shrink-0 ${
+            className={`p-3 rounded-2xl border transition-all flex items-center justify-center shrink-0 cursor-pointer ${
               isListening
                 ? "bg-rose-500 text-white border-rose-400 ring-4 ring-rose-500/30 animate-pulse"
                 : "bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 border-emerald-500/40"
@@ -351,8 +425,12 @@ export default function VoiceCopilotModal({
             onChange={(e) => setInputText(e.target.value)}
             placeholder={
               isListening
-                ? t.voiceListening
-                : t.voiceClickToSpeak
+                ? t.listening
+                : language === "ta"
+                ? "தமிழில் பேச மைக்கை அழுத்தவும் அல்லது எழுதவும்..."
+                : language === "hi"
+                ? "हिंदी में बोलने के लिए माइक दबाएँ या टाइप करें..."
+                : t.startSpeaking
             }
             className="flex-1 px-4 py-3 rounded-2xl bg-black/40 border border-emerald-500/20 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-emerald-400 transition-all"
           />
@@ -361,14 +439,14 @@ export default function VoiceCopilotModal({
           <button
             type="submit"
             disabled={!inputText.trim()}
-            className="p-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold disabled:opacity-40 transition-opacity shrink-0"
+            className="p-3 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-400 text-black font-bold disabled:opacity-40 transition-opacity shrink-0 cursor-pointer"
           >
             <Send className="w-4 h-4" />
           </button>
         </form>
 
         <div className="mt-2 text-center text-[10px] text-slate-400">
-          Powered by AgriPulse Regional Speech Engine • English, தமிழ், हिन्दी
+          Powered by Uzhavan AI Multilingual Speech Engine • English, தமிழ், हिन्दी
         </div>
       </div>
     </div>

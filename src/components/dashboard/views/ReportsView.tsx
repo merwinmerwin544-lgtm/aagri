@@ -76,7 +76,7 @@ export default function ReportsView({ profile }: ReportsViewProps) {
           </div>
 
           <button
-            onClick={() => handleDownload("AgriPulse_Complete_Farm_Dossier", "pdf")}
+            onClick={() => handleDownload("Uzhavan_Complete_Farm_Dossier", "pdf")}
             className="px-4 py-2.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-md"
           >
             <Download className="w-4 h-4" />

@@ -16,12 +16,16 @@ import BuyerProcurementView from "@/components/dashboard/views/BuyerProcurementV
 import ReportsView from "@/components/dashboard/views/ReportsView";
 import AlertsView from "@/components/dashboard/views/AlertsView";
 import SettingsView from "@/components/dashboard/views/SettingsView";
+import WeatherClimateView from "@/components/dashboard/views/WeatherClimateView";
+import PhotoQualityGradingView from "@/components/dashboard/views/PhotoQualityGradingView";
+import SpoilageClockView from "@/components/dashboard/views/SpoilageClockView";
 
 import VoiceCopilotModal from "@/components/dashboard/VoiceCopilotModal";
 import AIExplanationModal from "@/components/dashboard/AIExplanationModal";
 import CompareBuyersModal from "@/components/dashboard/CompareBuyersModal";
 import EditFarmModal from "@/components/dashboard/EditFarmModal";
 import NewTaskModal from "@/components/dashboard/NewTaskModal";
+import SatelliteParcelModal from "@/components/dashboard/SatelliteParcelModal";
 
 import {
   FarmerProfile,
@@ -33,6 +37,7 @@ import {
   FarmTask,
   FarmAlert,
   SupportedLanguage,
+  QualityGradingResult,
 } from "@/types";
 
 import {
@@ -59,6 +64,8 @@ import {
   sampleAlerts,
 } from "@/services/mockData";
 
+import { fetchLiveWeather } from "@/services/weatherService";
+import { SAMPLE_QUALITY_PRESETS } from "@/services/spoilageService";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function DashboardPage() {
@@ -76,6 +83,9 @@ export default function DashboardPage() {
   const [weather, setWeather] = useState<WeatherCondition>(sampleWeather);
   const [tasks, setTasks] = useState<FarmTask[]>(sampleTasks);
   const [alerts, setAlerts] = useState<FarmAlert[]>(sampleAlerts);
+  const [currentGrading, setCurrentGrading] = useState<QualityGradingResult | null>(
+    SAMPLE_QUALITY_PRESETS["tomato-grade-a"]
+  );
 
   // Modals
   const [voiceModalOpen, setVoiceModalOpen] = useState(false);
@@ -83,6 +93,7 @@ export default function DashboardPage() {
   const [compareModalOpen, setCompareModalOpen] = useState(false);
   const [editFarmModalOpen, setEditFarmModalOpen] = useState(false);
   const [newTaskModalOpen, setNewTaskModalOpen] = useState(false);
+  const [satelliteModalOpen, setSatelliteModalOpen] = useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -93,6 +104,17 @@ export default function DashboardPage() {
         setTasks(loadedTasks);
         const loadedAlerts = await getFarmAlerts();
         setAlerts(loadedAlerts);
+
+        // Fetch live international weather based on farm location / initial coordinates
+        const lat = loadedProfile.latitude ?? 11.0055;
+        const lon = loadedProfile.longitude ?? 76.9661;
+        const liveWeather = await fetchLiveWeather(
+          lat,
+          lon,
+          loadedProfile.location || "Coimbatore South, Tamil Nadu",
+          "India"
+        );
+        setWeather(liveWeather);
       } catch (e) {
         console.warn("API load error", e);
       }
@@ -131,6 +153,15 @@ export default function DashboardPage() {
     } catch (e) {
       console.warn("Failed to add task", e);
     }
+  };
+
+  const handleApplyGrading = (result: QualityGradingResult) => {
+    setCurrentGrading(result);
+    setProfile((prev) => ({
+      ...prev,
+      qualityGrade: result.grade,
+      cropType: result.cropType,
+    }));
   };
 
   return (
@@ -172,6 +203,7 @@ export default function DashboardPage() {
               soilHealth={soilHealth}
               weather={weather}
               tasks={tasks}
+              currentGrading={currentGrading}
               onToggleTask={handleToggleTask}
               onOpenWhyRecommendation={() => setWhyModalOpen(true)}
               onOpenWhatIf={() => setActiveTab("what-if")}
@@ -180,6 +212,8 @@ export default function DashboardPage() {
               onOpenVoice={() => setVoiceModalOpen(true)}
               onOpenEditProfile={() => setEditFarmModalOpen(true)}
               onOpenNewTask={() => setNewTaskModalOpen(true)}
+              onOpenSatelliteModal={() => setSatelliteModalOpen(true)}
+              onSelectTab={(tab) => setActiveTab(tab)}
             />
           )}
 
@@ -206,6 +240,8 @@ export default function DashboardPage() {
               onOpenVoice={() => setVoiceModalOpen(true)}
               onOpenEditProfile={() => setEditFarmModalOpen(true)}
               onOpenNewTask={() => setNewTaskModalOpen(true)}
+              onOpenSatelliteModal={() => setSatelliteModalOpen(true)}
+              onSelectTab={(tab) => setActiveTab(tab)}
             />
           )}
 
@@ -217,9 +253,18 @@ export default function DashboardPage() {
           )}
 
           {activeTab === "weather" && (
-            <PrecisionIntelligenceView
-              health={health}
+            <WeatherClimateView
+              weather={weather}
               profile={profile}
+              onUpdateWeather={(newW) => setWeather(newW)}
+              onUpdateLocation={(locStr, lat, lon) => {
+                setProfile((prev) => ({
+                  ...prev,
+                  location: locStr,
+                  latitude: lat,
+                  longitude: lon,
+                }));
+              }}
             />
           )}
 
@@ -259,6 +304,29 @@ export default function DashboardPage() {
               selectedBuyerId={selectedBuyerId}
               onSelectBuyer={(id) => setSelectedBuyerId(id)}
               onOpenCompare={() => setCompareModalOpen(true)}
+              verifiedGrade={currentGrading?.grade || profile.qualityGrade}
+              onOpenPhotoGrading={() => setActiveTab("quality-grading")}
+            />
+          )}
+
+          {activeTab === "quality-grading" && (
+            <PhotoQualityGradingView
+              profile={profile}
+              currentGrading={currentGrading}
+              onApplyGrading={handleApplyGrading}
+              onNavigateToBuyers={() => setActiveTab("buyer-matching")}
+              onNavigateToSpoilageClock={() => setActiveTab("spoilage-clock")}
+            />
+          )}
+
+          {activeTab === "spoilage-clock" && (
+            <SpoilageClockView
+              profile={profile}
+              weather={weather}
+              currentGrading={currentGrading}
+              onOpenWhatIf={() => setActiveTab("what-if")}
+              onOpenBuyers={() => setActiveTab("buyer-matching")}
+              onOpenQualityGrading={() => setActiveTab("quality-grading")}
             />
           )}
 
@@ -272,7 +340,13 @@ export default function DashboardPage() {
 
           {activeTab === "food-loss" && <FoodLossView />}
 
-          {activeTab === "what-if" && <WhatIfSimulatorView />}
+          {activeTab === "what-if" && (
+            <WhatIfSimulatorView
+              cropType={profile.cropType}
+              grade={currentGrading?.grade || profile.qualityGrade}
+              onNavigateToSpoilageClock={() => setActiveTab("spoilage-clock")}
+            />
+          )}
 
           {activeTab === "buyer-procurement" && <BuyerProcurementView />}
 
@@ -335,6 +409,19 @@ export default function DashboardPage() {
         isOpen={newTaskModalOpen}
         onClose={() => setNewTaskModalOpen(false)}
         onAddTask={handleAddTask}
+      />
+
+      {/* Satellite Parcel Telemetry Inspector Modal */}
+      <SatelliteParcelModal
+        isOpen={satelliteModalOpen}
+        onClose={() => setSatelliteModalOpen(false)}
+        profile={profile}
+        weather={weather}
+        health={health}
+        onOpenPrecisionAnalytics={() => {
+          setSatelliteModalOpen(false);
+          setActiveTab("soil-health");
+        }}
       />
     </div>
   );

@@ -28,7 +28,17 @@ import { WhatIfScenarioResult } from "@/types";
 import { sampleWhatIfRows } from "@/services/mockData";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function WhatIfSimulatorView() {
+interface WhatIfSimulatorViewProps {
+  cropType?: string;
+  grade?: string;
+  onNavigateToSpoilageClock?: () => void;
+}
+
+export default function WhatIfSimulatorView({
+  cropType = "Tomato",
+  grade = "Grade A",
+  onNavigateToSpoilageClock,
+}: WhatIfSimulatorViewProps) {
   const { t, tr } = useLanguage();
   const [selectedScenarioId, setSelectedScenarioId] = useState<string>("wait-3-days");
   const [customDays, setCustomDays] = useState<number>(3);
@@ -93,6 +103,33 @@ export default function WhatIfSimulatorView() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Live Spoilage Clock Connection Callout */}
+      <div className="p-4 rounded-2xl bg-[#123D2B]/75 border border-[#A8D86D]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-xl bg-[#A8D86D] text-[#09271B] flex items-center justify-center font-bold text-xs shrink-0 shadow">
+            <Clock className="w-4 h-4" />
+          </div>
+          <div className="text-xs">
+            <div className="text-[#F4F7EF] font-bold flex items-center gap-2">
+              <span>Fed by Live Spoilage Clock:</span>
+              <span className="text-[#A8D86D]">41h Critical Threshold (-12% value loss)</span>
+            </div>
+            <p className="text-[11px] text-[#B8CCAE] mt-0.5">
+              The Store vs. Sell matrix below simulates real holding costs against the biological decay curve of your {tr(cropType)} ({grade}).
+            </p>
+          </div>
+        </div>
+
+        {onNavigateToSpoilageClock && (
+          <button
+            onClick={onNavigateToSpoilageClock}
+            className="px-3 py-1.5 rounded-xl text-xs font-semibold text-[#A8D86D] hover:text-white bg-black/40 border border-[#A8D86D]/30 transition-colors shrink-0"
+          >
+            Inspect Spoilage Clock &gt;
+          </button>
+        )}
       </div>
 
       {/* Dynamic Custom Slider Playground Card */}

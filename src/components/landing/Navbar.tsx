@@ -50,10 +50,10 @@ export default function Navbar() {
           </div>
           <div>
             <span className="text-lg font-bold tracking-tight text-[#F4F7EF]">
-              AgriPulse <span className="text-[#A8D86D]">AI</span>
+              {language === "ta" ? "உழவன்" : language === "hi" ? "उझवन" : "Uzhavan"} <span className="text-[#A8D86D]">AI</span>
             </span>
             <span className="block text-[10px] text-[#B8CCAE] font-medium leading-none">
-              Sustainable Agriculture
+              {language === "ta" ? "நிலையான விவசாயம்" : language === "hi" ? "सतत कृषि" : "Sustainable Agriculture"}
             </span>
           </div>
         </Link>

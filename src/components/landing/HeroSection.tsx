@@ -26,7 +26,7 @@ export default function HeroSection() {
       {/* Brand Badge */}
       <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel-agri text-xs font-semibold text-[#A8D86D] border border-[#E1F5DC]/16 shadow-lg mb-6">
         <span className="w-2 h-2 rounded-full bg-[#A8D86D] animate-pulse" />
-        <span>AgriPulse AI • Autonomous Farm Intelligence</span>
+        <span>Uzhavan AI • Autonomous Farm Intelligence</span>
       </div>
 
       {/* Main Headline */}
@@ -49,7 +49,7 @@ export default function HeroSection() {
           onClick={scrollToFeatures}
           className="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-xs text-[#09271B] bg-[#A8D86D] hover:bg-[#b9e584] shadow-lg shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
-          <span>Explore AgriPulse</span>
+          <span>Explore Uzhavan AI</span>
           <ArrowRight className="w-4 h-4" />
         </button>
 

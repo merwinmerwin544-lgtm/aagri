@@ -218,7 +218,7 @@ export default function EditFarmModal({
 
           <div>
             <label className="block text-xs font-semibold text-slate-300 mb-1">
-              {t.turkeyLocation}
+              {t.farmLocationLabel}
             </label>
             <input
               type="text"

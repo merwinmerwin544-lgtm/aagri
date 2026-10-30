@@ -7,7 +7,7 @@ export default function AboutSection() {
   const highlights = [
     {
       title: "Built for Smallholders & Commercial Growers",
-      desc: "From 2-acre tomato plots in Tamil Nadu to extensive cereal acreage, AgriPulse AI scales seamlessly.",
+      desc: "From 2-acre tomato plots in Tamil Nadu to extensive cereal acreage, Uzhavan AI scales seamlessly.",
     },
     {
       title: "Zero Black-Box Uncertainty",
@@ -29,7 +29,7 @@ export default function AboutSection() {
         {/* Left Column: Story & Mission */}
         <div>
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-4">
-            <span>ABOUT AGRIPULSE AI</span>
+            <span>ABOUT UZHAVAN AI</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6 leading-tight">
             Bridging Traditional Agrarian Wisdom with{" "}
@@ -39,7 +39,7 @@ export default function AboutSection() {
             For generations, farmers have worked tirelessly to grow food, only to face crushing uncertainty at harvest time. Opaque mandi prices, predatory middleman pricing, uncoordinated logistics, and perishable spoilage cause up to 30% of harvested crops to be lost before reaching consumers.
           </p>
           <p className="text-slate-300 text-base leading-relaxed mb-8">
-            AgriPulse AI changes the paradigm. We provide a single, trustworthy decision co-pilot that forecasts exact maturity windows, projects multi-day market prices, pairs farmers directly with verified buyers, and calculates low-carbon transport so every harvest reaches its highest potential value.
+            Uzhavan AI changes the paradigm. We provide a single, trustworthy decision co-pilot that forecasts exact maturity windows, projects multi-day market prices, pairs farmers directly with verified buyers, and calculates low-carbon transport so every harvest reaches its highest potential value.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -109,7 +109,7 @@ export default function AboutSection() {
             <div className="p-4 rounded-xl bg-gradient-to-r from-emerald-950/80 to-[#031d16] border border-emerald-500/30 flex items-center gap-3">
               <HeartHandshake className="w-6 h-6 text-emerald-400 shrink-0" />
               <div className="text-xs text-slate-300">
-                <span className="font-semibold text-white">Trust Guarantee:</span> AgriPulse AI operates as an independent advisor. We never charge hidden broker commissions on farmer transactions.
+                <span className="font-semibold text-white">Trust Guarantee:</span> Uzhavan AI operates as an independent advisor. We never charge hidden broker commissions on farmer transactions.
               </div>
             </div>
           </div>

@@ -16,8 +16,8 @@ import {
 
 export const initialFarmerProfile: FarmerProfile = {
   id: "farm-cbe-001",
-  farmerName: "Arman Patel",
-  farmName: "Sunrise Agro Holdings",
+  farmerName: "Uzhavan",
+  farmName: "Uzhavan Organic Farm",
   cropType: "Tomato",
   variety: "Pusa Ruby Hybrid",
   location: "Coimbatore South, Tamil Nadu",
