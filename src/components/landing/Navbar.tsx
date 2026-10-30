@@ -73,38 +73,33 @@ export default function Navbar() {
 
         {/* Action CTAs */}
         <div className="hidden sm:flex items-center gap-2.5">
-          {/* Quick Language Toggle */}
-          <div className="flex items-center bg-[#123D2B]/80 border border-[#E1F5DC]/16 rounded-xl p-0.5 text-xs font-semibold">
-            <button
-              onClick={() => setLanguage("en")}
-              className={`px-2 py-1 rounded-lg transition-all ${
-                language === "en"
-                  ? "bg-[#A8D86D] text-[#09271B] font-bold shadow-sm"
-                  : "text-[#B8CCAE] hover:text-[#F4F7EF]"
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage("ta")}
-              className={`px-2 py-1 rounded-lg transition-all ${
-                language === "ta"
-                  ? "bg-[#A8D86D] text-[#09271B] font-bold shadow-sm"
-                  : "text-[#B8CCAE] hover:text-[#F4F7EF]"
-              }`}
-            >
-              தமிழ்
-            </button>
-            <button
-              onClick={() => setLanguage("hi")}
-              className={`px-2 py-1 rounded-lg transition-all ${
-                language === "hi"
-                  ? "bg-[#A8D86D] text-[#09271B] font-bold shadow-sm"
-                  : "text-[#B8CCAE] hover:text-[#F4F7EF]"
-              }`}
-            >
-              हिन्दी
-            </button>
+          {/* Quick Language Toggle for all 7 languages */}
+          <div className="flex items-center bg-[#123D2B]/80 border border-[#E1F5DC]/16 rounded-xl p-0.5 text-xs font-semibold overflow-x-auto max-w-[340px]">
+            <Globe className="w-3.5 h-3.5 text-[#A8D86D] ml-1.5 mr-1 shrink-0" />
+            {(
+              [
+                { id: "en", label: "EN" },
+                { id: "ta", label: "தமிழ்" },
+                { id: "hi", label: "हिन्दी" },
+                { id: "es", label: "ES" },
+                { id: "de", label: "DE" },
+                { id: "fr", label: "FR" },
+                { id: "ja", label: "日本語" },
+              ] as const
+            ).map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setLanguage(item.id)}
+                className={`px-1.5 py-1 rounded-lg transition-all text-[10px] cursor-pointer ${
+                  language === item.id
+                    ? "bg-[#A8D86D] text-[#09271B] font-bold shadow-sm"
+                    : "text-[#B8CCAE] hover:text-[#F4F7EF]"
+                }`}
+                title={item.label}
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
 
           <Link

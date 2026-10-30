@@ -43,6 +43,10 @@ function generateLocalizedAgriAdvice(
   if (
     q.includes("harvest") ||
     q.includes("when to pick") ||
+    q.includes("cosech") ||
+    q.includes("ernte") ||
+    q.includes("récolt") ||
+    q.includes("収穫") ||
     q.includes("அறுவடை") ||
     q.includes("பறிக்க") ||
     q.includes("कटाई") ||
@@ -62,6 +66,34 @@ function generateLocalizedAgriAdvice(
         audioSummary: "अपनी फसल की तुड़ाई अगले तीन से पाँच दिनों में सुबह के समय करें।",
       };
     }
+    if (lang === "es") {
+      return {
+        intent: "harvest_timing",
+        text: `Según el índice NDVI satelital (0.78) y la temperatura actual de ${temp}°C de su parcela de ${crop}, la ventana óptima de recolección es en 3 a 5 días. Los frutos tienen un 82% de madurez. Cosechar temprano entre las 06:00 y las 09:00 preserva la firmeza y el Grado A.`,
+        audioSummary: "La ventana óptima para cosechar su cultivo es en tres a cinco días por la mañana fresca.",
+      };
+    }
+    if (lang === "de") {
+      return {
+        intent: "harvest_timing",
+        text: `Basierend auf dem Satelliten-NDVI (0,78) und der Temperatur von ${temp}°C auf Ihrer ${crop}-Parzelle liegt das optimale Erntefenster in 3 bis 5 Tagen. Die Fruchtreife beträgt 82%. Eine Ernte zwischen 06:00 und 09:00 Uhr morgens sichert die Handelsklasse Grade A.`,
+        audioSummary: "Das optimale Erntefenster für Ihre Kultur liegt in drei bis fünf Tagen in den kühlen Morgenstunden.",
+      };
+    }
+    if (lang === "fr") {
+      return {
+        intent: "harvest_timing",
+        text: `D'après l'indice NDVI satellite (0,78) et la température ambiante de ${temp}°C sur votre parcelle de ${crop}, le créneau idéal de récolte se situe dans 3 à 5 jours. La maturité est à 82%. Une récolte entre 6h et 9h du matin garantit un calibre Grade A optimal.`,
+        audioSummary: "Le créneau idéal pour récolter se situe dans trois à cinq jours durant les heures fraîches du matin.",
+      };
+    }
+    if (lang === "ja") {
+      return {
+        intent: "harvest_timing",
+        text: `衛星NDVI指数（0.78）と現在気温${temp}℃の解析に基づき、お客様の${crop}はあと3〜5日後が最適な収穫適期です。果実の熟度は82%に達しています。朝6時から9時の涼しい時間帯に収穫することで、最高等級（Grade A）の硬度を維持できます。`,
+        audioSummary: "お客様の作物はあと3日から5日後の朝の涼しい時間帯が最適な収穫適期です。",
+      };
+    }
     return {
       intent: "harvest_timing",
       text: `Based on your ${crop} parcel's satellite NDVI (0.78) and ${temp}°C ambient temperature, optimal harvest window is in 3 to 5 days. Fruit maturity is at 82%. Harvesting between 06:00 AM and 09:00 AM preserves cuticle firmness and Grade A specs.`,
@@ -74,7 +106,15 @@ function generateLocalizedAgriAdvice(
     q.includes("sell") ||
     q.includes("price") ||
     q.includes("mandi") ||
-    q.includes("today") ||
+    q.includes("vender") ||
+    q.includes("precio") ||
+    q.includes("verkauf") ||
+    q.includes("preis") ||
+    q.includes("vendre") ||
+    q.includes("cours") ||
+    q.includes("売却") ||
+    q.includes("価格") ||
+    q.includes("相場") ||
     q.includes("விற்க") ||
     q.includes("விலை") ||
     q.includes("சந்தை") ||
@@ -97,6 +137,34 @@ function generateLocalizedAgriAdvice(
         audioSummary: "आज बेचने के बजाय तीन दिन बाद बेचें, चार रुपये प्रति किलो अधिक भाव मिलेगा।",
       };
     }
+    if (lang === "es") {
+      return {
+        intent: "price_recommendation",
+        text: `El precio spot de hoy es de ₹28/kg, pero Uzhavan AI proyecta que los precios subirán a ₹32/kg en 3 días por menor oferta. Con su lote en ${grade}, retenerlo 3 días genera aproximadamente ₹9,850 de beneficio neto extra. El reloj de caducidad marca aún ${hours} horas restantes.`,
+        audioSummary: "Retener la cosecha tres días antes de vender aumentará su precio a treinta y dos rupias por kilo.",
+      };
+    }
+    if (lang === "de") {
+      return {
+        intent: "price_recommendation",
+        text: `Der heutige Großmarktpreis liegt bei ₹28/kg. Uzhavan KI prognostiziert jedoch einen Preisanstieg auf ₹32/kg in 3 Tagen. Bei Handelsklasse ${grade} bringt eine 3-tägige Lagerung rund ₹9.850 zusätzlichen Reingewinn. Die Verderbsuhr zeigt noch ${hours} Stunden Restzeit.`,
+        audioSummary: "Ein Zurückhalten der Ernte um drei Tage steigert den Erlös auf zweiunddreißig Rupien je Kilo.",
+      };
+    }
+    if (lang === "fr") {
+      return {
+        intent: "price_recommendation",
+        text: `Le cours actuel est de ₹28/kg, mais Uzhavan AI prévoit une hausse à ₹32/kg d'ici 3 jours en raison d'une contraction de l'offre. Avec votre lot ${grade}, différer la vente de 3 jours rapporte environ ₹9,850 de marge nette supplémentaire. Il vous reste ${hours} heures à l'horloge de péremption.`,
+        audioSummary: "Conserver votre récolte trois jours permettra de vendre à trente-deux roupies le kilo.",
+      };
+    }
+    if (lang === "ja") {
+      return {
+        intent: "price_recommendation",
+        text: `本日の市場スポット価格は₹28/kgですが、Uzhavan AIの予測では入荷減により3日後には₹32/kgへ上昇します。お客様の${grade}等級であれば、3日間保有してから出荷することで約₹9,850の純利益増が見込めます。鮮度時計の残り時間は${hours}時間です。`,
+        audioSummary: "本日出荷せず3日間待機してから販売することで、1kgあたり32ルピーの最高値で売却できます。",
+      };
+    }
     return {
       intent: "price_recommendation",
       text: `Today's spot price is ₹28/kg, but Uzhavan AI projects mandi prices will peak at ₹32/kg in 3 days due to supply contraction. With your batch at ${grade}, holding for 3 days yields an extra ₹9,850 net profit. You currently have ${hours} hours on your spoilage clock.`,
@@ -108,15 +176,18 @@ function generateLocalizedAgriAdvice(
   if (
     q.includes("spoilage") ||
     q.includes("shelf") ||
+    q.includes("caducidad") ||
+    q.includes("verderb") ||
+    q.includes("haltbar") ||
+    q.includes("péremption") ||
+    q.includes("鮮度") ||
+    q.includes("賞味") ||
     q.includes("decay") ||
     q.includes("rot") ||
     q.includes("hours") ||
     q.includes("அழுகல்") ||
     q.includes("ஆயுள்") ||
-    q.includes("கெட்டு") ||
-    q.includes("மணி") ||
-    q.includes("सड़न") ||
-    q.includes("खराब") ||
+    q.includes("சடன்") ||
     q.includes("घंटे")
   ) {
     if (lang === "ta") {
@@ -133,6 +204,34 @@ function generateLocalizedAgriAdvice(
         audioSummary: `अपनी उपज को इकतालीस घंटे के भीतर बेचें या कोल्ड स्टोरेज का उपयोग करें।`,
       };
     }
+    if (lang === "es") {
+      return {
+        intent: "spoilage_clock",
+        text: `El Reloj de Caducidad indica una cuenta regresiva de ${hours} horas para este lote. A ${temp}°C ambiente, vender dentro de esta ventana evita una merma del 12% en valor. Activar Almacén Frigorífico extiende la preservación en +72 horas adicionales.`,
+        audioSummary: `Venda dentro de ${hours} horas para evitar la pérdida del doce por ciento de valor, o active la cámara frigorífica.`,
+      };
+    }
+    if (lang === "de") {
+      return {
+        intent: "spoilage_clock",
+        text: `Ihre Verderbsuhr zeigt einen Live-Countdown von ${hours} Stunden. Bei ${temp}°C Umgebungstemperatur verhindert ein Verkauf innerhalb dieses Zeitfensters einen Wertverlust von ca. 12%. Das Zuschalten eines Kühllagers verlängert die Haltbarkeit um +72 Stunden.`,
+        audioSummary: `Verkaufen Sie innerhalb von ${hours} Stunden, um zwölf Prozent Wertverlust zu vermeiden, oder nutzen Sie ein Kühllager.`,
+      };
+    }
+    if (lang === "fr") {
+      return {
+        intent: "spoilage_clock",
+        text: `L'Horloge de Péremption affiche un compte à rebours de ${hours} heures. À ${temp}°C ambiant, vendre durant cette fenêtre évite une dépréciation thermique de 12%. Activer le stockage frigorifique prolonge la durée de conservation de +72 heures.`,
+        audioSummary: `Vendez d'ici ${hours} heures pour éviter douze pour cent de dépréciation, ou passez en stockage froid.`,
+      };
+    }
+    if (lang === "ja") {
+      return {
+        intent: "spoilage_clock",
+        text: `現在ロットの鮮度カウントダウン時計の残り時間は${hours}時間です。現在気温${temp}℃における呼吸熱を考慮し、この期限内に出荷完了すれば約12%の価値低下を防げます。定温冷蔵保管に切り替えることで鮮度寿命をさらに+72時間延長できます。`,
+        audioSummary: `12%の価値低下を防ぐため${hours}時間以内に出荷するか、定温冷蔵保管をご利用ください。`,
+      };
+    }
     return {
       intent: "spoilage_clock",
       text: `Your batch Spoilage Clock indicates a live countdown of ${hours} hours. At ambient ${temp}°C, dispatching within this window prevents ~12% thermal depreciation. Toggling Cold Storage extends this preservation window by +72 hours.`,
@@ -145,16 +244,16 @@ function generateLocalizedAgriAdvice(
     q.includes("grade") ||
     q.includes("quality") ||
     q.includes("photo") ||
-    q.includes("camera") ||
-    q.includes("damage") ||
+    q.includes("calidad") ||
+    q.includes("foto") ||
+    q.includes("qualität") ||
+    q.includes("qualité") ||
+    q.includes("等級") ||
+    q.includes("写真") ||
     q.includes("தரம்") ||
     q.includes("படம்") ||
-    q.includes("சேதம்") ||
-    q.includes("குவாலிட்டி") ||
     q.includes("ग्रेड") ||
-    q.includes("फोटो") ||
-    q.includes("गुणवत्ता") ||
-    q.includes("नुकसान")
+    q.includes("फोटो")
   ) {
     if (lang === "ta") {
       return {
@@ -170,6 +269,34 @@ function generateLocalizedAgriAdvice(
         audioSummary: `आपकी उपज ग्रेड ए प्रमाणित है, जिससे मंडी में दाम पर कोई बहस नहीं होगी।`,
       };
     }
+    if (lang === "es") {
+      return {
+        intent: "quality_grading",
+        text: `La Graduación por Foto de Uzhavan AI certificó su cosecha como ${grade} con un índice de madurez del 88% y solo 4.2% de imperfecciones. Este certificado digital elimina disputas de calidad en destino y le conecta con compradores que pagan el estándar completo.`,
+        audioSummary: `Su cultivo está certificado como Grado A por visión artificial, eliminando disputas comerciales.`,
+      };
+    }
+    if (lang === "de") {
+      return {
+        intent: "quality_grading",
+        text: `Die Foto-Qualitätsgraduierung von Uzhavan KI hat Ihr Erntegut mit Handelsklasse ${grade} (Reifeindex 88%, Oberflächendefekte unter 4,2%) eingestuft. Das digitale Zertifikat schützt vor Qualitätsabzügen am Großmarkt und schaltet qualifizierte Premium-Käufer frei.`,
+        audioSummary: `Ihre Ernte ist durch Computer-Vision offiziell als Handelsklasse A zertifiziert.`,
+      };
+    }
+    if (lang === "fr") {
+      return {
+        intent: "quality_grading",
+        text: `La Gradation par Photo Uzhavan AI a certifié votre récolte en ${grade} avec un indice de maturité de 88% et seulement 4,2% de défauts visuels. Ce certificat numérique élimine les négociations de déclassement au marché et cible les acheteurs qualifiés.`,
+        audioSummary: `Votre récolte est certifiée Grade A par vision artificielle, éliminant tout litige à la vente.`,
+      };
+    }
+    if (lang === "ja") {
+      return {
+        intent: "quality_grading",
+        text: `Uzhavan AIの写真品質格付けにより、農産物は熟度指数88%、表面欠点4.2%で「${grade}」と公式認定されました。改ざん防止デジタル証明書により、市場での不当な買い叩きや等級トラブルを根絶し、適正価格の優良バイヤーのみとマッチングします。`,
+        audioSummary: `AI画像判定により最高等級Grade Aと証明され、市場での等級トラブルを完全に防止します。`,
+      };
+    }
     return {
       intent: "quality_grading",
       text: `Uzhavan AI Photo-Based Quality Grading verified your produce as ${grade} with 88% ripeness index and only 4.2% cosmetic defect. This tamper-proof certificate removes quality wrangling at the mandi and unlocks qualified premium buyers.`,
@@ -180,14 +307,13 @@ function generateLocalizedAgriAdvice(
   // 5. BUYER MATCHING
   if (
     q.includes("buyer") ||
-    q.includes("market") ||
+    q.includes("comprador") ||
+    q.includes("käufer") ||
+    q.includes("acheteur") ||
+    q.includes("バイヤー") ||
     q.includes("kovai") ||
-    q.includes("who to sell") ||
     q.includes("வாங்குபவர்") ||
-    q.includes("யாருக்கு") ||
-    q.includes("வியாபாரி") ||
-    q.includes("खरीदार") ||
-    q.includes("व्यापारी")
+    q.includes("खरीदार")
   ) {
     if (lang === "ta") {
       return {
@@ -203,6 +329,34 @@ function generateLocalizedAgriAdvice(
         audioSummary: "कोवई फ्रेश मार्ट आपकी फसल के लिए बत्तीस रुपये प्रति किलो का सबसे अच्छा भाव दे रहा है।",
       };
     }
+    if (lang === "es") {
+      return {
+        intent: "buyer_matching",
+        text: `El comprador mejor valorado para su lote ${grade} es "Kovai Fresh Mart" (94% de afinidad). Ofrecen ₹32/kg, están a 42 km y garantizan liquidación bancaria en 24 horas con transporte eléctrico.`,
+        audioSummary: "Kovai Fresh Mart es su comprador óptimo con treinta y dos rupias por kilo y entrega garantizada.",
+      };
+    }
+    if (lang === "de") {
+      return {
+        intent: "buyer_matching",
+        text: `Der am besten bewertete Abnehmer für Handelsklasse ${grade} ist „Kovai Fresh Mart“ (94% Übereinstimmung). Das Angebot liegt bei ₹32/kg bei 42 km Distanz und 24h-Zahlungsziel.`,
+        audioSummary: "Kovai Fresh Mart bietet den besten Vertragspreis mit zweiunddreißig Rupien je Kilo.",
+      };
+    }
+    if (lang === "fr") {
+      return {
+        intent: "buyer_matching",
+        text: `L'acheteur le plus compatible avec votre récolte ${grade} est « Kovai Fresh Mart » (94% de correspondance). Ils proposent ₹32/kg, sont situés à 42 km et règlent sous 24 heures.`,
+        audioSummary: "Kovai Fresh Mart est votre meilleur acheteur à trente-deux roupies le kilo.",
+      };
+    }
+    if (lang === "ja") {
+      return {
+        intent: "buyer_matching",
+        text: `お客様の${grade}ロットに最も合致するトップバイヤーは「Kovai Fresh Mart」（適合率94%）です。提示単価₹32/kg、輸送距離42km、24時間以内の直接口座決済を保証しています。`,
+        audioSummary: "Kovai Fresh Martが適合率94%、1kgあたり32ルピーの最高条件を提示しています。",
+      };
+    }
     return {
       intent: "buyer_matching",
       text: `Top matched buyer for your ${grade} crop is Kovai Fresh Mart (94% compatibility). They offer ₹32/kg, are 42 km away, and guarantee direct bank settlement within 24 hours.`,
@@ -214,16 +368,15 @@ function generateLocalizedAgriAdvice(
   if (
     q.includes("water") ||
     q.includes("irrigate") ||
-    q.includes("soil") ||
-    q.includes("drip") ||
-    q.includes("ஈரப்பதம்") ||
+    q.includes("regar") ||
+    q.includes("riego") ||
+    q.includes("bewässern") ||
+    q.includes("irrig") ||
+    q.includes("arros") ||
+    q.includes("灌漑") ||
+    q.includes("水やり") ||
     q.includes("நீர்") ||
-    q.includes("பாசனம்") ||
-    q.includes("மண்") ||
-    q.includes("पानी") ||
-    q.includes("सिंचाई") ||
-    q.includes("मिट्टी") ||
-    q.includes("ड्रिप")
+    q.includes("सिंचाई")
   ) {
     if (lang === "ta") {
       return {
@@ -239,6 +392,34 @@ function generateLocalizedAgriAdvice(
         audioSummary: "आज शाम साढ़े पाँच बजे पैंतालीस मिनट के लिए ड्रिप सिंचाई करें।",
       };
     }
+    if (lang === "es") {
+      return {
+        intent: "irrigation_advice",
+        text: `La humedad radicular actual es del 34% (límite óptimo 35%). Programe un ciclo de riego por goteo de 45 minutos esta tarde a las 17:30 para evitar el estrés hídrico y rajaduras en el fruto.`,
+        audioSummary: "Ejecute riego por goteo hoy a las cinco y media de la tarde durante cuarenta y cinco minutos.",
+      };
+    }
+    if (lang === "de") {
+      return {
+        intent: "irrigation_advice",
+        text: `Die aktuelle Bodenfeuchte liegt bei 34% (Zielwert 35%). Starten Sie heute Abend um 17:30 Uhr einen 45-minütigen Tropfbewässerungszyklus zur Vermeidung von Fruchtrissen.`,
+        audioSummary: "Führen Sie heute um siebzehn Uhr dreißig eine fünfundvierzigminütige Tropfbewässerung durch.",
+      };
+    }
+    if (lang === "fr") {
+      return {
+        intent: "irrigation_advice",
+        text: `L'humidité du sol racinaire est à 34% (seuil optimal 35%). Déclenchez un cycle de goutte-à-goutte de 45 minutes ce soir à 17h30 pour préserver le calibre sans risque d'éclatement.`,
+        audioSummary: "Arrosez ce soir à dix-sept heures trente pendant quarante-cinq minutes au goutte-à-goutte.",
+      };
+    }
+    if (lang === "ja") {
+      return {
+        intent: "irrigation_advice",
+        text: `現在の根群域土壌水分は34%です（適正基準値35%）。果実の裂果を防ぎ糖度を安定させるため、本日夕方17:30より45分間の点滴灌漑パルス給水をおすすめします。`,
+        audioSummary: "本日夕方17時30分より45分間の点滴灌漑パルス給水を実施してください。",
+      };
+    }
     return {
       intent: "irrigation_advice",
       text: `Current root-zone soil moisture is 34% (approaching 35% threshold). Schedule a 45-minute drip irrigation cycle this evening at 05:30 PM to maintain fruit turgidity and prevent skin cracking.`,
@@ -246,39 +427,7 @@ function generateLocalizedAgriAdvice(
     };
   }
 
-  // 7. YIELD FORECAST
-  if (
-    q.includes("yield") ||
-    q.includes("quantity") ||
-    q.includes("tonnes") ||
-    q.includes("மகசூல்") ||
-    q.includes("அளவு") ||
-    q.includes("டன்") ||
-    q.includes("उपज") ||
-    q.includes("पैदावार")
-  ) {
-    if (lang === "ta") {
-      return {
-        intent: "yield_forecast",
-        text: `உங்கள் 2.0 ஏக்கர் தக்காளி தோட்டத்தில் எதிர்பார்க்கப்படும் மொத்த மகசூல் சுமார் ${yieldTonnes} டன்கள் (நம்பகத்தன்மை 87%). முழு அறுவடையும் 5 முதல் 7 நாட்களில் நிறைவடையும்.`,
-        audioSummary: `உங்கள் எதிர்பார்க்கப்படும் மகசூல் மூன்று புள்ளி எட்டு டன்கள் ஆகும்.`,
-      };
-    }
-    if (lang === "hi") {
-      return {
-        intent: "yield_forecast",
-        text: `आपके 2.0 एकड़ खेत में अनुमानित कुल पैदावार ${yieldTonnes} टन (87% विश्वसनीयता) है। पूर्ण तुड़ाई 5 से 7 दिनों में पूरी हो जाएगी।`,
-        audioSummary: `आपकी अनुमानित पैदावार तीन दशमलव आठ टन है।`,
-      };
-    }
-    return {
-      intent: "yield_forecast",
-      text: `Your 2.0-acre ${crop} parcel forecasts a total harvest yield of ${yieldTonnes} metric tonnes (87% model confidence), reaching full maturity over the next 5-7 days.`,
-      audioSummary: `Your forecasted yield is ${yieldTonnes} metric tonnes maturing over the next week.`,
-    };
-  }
-
-  // 8. GENERAL GREETING / ASSISTANCE
+  // 7. GENERAL GREETING
   if (lang === "ta") {
     return {
       intent: "general_assistance",
@@ -293,9 +442,37 @@ function generateLocalizedAgriAdvice(
       audioSummary: "नमस्ते! आप अपनी फसल, भाव या खेती से जुड़ा कोई भी सवाल पूछ सकते हैं।",
     };
   }
+  if (lang === "es") {
+    return {
+      intent: "general_assistance",
+      text: `¡Saludos desde Uzhavan AI! Estoy monitorizando su parcela de ${crop} en tiempo real. Puede consultarme sobre fecha de cosecha, precios de mercado, compradores verificados, el reloj de caducidad o la graduación por foto.`,
+      audioSummary: "¡Hola! Soy su asistente Uzhavan AI. Pregúnteme cualquier consulta sobre su cultivo o precios.",
+    };
+  }
+  if (lang === "de") {
+    return {
+      intent: "general_assistance",
+      text: `Willkommen bei Uzhavan KI! Ihre ${crop}-Kulturen werden kontinuierlich überwacht. Fragen Sie mich gerne nach Erntezeitpunkten, Marktpreisen, Abnehmern, der Verderbsuhr oder der Foto-Qualitätsgraduierung.`,
+      audioSummary: "Guten Tag! Ich bin Ihr Uzhavan KI-Assistent. Fragen Sie mich alles zu Ihrer Ernte oder Marktpreisen.",
+    };
+  }
+  if (lang === "fr") {
+    return {
+      intent: "general_assistance",
+      text: `Bienvenue sur Uzhavan AI ! Je surveille en permanence votre parcelle de ${crop}. Posez-moi vos questions sur le calendrier de récolte, les cours du marché, les acheteurs vérifiés ou l'horloge de péremption.`,
+      audioSummary: "Bonjour ! Je suis votre assistant Uzhavan AI. Posez-moi vos questions sur votre récolte ou vos ventes.",
+    };
+  }
+  if (lang === "ja") {
+    return {
+      intent: "general_assistance",
+      text: `Uzhavan AIへようこそ！お客様の${crop}圃場をリアルタイムで監視しています。収穫適期、市場卸売価格、直接契約バイヤー、鮮度カウントダウン時計、写真AI格付けについて何でも日本語でお尋ねください。`,
+      audioSummary: "こんにちは！Uzhavan AI農業アシスタントです。収穫や市場価格について何でもご質問ください。",
+    };
+  }
   return {
     intent: "general_assistance",
-    text: `Greetings from Uzhavan AI! I am continuously monitoring your ${crop} parcel. You can ask me about harvest timing, mandi prices, buyer matching, the Spoilage Clock countdown, or photo quality grading in English, தமிழ், or हिन्दी.`,
+    text: `Greetings from Uzhavan AI! I am continuously monitoring your ${crop} parcel. You can ask me about harvest timing, mandi prices, buyer matching, the Spoilage Clock countdown, or photo quality grading.`,
     audioSummary: "Hello! I am your Uzhavan AI assistant. Ask me anything about your harvest or market prices.",
   };
 }
@@ -320,14 +497,18 @@ export async function POST(req: NextRequest) {
     // Optional LLM Call if Gemini API key exists in environment
     if (apiKey) {
       try {
-        const langName =
-          language === "ta"
-            ? "Tamil (தமிழ்)"
-            : language === "hi"
-            ? "Hindi (हिन्दी)"
-            : "English";
+        const langMap: Record<SupportedLanguage, string> = {
+          en: "English",
+          ta: "Tamil (தமிழ்)",
+          hi: "Hindi (हिन्दी)",
+          es: "Spanish (Español)",
+          de: "German (Deutsch)",
+          fr: "French (Français)",
+          ja: "Japanese (日本語)",
+        };
+        const langName = langMap[language] || "English";
 
-        const systemInstruction = `You are Uzhavan AI (உழவன் AI), an expert agronomy and agricultural copilot for farmers in India and worldwide.
+        const systemInstruction = `You are Uzhavan AI, an expert agronomy and agricultural copilot for farmers worldwide.
 Current Farm Context:
 - Farmer Name: ${farmContext?.farmerName || "Uzhavan"}
 - Primary Crop: ${farmContext?.cropType || "Tomato"}
@@ -338,10 +519,12 @@ Current Farm Context:
 
 CRITICAL RULES:
 1. Always respond in the requested language: ${langName}.
-2. If language is Tamil, use pure, natural Tamil script.
-3. If language is Hindi, use clear, natural Devanagari script.
-4. Keep the answer direct, practical, and highly respectful of the farmer.
-5. Return STRICT JSON with two keys:
+2. If language is Tamil, use pure Tamil script.
+3. If language is Hindi, use natural Devanagari script.
+4. If language is Japanese, use natural Japanese (Kanji, Hiragana, Katakana).
+5. If Spanish, German, or French, use fluent, polite natural phrasing.
+6. Keep the answer direct, practical, and highly respectful of the farmer.
+7. Return STRICT JSON with two keys:
    {
      "text": "Detailed, formatted answer (2-4 sentences)",
      "audioSummary": "Short, clear 1-2 sentence spoken summary for text-to-speech reading without markdown or emojis"
@@ -408,8 +591,8 @@ CRITICAL RULES:
     return NextResponse.json(
       {
         error: "Internal assistant error",
-        text: "உழவன் AI சேவையில் தற்காலிக தாமதம். தயவுசெய்து மீண்டும் முயற்சிக்கவும்.",
-        audioSummary: "தயவுசெய்து மீண்டும் முயற்சிக்கவும்.",
+        text: "Uzhavan AI service connection issue. Please retry.",
+        audioSummary: "Please retry your query.",
       },
       { status: 500 }
     );

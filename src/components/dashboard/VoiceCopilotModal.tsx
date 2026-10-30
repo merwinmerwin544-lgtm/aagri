@@ -45,7 +45,30 @@ export default function VoiceCopilotModal({
       ? "வணக்கம் உழவரே! நான் உங்கள் உழவன் AI குரல் உதவியாளர். அறுவடை நேரம், சந்தை விலை, வாங்குபவர் இணைப்பு, அழுகல் கடிகாரம் அல்லது புகைப்படத் தரம் பற்றி என்னிடம் கேளுங்கள்."
       : language === "hi"
       ? "नमस्ते किसान भाई! मैं आपका उझवन AI आवाज़ सहायक हूँ। अपनी फसल कटाई, मंडी भाव, स्पॉइलेज घड़ी या फोटो गुणवत्ता के बारे में कुछ भी पूछें।"
+      : language === "es"
+      ? "¡Hola! Soy su asistente de voz Uzhavan AI. Pregúnteme sobre cosecha, precios de mercado, reloj de caducidad o graduación por foto."
+      : language === "de"
+      ? "Hallo! Ich bin Ihr Uzhavan KI-Sprachassistent. Fragen Sie mich nach Erntezeitpunkten, Marktpreisen, der Verderbsuhr oder Foto-Qualitätsgraduierung."
+      : language === "fr"
+      ? "Bonjour ! Je suis votre assistant vocal Uzhavan AI. Interrogez-moi sur la récolte, les cours du marché, l'horloge de péremption ou la gradation par photo."
+      : language === "ja"
+      ? "こんにちは！Uzhavan AI音声アシスタントです。収穫適期、市場相場、鮮度カウントダウン時計、写真AI品質格付けについて何でもお尋ねください。"
       : "Vanakkam / Namaste / Hello! I am your Uzhavan AI voice assistant. Ask me anything about your harvest, mandi prices, spoilage countdown, or photo quality grading.";
+
+  const initialBotAudio =
+    language === "ta"
+      ? "வணக்கம் உழவரே! உங்கள் விவசாயம் தொடர்பான எந்த கேள்வியையும் என்னிடம் கேளுங்கள்."
+      : language === "hi"
+      ? "नमस्ते! आप अपनी फसल, भाव या खेती से जुड़ा कोई भी सवाल पूछ सकते हैं।"
+      : language === "es"
+      ? "¡Hola! Pregúnteme cualquier consulta sobre su cultivo, precios o reloj de caducidad."
+      : language === "de"
+      ? "Guten Tag! Fragen Sie mich gerne alles zu Ernte, Preisen oder Frischeerhalt."
+      : language === "fr"
+      ? "Bonjour ! Posez-moi vos questions sur votre récolte, les cours ou l'horloge de péremption."
+      : language === "ja"
+      ? "こんにちは！収穫時期や市場価格、鮮度時計について何でもご質問ください。"
+      : "Hello! I am your Uzhavan AI voice assistant. Ask me anything about your farm.";
 
   const [messages, setMessages] = useState<
     { sender: "user" | "bot"; text: string; audioSummary?: string; time: string }[]
@@ -53,12 +76,7 @@ export default function VoiceCopilotModal({
     {
       sender: "bot",
       text: initialBotWelcome,
-      audioSummary:
-        language === "ta"
-          ? "வணக்கம் உழவரே! உங்கள் விவசாயம் தொடர்பான எந்த கேள்வியையும் என்னிடம் கேளுங்கள்."
-          : language === "hi"
-          ? "नमस्ते! आप अपनी फसल, भाव या खेती से जुड़ा कोई भी सवाल पूछ सकते हैं।"
-          : "Hello! I am your Uzhavan AI voice assistant. Ask me anything about your farm.",
+      audioSummary: initialBotAudio,
       time: "Just now",
     },
   ]);
@@ -68,12 +86,7 @@ export default function VoiceCopilotModal({
       {
         sender: "bot",
         text: initialBotWelcome,
-        audioSummary:
-          language === "ta"
-            ? "வணக்கம் உழவரே! உங்கள் விவசாயம் தொடர்பான எந்த கேள்வியையும் என்னிடம் கேளுங்கள்."
-            : language === "hi"
-            ? "नमस्ते! आप अपनी फसल, भाव या खेती से जुड़ा कोई भी सवाल पूछ सकते हैं।"
-            : "Hello! I am your Uzhavan AI voice assistant. Ask me anything about your farm.",
+        audioSummary: initialBotAudio,
         time: "Just now",
       },
     ]);
@@ -102,6 +115,16 @@ export default function VoiceCopilotModal({
     t.sampleQ5,
   ];
 
+  const REGIONAL_LANG_CODES: Record<SupportedLanguage, string> = {
+    en: "en-US",
+    ta: "ta-IN",
+    hi: "hi-IN",
+    es: "es-ES",
+    de: "de-DE",
+    fr: "fr-FR",
+    ja: "ja-JP",
+  };
+
   // Speech Recognition Setup with exact regional language code
   const toggleListening = () => {
     if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
@@ -120,8 +143,7 @@ export default function VoiceCopilotModal({
       const SpeechRecognition =
         (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
-      // Match exact spoken language: Tamil (ta-IN), Hindi (hi-IN), English (en-US / en-IN)
-      recognition.lang = language === "ta" ? "ta-IN" : language === "hi" ? "hi-IN" : "en-US";
+      recognition.lang = REGIONAL_LANG_CODES[language] || "en-US";
       recognition.continuous = false;
       recognition.interimResults = false;
 
@@ -156,15 +178,15 @@ export default function VoiceCopilotModal({
       window.speechSynthesis.cancel();
       const currentTargetLang = overrideLang || language;
       const utterance = new SpeechSynthesisUtterance(text);
-      const targetCode = currentTargetLang === "ta" ? "ta-IN" : currentTargetLang === "hi" ? "hi-IN" : "en-US";
+      const targetCode = REGIONAL_LANG_CODES[currentTargetLang] || "en-US";
       utterance.lang = targetCode;
-      utterance.rate = 0.92;
+      utterance.rate = currentTargetLang === "ja" ? 1.0 : 0.92;
       utterance.pitch = 1.0;
 
       // Select authentic voice if browser has native regional voices installed
       const voices = window.speechSynthesis.getVoices();
       if (voices && voices.length > 0) {
-        const langPrefix = currentTargetLang === "ta" ? "ta" : currentTargetLang === "hi" ? "hi" : "en";
+        const langPrefix = currentTargetLang;
         const matched = voices.find(
           (v) =>
             v.lang.toLowerCase().startsWith(langPrefix) ||
@@ -219,6 +241,14 @@ export default function VoiceCopilotModal({
           ? "மன்னிக்கவும், தரவு இணைப்பில் சிறிய தாமதம். தயவுசெய்து மீண்டும் முயற்சிக்கவும்."
           : language === "hi"
           ? "क्षमा करें, डेटा कनेक्शन में त्रुटि है। कृपया पुनः प्रयास करें।"
+          : language === "es"
+          ? "Error de conexión temporal. Por favor, intente nuevamente."
+          : language === "de"
+          ? "Verbindungsfehler. Bitte versuchen Sie es erneut."
+          : language === "fr"
+          ? "Erreur temporaire de connexion. Veuillez réessayer."
+          : language === "ja"
+          ? "通信エラーが発生しました。再度お試しください。"
           : "Telemetry processing error. Please retry.";
 
       setMessages((prev) => [
@@ -236,13 +266,23 @@ export default function VoiceCopilotModal({
 
   if (!isOpen) return null;
 
+  const badgeLabels: Record<SupportedLanguage, string> = {
+    en: "Live Audio",
+    ta: "தமிழ் குரல் AI",
+    hi: "हिंदी आवाज़ AI",
+    es: "Voz en Español",
+    de: "Sprach-KI Deutsch",
+    fr: "Voix en Français",
+    ja: "日本語 音声AI",
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl glass-panel rounded-3xl p-6 border-emerald-500/35 bg-[#03150e]/95 shadow-2xl flex flex-col h-[85vh] max-h-[700px]">
+      <div className="relative w-full max-w-2xl glass-panel rounded-3xl p-6 border-emerald-500/35 bg-[#03150e]/95 shadow-2xl flex flex-col h-[85vh] max-h-[720px]">
         {/* Modal Top Bar */}
-        <div className="flex items-center justify-between pb-4 border-b border-emerald-500/20 mb-4">
+        <div className="flex items-center justify-between pb-4 border-b border-emerald-500/20 mb-3 gap-2 flex-wrap">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-400 p-0.5 shadow-md">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-400 p-0.5 shadow-md shrink-0">
               <div className="w-full h-full bg-[#02110c] rounded-[10px] flex items-center justify-center">
                 <Mic className="w-5 h-5 text-emerald-400 animate-pulse" />
               </div>
@@ -251,7 +291,7 @@ export default function VoiceCopilotModal({
               <div className="text-base font-bold text-white flex items-center gap-2">
                 <span>{t.voiceModalTitle}</span>
                 <span className="px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">
-                  {language === "ta" ? "தமிழ் குரல் AI" : language === "hi" ? "हिंदी आवाज़ AI" : "Multilingual Voice AI"}
+                  {badgeLabels[language] || "Multilingual Voice AI"}
                 </span>
               </div>
               <div className="text-[11px] text-slate-400">
@@ -269,7 +309,7 @@ export default function VoiceCopilotModal({
                   window.speechSynthesis.cancel();
                 }
               }}
-              className={`p-2 rounded-xl border transition-colors ${
+              className={`p-2 rounded-xl border transition-colors cursor-pointer ${
                 speechSynthesisEnabled
                   ? "bg-emerald-500/20 border-emerald-500/30 text-emerald-300"
                   : "bg-black/40 border-slate-700 text-slate-500"
@@ -279,33 +319,30 @@ export default function VoiceCopilotModal({
               {speechSynthesisEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
             </button>
 
-            {/* Language Switch */}
-            <div className="flex items-center p-1 rounded-xl bg-black/40 border border-emerald-500/20 text-xs">
-              <Globe className="w-3.5 h-3.5 text-emerald-400 ml-1.5 mr-1" />
-              <button
-                onClick={() => handleLanguageChange("en")}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                  language === "en" ? "bg-emerald-500 text-black" : "text-slate-400"
-                }`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => handleLanguageChange("ta")}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                  language === "ta" ? "bg-emerald-500 text-black" : "text-slate-400"
-                }`}
-              >
-                தமிழ்
-              </button>
-              <button
-                onClick={() => handleLanguageChange("hi")}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                  language === "hi" ? "bg-emerald-500 text-black" : "text-slate-400"
-                }`}
-              >
-                हिन्दी
-              </button>
+            {/* Language Switch for 7 Languages */}
+            <div className="flex items-center p-1 rounded-xl bg-black/40 border border-emerald-500/20 text-xs overflow-x-auto max-w-[280px]">
+              <Globe className="w-3.5 h-3.5 text-emerald-400 ml-1 mr-1 shrink-0" />
+              {(
+                [
+                  { id: "en", label: "EN" },
+                  { id: "ta", label: "தமிழ்" },
+                  { id: "hi", label: "हिन्दी" },
+                  { id: "es", label: "ES" },
+                  { id: "de", label: "DE" },
+                  { id: "fr", label: "FR" },
+                  { id: "ja", label: "日本語" },
+                ] as const
+              ).map((langItem) => (
+                <button
+                  key={langItem.id}
+                  onClick={() => handleLanguageChange(langItem.id as SupportedLanguage)}
+                  className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-colors cursor-pointer ${
+                    language === langItem.id ? "bg-emerald-500 text-black" : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  {langItem.label}
+                </button>
+              ))}
             </div>
 
             {/* Close */}

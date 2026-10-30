@@ -10,7 +10,7 @@
 
 export type CropType = "Tomato" | "Wheat" | "Corn" | "Soybean" | "Chilli" | "Barley";
 export type CropQualityGrade = "Grade A" | "Grade B" | "Grade C" | "Export Grade";
-export type SupportedLanguage = "en" | "ta" | "hi";
+export type SupportedLanguage = "en" | "ta" | "hi" | "es" | "de" | "fr" | "ja";
 
 export interface FarmerProfile {
   id: string;

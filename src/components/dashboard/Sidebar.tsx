@@ -274,46 +274,40 @@ export default function Sidebar({
             </button>
           </div>
 
-          {/* Language Selector & Switcher */}
-          <div className="mt-2.5 flex items-center justify-between px-2 py-1.5 rounded-xl bg-[#09271B]/60 border border-[#E1F5DC]/10 text-[11px] text-[#B8CCAE]">
-            <div className="flex items-center gap-1.5">
-              <Globe className="w-3.5 h-3.5 text-[#A8D86D]" />
-              <span className="text-[10px] font-semibold text-[#A8D86D]">Lang:</span>
+          {/* Language Selector & Switcher for all 7 languages */}
+          <div className="mt-2.5 px-2 py-1.5 rounded-xl bg-[#09271B]/60 border border-[#E1F5DC]/10 text-[11px] text-[#B8CCAE]">
+            <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-[#A8D86D]" />
+                <span className="text-[10px] font-semibold text-[#A8D86D]">{t.selectLanguage}:</span>
+              </div>
+              <span className="text-[9px] font-mono uppercase text-[#A8D86D]">{language}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => onLanguageChange("en")}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-all ${
-                  language === "en"
-                    ? "bg-[#A8D86D] text-[#09271B] shadow-sm"
-                    : "text-[#B8CCAE] hover:text-white hover:bg-[#123D2B]"
-                }`}
-                title="Switch to English"
-              >
-                EN
-              </button>
-              <button
-                onClick={() => onLanguageChange("ta")}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-all ${
-                  language === "ta"
-                    ? "bg-[#A8D86D] text-[#09271B] shadow-sm"
-                    : "text-[#B8CCAE] hover:text-white hover:bg-[#123D2B]"
-                }`}
-                title="தமிழுக்கு மாறவும்"
-              >
-                தமிழ்
-              </button>
-              <button
-                onClick={() => onLanguageChange("hi")}
-                className={`px-1.5 py-0.5 rounded text-[10px] font-bold transition-all ${
-                  language === "hi"
-                    ? "bg-[#A8D86D] text-[#09271B] shadow-sm"
-                    : "text-[#B8CCAE] hover:text-white hover:bg-[#123D2B]"
-                }`}
-                title="हिन्दी में बदलें"
-              >
-                हिन्दी
-              </button>
+            <div className="grid grid-cols-4 gap-1">
+              {(
+                [
+                  { id: "en", label: "EN" },
+                  { id: "ta", label: "தமிழ்" },
+                  { id: "hi", label: "हिन्दी" },
+                  { id: "es", label: "ES" },
+                  { id: "de", label: "DE" },
+                  { id: "fr", label: "FR" },
+                  { id: "ja", label: "日本語" },
+                ] as const
+              ).map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => onLanguageChange(item.id as SupportedLanguage)}
+                  className={`py-0.5 rounded text-[10px] font-bold transition-all text-center cursor-pointer ${
+                    language === item.id
+                      ? "bg-[#A8D86D] text-[#09271B] shadow-sm"
+                      : "text-[#B8CCAE] hover:text-white hover:bg-[#123D2B]"
+                  }`}
+                  title={item.label}
+                >
+                  {item.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>

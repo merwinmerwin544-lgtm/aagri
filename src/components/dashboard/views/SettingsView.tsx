@@ -70,23 +70,28 @@ export default function SettingsView({
             <label className="block text-xs font-semibold text-slate-300 mb-2">
               {t.languagePreference}
             </label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { id: "en", label: t.englishOption },
-                { id: "ta", label: t.tamilOption },
-                { id: "hi", label: t.hindiOption },
+                { id: "en", label: "English" },
+                { id: "ta", label: "தமிழ் (Tamil)" },
+                { id: "hi", label: "हिन्दी (Hindi)" },
+                { id: "es", label: "Español (Spanish)" },
+                { id: "de", label: "Deutsch (German)" },
+                { id: "fr", label: "Français (French)" },
+                { id: "ja", label: "日本語 (Japanese)" },
               ].map((lang) => (
                 <button
                   key={lang.id}
                   type="button"
                   onClick={() => handleLangChange(lang.id as SupportedLanguage)}
-                  className={`p-3 rounded-xl border text-xs font-bold transition-all ${
+                  className={`p-2.5 rounded-xl border text-xs font-bold transition-all text-left flex flex-col justify-between cursor-pointer ${
                     language === lang.id
                       ? "bg-emerald-500 text-black border-emerald-400 shadow"
-                      : "bg-black/30 border-slate-700 text-slate-400 hover:text-white"
+                      : "bg-black/30 border-slate-700 text-slate-300 hover:text-white hover:border-emerald-500/40"
                   }`}
                 >
-                  {lang.label}
+                  <span>{lang.label}</span>
+                  <span className="text-[10px] font-mono opacity-60 uppercase">{lang.id}</span>
                 </button>
               ))}
             </div>

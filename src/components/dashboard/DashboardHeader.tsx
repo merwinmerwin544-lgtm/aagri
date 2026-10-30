@@ -15,7 +15,7 @@ import {
   Globe,
 } from "lucide-react";
 import Link from "next/link";
-import { FarmAlert } from "@/types";
+import { FarmAlert, SupportedLanguage } from "@/types";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface DashboardHeaderProps {
@@ -44,6 +44,17 @@ export default function DashboardHeader({
   const { language, setLanguage, t, tr } = useLanguage();
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [alertsDropdownOpen, setAlertsDropdownOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+
+  const ALL_LANGUAGES: { id: SupportedLanguage; label: string; full: string }[] = [
+    { id: "en", label: "EN", full: "English" },
+    { id: "ta", label: "தமிழ்", full: "தமிழ் (Tamil)" },
+    { id: "hi", label: "हिन्दी", full: "हिन्दी (Hindi)" },
+    { id: "es", label: "ES", full: "Español (Spanish)" },
+    { id: "de", label: "DE", full: "Deutsch (German)" },
+    { id: "fr", label: "FR", full: "Français (French)" },
+    { id: "ja", label: "JA", full: "日本語 (Japanese)" },
+  ];
 
   const unreadAlerts = alerts.filter((a) => !a.read);
 
@@ -72,41 +83,46 @@ export default function DashboardHeader({
 
       {/* Right Navigation Elements: Language, Bell, Plus, Profile */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Top Bar Quick Language Switcher */}
-        <div className="hidden sm:flex items-center rounded-full glass-panel-agri p-1 border border-[#E1F5DC]/15 text-[11px] shadow-sm">
+        {/* Top Bar Quick Language Switcher with Dropdown for all 7 languages */}
+        <div className="relative">
           <button
-            onClick={() => setLanguage("en")}
-            className={`px-2 py-0.5 rounded-full font-bold transition-all ${
-              language === "en"
-                ? "bg-[#A8D86D] text-[#09271B] shadow-sm"
-                : "text-[#B8CCAE] hover:text-white"
-            }`}
-            title="English"
+            onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel-agri border border-[#E1F5DC]/15 text-xs text-[#F4F7EF] hover:border-[#A8D86D]/40 transition-colors shadow-sm cursor-pointer"
+            title="Change Language / மொழி மாற்றுக"
           >
-            EN
+            <Globe className="w-3.5 h-3.5 text-[#A8D86D]" />
+            <span className="font-bold text-[11px]">
+              {ALL_LANGUAGES.find((l) => l.id === language)?.label || "EN"}
+            </span>
+            <ChevronDown className="w-3 h-3 text-[#B8CCAE]" />
           </button>
-          <button
-            onClick={() => setLanguage("ta")}
-            className={`px-2 py-0.5 rounded-full font-bold transition-all ${
-              language === "ta"
-                ? "bg-[#A8D86D] text-[#09271B] shadow-sm"
-                : "text-[#B8CCAE] hover:text-white"
-            }`}
-            title="தமிழ் (Tamil)"
-          >
-            தமிழ்
-          </button>
-          <button
-            onClick={() => setLanguage("hi")}
-            className={`px-2 py-0.5 rounded-full font-bold transition-all ${
-              language === "hi"
-                ? "bg-[#A8D86D] text-[#09271B] shadow-sm"
-                : "text-[#B8CCAE] hover:text-white"
-            }`}
-            title="हिन्दी (Hindi)"
-          >
-            हिन्दी
-          </button>
+
+          {langDropdownOpen && (
+            <div className="absolute right-0 mt-2 w-48 rounded-2xl glass-panel-agri p-1.5 shadow-2xl z-50 animate-in fade-in text-xs border border-[#E1F5DC]/20">
+              <div className="px-2.5 py-1 text-[10px] text-[#A8D86D] font-bold border-b border-[#E1F5DC]/10 mb-1">
+                {t.chooseInterfaceLanguage}
+              </div>
+              <div className="space-y-0.5">
+                {ALL_LANGUAGES.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setLanguage(item.id);
+                      setLangDropdownOpen(false);
+                    }}
+                    className={`w-full px-2.5 py-1.5 rounded-xl text-left flex items-center justify-between text-xs transition-colors cursor-pointer ${
+                      language === item.id
+                        ? "bg-[#123D2B] text-[#A8D86D] font-bold"
+                        : "text-[#B8CCAE] hover:text-[#F4F7EF] hover:bg-[#123D2B]/50"
+                    }`}
+                  >
+                    <span>{item.full}</span>
+                    <span className="text-[10px] font-mono opacity-60 uppercase">{item.id}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Notifications Bell in Circular Glass Button */}
@@ -203,31 +219,18 @@ export default function DashboardHeader({
                   <Globe className="w-3 h-3 text-[#A8D86D]" />
                   <span>{t.selectLanguage}:</span>
                 </div>
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => setLanguage("en")}
-                    className={`flex-1 py-1 rounded text-[10px] font-bold ${
-                      language === "en" ? "bg-[#A8D86D] text-[#09271B]" : "bg-[#123D2B] text-[#B8CCAE]"
-                    }`}
-                  >
-                    EN
-                  </button>
-                  <button
-                    onClick={() => setLanguage("ta")}
-                    className={`flex-1 py-1 rounded text-[10px] font-bold ${
-                      language === "ta" ? "bg-[#A8D86D] text-[#09271B]" : "bg-[#123D2B] text-[#B8CCAE]"
-                    }`}
-                  >
-                    தமிழ்
-                  </button>
-                  <button
-                    onClick={() => setLanguage("hi")}
-                    className={`flex-1 py-1 rounded text-[10px] font-bold ${
-                      language === "hi" ? "bg-[#A8D86D] text-[#09271B]" : "bg-[#123D2B] text-[#B8CCAE]"
-                    }`}
-                  >
-                    हिन्दी
-                  </button>
+                <div className="grid grid-cols-4 gap-1">
+                  {ALL_LANGUAGES.map((l) => (
+                    <button
+                      key={l.id}
+                      onClick={() => setLanguage(l.id)}
+                      className={`py-1 rounded text-[10px] font-bold ${
+                        language === l.id ? "bg-[#A8D86D] text-[#09271B]" : "bg-[#123D2B] text-[#B8CCAE]"
+                      }`}
+                    >
+                      {l.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
