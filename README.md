@@ -19,7 +19,7 @@ Instead of treating farm health, market prices, buyers, logistics, food loss, an
 
 ## 📸 Platform Preview
 
-![Uzhavan AI Decision Intelligence Dashboard](public/images/dashboard-preview.png)
+![Uzhavan AI Decision Intelligence Dashboard](public/images/dashboard-preview.jpeg)
 
 *Figure 1: Uzhavan AI Precision Farm Dashboard showcasing single-farmer persona (Tomato, 2.0 Acres, 3.8 Tonnes harvest), simulated Sentinel-2 satellite telemetry, modeled spoilage clock value window, and 7-language multilingual voice support.*
 
